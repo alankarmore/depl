@@ -7,10 +7,17 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CMSMenuRequest;
+use App\Http\Services\Admin\CMSMenuService;
 
 class CMSMenuController extends Controller
 {
-
+    private $service = null;
+    
+    public function __construct()
+    {
+        $this->service = new CMSMenuService();
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -18,11 +25,20 @@ class CMSMenuController extends Controller
      */
     public function index()
     {
-        $allMenus = CMSMenu::all();
-        
-        return view('admin.menu.index',['menus' => $allMenus]);
+        return view('admin.menu.index');
     }
-
+    
+    /**
+     * Get all menu related data.
+     * 
+     * @param Request $request
+     * @return json
+     */
+    public function getData(Request $request)
+    {  
+        return $this->service->getMenus($request);
+    }
+    
     /**
      * Show the form for creating a new resource.
      *
