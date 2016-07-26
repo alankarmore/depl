@@ -1,21 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redirect;
-use App\Http\Requests\Admin\CMSMenuRequest;
-use App\Http\Services\Admin\CMSMenuService;
 
-class CMSMenuController extends Controller
+use App\Http\Requests;
+
+class testcontroller extends Controller
 {
-
-    public function __construct()
-    {
-        $this->service = new CMSMenuService();
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +15,7 @@ class CMSMenuController extends Controller
      */
     public function index()
     {
-        return view('admin.menu.index');
+        //
     }
 
     /**
@@ -33,7 +25,7 @@ class CMSMenuController extends Controller
      */
     public function create()
     {
-        return view('admin.menu.create');
+        //
     }
 
     /**
@@ -42,17 +34,9 @@ class CMSMenuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CMSMenuRequest $request)
+    public function store(Request $request)
     {
-        try {
-            dd($request->validate());
-            if (!$request->validate()) {
-                echo 1;
-                die;
-            }
-        } catch (Exception $ex) {
-            
-        }
+        //
     }
 
     /**
@@ -74,13 +58,7 @@ class CMSMenuController extends Controller
      */
     public function edit($id)
     {
-        if (!empty($id)) {
-            $menuDetails = $this->service->getDetailsById($id);
-
-            return view('admin.menu.edit', ['menu' => $menuDetails]);
-        }
-
-        return Redirect::route('menu.list');
+        //
     }
 
     /**
@@ -90,11 +68,9 @@ class CMSMenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CMSMenuRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        dd($request->validate());
-        /*$menuDetails = $this->service->getDetailsById($id);
-        return view('admin.menu.edit', ['menu' => $menuDetails]);*/
+        //
     }
 
     /**
@@ -107,5 +83,4 @@ class CMSMenuController extends Controller
     {
         //
     }
-
 }

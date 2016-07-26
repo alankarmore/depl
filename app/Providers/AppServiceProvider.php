@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use Validator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+
     /**
      * Bootstrap any application services.
      *
@@ -13,7 +15,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Validator::extend('alpha_spaces', function($attribute, $value) {
+            return preg_match('/^[\pL\s]+$/u', $value);
+        });
     }
 
     /**
@@ -25,4 +29,5 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
+
 }

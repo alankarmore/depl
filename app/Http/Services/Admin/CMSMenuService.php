@@ -2,47 +2,62 @@
 
 namespace App\Http\Services\Admin;
 
+use URL;
 use App\CMSMenu;
 use Illuminate\Http\Request;
+use App\Http\Services\BaseService;
 
-class CMSMenuService
+class CMSMenuService extends BaseService
 {
 
-    
     /**
      * Get all menus
      * 
      * @param Request $request
      * @return json
      */
-    public function getMenus(Request $request)
-    {  
-        $response = array('total' => 0,'rows' => '');
+    public function getRecords(Request $request)
+    {
+        $response = array('total' => 0, 'rows' => '');
         $allMenus = CMSMenu::select(\DB::raw('COUNT(*) as cnt'))->first();
         $response['total'] = $allMenus->cnt;
         $query = CMSMenu::select('id', 'title', 'description');
-        if(!empty($request->get('search'))) {
+        if (!empty($request->get('search'))) {
             $query->where('title', 'LIKE', '%' . $request->get('search') . '%');
         }
-        
+
         $menus = $query->orderBy($request->get('sort'), $request->get('order'))
-                       ->skip($request->get('offset'))->take($request->get('limit'))
-                       ->get();
-        if(!empty($request->get('search'))) {
+                ->skip($request->get('offset'))->take($request->get('limit'))
+                ->get();
+        if (!empty($request->get('search'))) {
             $response['total'] = $menus->count();
         }
-        
-        foreach($menus as $menu) {
+
+        foreach ($menus as $menu) {
             $menu->description = ($menu->description && strlen($menu->description) > 150) ? substr($menu->description, 0, 150) : $menu->description;
-            $menu->action = '<a href="#" title="view"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-                            <a href="#" title="edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>';
-            if (!in_array($menu->id,[1,2,3,4])) {
-                $menu->action .= '<a href="#" title="delete"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';
+            $menu->action = '<a href="' . URL::route('menu.show', ['id' => $menu->id]) . '" title="view"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+                             <a href="' . URL::route('menu.edit', ['id' => $menu->id]) . '" title="edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>';
+            if (!in_array($menu->id, [1, 2, 3, 4])) {
+                $menu->action .= ' <a href="' . URL::route('menu.destroy', ['id' => $menu->id]) . '" title="delete"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';
+            } else {
+                $menu->action .= ' <a href="javascript:void(0);" title="Not allowed to remove"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></a>';
             }
-            
+
             $response['rows'][] = $menu;
         }
-        
+
         return json_encode($response);
     }
+
+    /**
+     * Get menu details according to the id 
+     * 
+     * @param integer $id
+     * @return App\CMSMenu
+     */
+    public function getDetailsById($id)
+    {
+        return CMSMenu::find($id);
+    }
+
 }

@@ -6,6 +6,7 @@ use App\Http\Requests\Request;
 
 class CMSMenuRequest extends Request
 {
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,13 +24,19 @@ class CMSMenuRequest extends Request
      */
     public function rules()
     {
-        return [
-            'title' => 'required|max:150|alpha_num',
+        $rules = [
+            'title' => 'required|max:150|alpha_spaces',
             'description' => 'required',
             'image' => 'required|mimes:jpeg,jpg,png',
         ];
+
+        if (!empty($this->id)) {
+            $rules['image'] = 'mimes:jpeg,jpg,png';
+        }
+        
+        return $rules;
     }
-    
+
     /**
      * Validation messages 
      * 
@@ -40,10 +47,11 @@ class CMSMenuRequest extends Request
         return [
             'title.required' => 'Menu title is missing',
             'title.max' => 'Menu title must not be greater than 150 characters',
-            'title.alpha_num' => 'Menu title must be alphanumeric',
+            'title.alpha_spaces' => 'Menu title must contain letters and spaces',
             'description.required' => 'Menu description is missing',
             'image.required' => 'Menu Image is missing',
             'image.mimes' => 'Menu image must be of type jpeg,jpg,png',
         ];
     }
+
 }
