@@ -44,15 +44,12 @@ class CMSMenuController extends Controller
      */
     public function store(CMSMenuRequest $request)
     {
-        try {
-            dd($request->validate());
-            if (!$request->validate()) {
-                echo 1;
-                die;
-            }
-        } catch (Exception $ex) {
-            
+        $menu = $this->service->saveOrUpdateDetails($request);
+        if ($menu) {
+            return redirect(route('menu.edit',['menu' => $menu]))->with('success', 'Menu updated!');
         }
+
+        return back()->withInput();
     }
 
     /**
@@ -63,7 +60,13 @@ class CMSMenuController extends Controller
      */
     public function show($id)
     {
-        //
+        if (!empty($id)) {
+            $menuDetails = $this->service->getDetailsById($id);
+
+            return view('admin.menu.show', ['menu' => $menuDetails]);
+        }
+
+        return redirect(route('menu.list'));
     }
 
     /**
@@ -80,7 +83,7 @@ class CMSMenuController extends Controller
             return view('admin.menu.edit', ['menu' => $menuDetails]);
         }
 
-        return Redirect::route('menu.list');
+        return redirect(route('menu.list'));
     }
 
     /**
@@ -92,9 +95,12 @@ class CMSMenuController extends Controller
      */
     public function update(CMSMenuRequest $request, $id)
     {
-        dd($request->validate());
-        /*$menuDetails = $this->service->getDetailsById($id);
-        return view('admin.menu.edit', ['menu' => $menuDetails]);*/
+        $menu = $this->service->saveOrUpdateDetails($request, $id);
+        if ($menu) {
+            return redirect(route('menu.edit',['menu' => $menu]))->with('success', 'Menu updated!');
+        }
+
+        return back()->withInput();
     }
 
     /**
@@ -105,7 +111,14 @@ class CMSMenuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(!empty($id)) {
+            $deleted = $this->service->deleteById($id);
+            if($deleted) {
+                return redirect(route('menu.list'))->with('success', 'Menu delted successfully!');
+            }
+        }
+        
+        return redirect(route('menu.list'))->with('error', 'Oops something went wrong !');
     }
 
 }

@@ -18,22 +18,18 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    @if ($errors->any())
-                    <ul class="alert alert-danger">
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                    @endif
                     <div class="col-md-12">
+                        @include('admin.messages')
                         <form role="form" name="frmMenu" id='frmMenu' action="{{route('menu.update',array('id' => $menu->id))}}" method="POST">
                             <div class="form-group">
                                 <label>Title</label>
                                 <input class="form-control" placeholder="Menu Title" name="title" id="title" value="{{$menu->title}}">
+                                <span class="alert-danger">{{$errors->first('title')}}</span>
                             </div>
                             <div class="form-group">
                                 <label>Description</label>
                                 <textarea class="form-control" rows="10" name="description" id="description" placeholder="Menu Description">{{$menu->description}}</textarea>
+                                <span class="alert-danger">{{$errors->first('description')}}</span>
                             </div>
                             <div class="form-group">
                                 <label>Previous Image</label><br/>
@@ -42,11 +38,11 @@
                             <div class="form-group">
                                 <label>Image</label>
                                 <input type="file" name="image" id="image" accept="image/*" />
+                                <span class="alert-danger">{{$errors->first('image')}}</span>
                             </div>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="form-group">
                                 <a href="{{route('menu.list')}}" class="btn btn-default">Cancel</a>
-                                <button name="submit" type="reset" class="btn btn-info">Reset</button>
                                 <button name="submit" type="submit" class="btn btn-success">Save</button>
                             </div>
                         </form>

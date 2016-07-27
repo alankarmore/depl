@@ -12,4 +12,9 @@ abstract class BaseService
      * @param Illuminate\Http\Request $request
      */
     abstract public function getRecords(Request $request);
+    
+    public static function changeStatus($data)
+    {
+        dd($data);
+    }
 }

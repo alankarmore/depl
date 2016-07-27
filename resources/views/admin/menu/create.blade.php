@@ -18,22 +18,23 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    @foreach($errors->all() as $error)
-                        {{dd($error)}}
-                    @endforeach
                     <div class="col-md-12">
-                        <form role="form" name="frmMenu" id='frmMenu' action="{{route('menu.save')}}" method="POST">
+                        @include('admin.messages')
+                        <form role="form" name="frmMenu" id='frmMenu' action="{{route('menu.save')}}" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label>Title</label>
-                                <input class="form-control" placeholder="Menu Title" name="title" id="title">
+                                <input class="form-control" placeholder="Menu Title" name="title" id="title" value="{{old('title')?old('title'):''}}">
+                                <span class="alert-danger">{{$errors->first('title')}}</span>
                             </div>
                             <div class="form-group">
                                 <label>Description</label>
-                                <textarea class="form-control" rows="3" name="description" id="description" placeholder="Menu Description"></textarea>
+                                <textarea class="form-control" rows="3" name="description" id="description" placeholder="Menu Description">{{old('description')?old('description'):''}}</textarea>
+                                <span class="alert-danger">{{$errors->first('description')}}</span>
                             </div>
                             <div class="form-group">
                                 <label>Image</label>
                                 <input type="file" name="image" id="image" accept="image/*" />
+                                <span class="alert-danger">{{$errors->first('image')}}</span>
                             </div>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="form-group">

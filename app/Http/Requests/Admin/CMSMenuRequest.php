@@ -25,7 +25,7 @@ class CMSMenuRequest extends Request
     public function rules()
     {
         $rules = [
-            'title' => 'required|max:150|alpha_spaces',
+            'title' => 'required|max:150',
             'description' => 'required',
             'image' => 'required|mimes:jpeg,jpg,png',
         ];
@@ -47,7 +47,7 @@ class CMSMenuRequest extends Request
         return [
             'title.required' => 'Menu title is missing',
             'title.max' => 'Menu title must not be greater than 150 characters',
-            'title.alpha_spaces' => 'Menu title must contain letters and spaces',
+            //'title.alpha_spaces' => 'Menu title must contain letters and spaces',
             'description.required' => 'Menu description is missing',
             'image.required' => 'Menu Image is missing',
             'image.mimes' => 'Menu image must be of type jpeg,jpg,png',
