@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Http\Services;
+
+use Response;
 use Illuminate\Http\Request;
 
 abstract class BaseService
-{   
+{
+
     /**
      * Abstract function to display records every service needs to define 
      * its definition
@@ -12,9 +15,35 @@ abstract class BaseService
      * @param Illuminate\Http\Request $request
      */
     abstract public function getRecords(Request $request);
-    
+
+    /**
+     * Changing status of the record according to the previous status
+     * 
+     * @param array $data
+     * @return json
+     */
     public static function changeStatus($data)
     {
-        dd($data);
+        $response = array('valid' => 0);
+        if (!empty($data['id']) && !empty($data['object']) && isset($data['status'])) {
+            $id = trim($data['id']);
+            $status = (isset($data['status']) && $data['status'] > 0) ? 0 : 1;
+            $record = $data['object']::find($id);
+            $record->status = $status;
+            if ($record->save()) {
+                $response['message'] = "Record has been inactivated successfully";
+                if ($record->status) {
+                    $response['message'] = "Record has been activated successfully";
+                }
+                
+                $response['valid'] = 1;
+                $response['status'] = $record->status;
+            }
+        } else {
+            $response['message'] = "Something went wrong. Try again later";
+        }
+
+        return Response::json($response);
     }
+
 }

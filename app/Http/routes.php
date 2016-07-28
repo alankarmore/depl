@@ -29,7 +29,7 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['web']], function() {
     Route::get('menu/show/{id}', ['as' => 'menu.show', 'uses' => 'Admin\CMSMenuController@show']);
     Route::delete('menu/destroy/{id}', ['as' => 'menu.destroy', 'uses' => 'Admin\CMSMenuController@destroy']);
     
-    Route::post('change/status', ['as' => 'change.status', 'uses' => 'Controller@changeStaus']);
+    Route::post('change/status', ['as' => 'change.status', 'uses' => 'Controller@changeStatus']);
 
     
     Route::get('admin/logout', ['as' => 'admin.logout', 'uses' => 'Admin\AuthController@logout']);

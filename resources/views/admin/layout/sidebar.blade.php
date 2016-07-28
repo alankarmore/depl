@@ -1,19 +1,19 @@
-<div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+<div id="sidebar-menu" class="col-sm-3 col-lg-2 sidebar">
     <form role="search">
         <a href="">Show Front End</a>
     </form>
     <ul class="nav menu">
-        <li class="active"><a href="{{route('admin.dashboard')}}"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>
+        <li ><a href="{{route('admin.dashboard')}}"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>
         <li class="parent ">
             <a href="javascript:void(0);">
                 <span data-toggle="collapse" href="#sub-item-1"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> CMS Management
             </a>
             <ul class="children collapse" id="sub-item-1">
                 <li>
-                    <a class="" href="{{route('menu.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Menu Listing</a>
+                    <a class="{{ MenuHelper::isSubMenuActive('menu.list')}}" href="{{route('menu.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Menu Listing</a>
                 </li>
                 <li>
-                    <a class="" href="{{route('menu.create')}}">
+                    <a class="{{ MenuHelper::isSubMenuActive('menu.create')}}" href="{{route('menu.create')}}">
                         <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Add New Menu
                     </a>
                 </li>

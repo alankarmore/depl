@@ -1,6 +1,7 @@
 <script src="{{asset('admin/js/jquery-1.11.1.min.js')}}"></script>
 <script src="{{asset('admin/js/lumino.glyphs.js')}}"></script>
 <script src="{{asset('admin/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('admin/js/custom.min.js')}}"></script>
 <script>
 !function ($) {
     $.ajaxPrefilter(function (options, originalOptions, xhr) { // this will run before each request
@@ -23,12 +24,24 @@ $(window).on('resize', function () {
     if ($(window).width() <= 767)
         $('#sidebar-collapse').collapse('hide')
 });
-function handelStatusResponse(response,selector) {
-    console.log(response,selector);
+function handelStatusResponse(response, selector, info) {
+    console.log(selector);
+    if (response.valid) {
+        if (response.status) {
+            $("#loader").replaceWith(' <a href="javascript:void(0);" title="Change To Inactive" data-status="' + response.status + '" data-id="' + info.id + '" data-object="' + info.object + '" class="change-status"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a>');
+        } else {
+            $("#loader").replaceWith(' <a href="javascript:void(0);" title="Change To Activ" data-status="' + response.status + '" data-id="' + info.id + '" data-object="' + info.object + '" class="change-status"><span class="change-status glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>');
+        }
+
+        $("#reponseMessage").html('<div class="alert alert-success">' + response.message + '</div>');
+        return;
+    }
+
+    $("#reponseMessage").html('<div class="alert alert-success">' + response.message + '</div>');
 }
 
 
-function sendAjaxRequest(selector,route,data,method,contentType,replace) 
+function sendAjaxRequest(selector, route, data, method, contentType, replace)
 {
     var res = null;
     var info = data || {};
@@ -37,21 +50,21 @@ function sendAjaxRequest(selector,route,data,method,contentType,replace)
     var isReplace = replace || 0;
     var type = method || 'GET';
     $.ajax({
-       url:route,
-       type:type,
-       data:info,
-       dataType:dataType,
-       beforeSend:function(){
-            if(isReplace && selector) {
-                selector.replaceWith('L...');
+        url: route,
+        type: type,
+        data: info,
+        dataType: dataType,
+        beforeSend: function () {
+            if (isReplace && selector) {
+                selector.replaceWith('<span class="glyphicon glyphicon-refresh" aria-hidden="true" id="loader"></span>');
             }
-       },
-       success:function(response){
-           res = response;
-       },
-       complete:function(){
-           handelStatusResponse(res,selector);
-       }
+        },
+        success: function (response) {
+            res = response;
+        },
+        complete: function () {
+            handelStatusResponse(res, selector, info);
+        }
     });
 }
 function generateTable(selector, route, sortColumn, sortOrder) {
@@ -77,6 +90,10 @@ function generateTable(selector, route, sortColumn, sortOrder) {
         pageSize: 10,
     });
 }
-
+$(document).on('click', '#menuTable .change-status', function (e) {
+    var route = '{{route("change.status")}}';
+    var data = {'id': $(this).attr('data-id'), 'object': $(this).attr('data-object'), 'status': $(this).attr('data-status')};
+    sendAjaxRequest($(this), route, data, 'POST', 'JSON', 'handelStatusResponse', 1);
+});
 
 </script>

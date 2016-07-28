@@ -21,7 +21,7 @@ class CMSMenuService extends BaseService
         $response = array('total' => 0, 'rows' => '');
         $allMenus = CMSMenu::select(\DB::raw('COUNT(*) as cnt'))->first();
         $response['total'] = $allMenus->cnt;
-        $query = CMSMenu::select('id', 'title', 'description','status');
+        $query = CMSMenu::select('id', 'title','status','meta_title', 'meta_description','meta_keyword');
         if (!empty($request->get('search'))) {
             $query->where('title', 'LIKE', '%' . $request->get('search') . '%');
         }
@@ -34,7 +34,8 @@ class CMSMenuService extends BaseService
         }
 
         foreach ($menus as $menu) {
-            $menu->description = ($menu->description && strlen($menu->description) > 150) ? substr($menu->description, 0, 150) : $menu->description;
+            $menu->meta_keyword = ($menu->meta_keyword && strlen($menu->meta_keyword) > 50) ? substr($menu->meta_keyword, 0, 50) : $menu->meta_keyword;
+            $menu->meta_description = ($menu->meta_description && strlen($menu->meta_description) > 50) ? substr($menu->meta_description, 0, 50) : $menu->meta_description;
             $menu->action = '<a href="' . URL::route('menu.show', ['id' => $menu->id]) . '" title="view"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
                              <a href="' . URL::route('menu.edit', ['id' => $menu->id]) . '" title="edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>';
             if (!in_array($menu->id, [1, 2, 3, 4])) {
@@ -44,9 +45,9 @@ class CMSMenuService extends BaseService
             }
             
             if($menu->status) {
-                $menu->action .= ' <a href="javascript:void(0);" title="Change To Inactive" data-id="'.$menu->id.'" data-object="'.  get_class($menu).'" class="change-status"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a>';   
+                $menu->action .= ' <a href="javascript:void(0);" title="Change To Inactive" data-status="'.$menu->status.'" data-id="'.$menu->id.'" data-object="'.  get_class($menu).'" class="change-status"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a>';   
             } else {
-                $menu->action .= ' <a href="javascript:void(0);" title="Change To Active" data-id="'.$menu->id.'" data-object="'.  get_class($menu).'" class="change-status"><span class="change-status glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';     
+                $menu->action .= ' <a href="javascript:void(0);" title="Change To Active" data-status="'.$menu->status.'" data-id="'.$menu->id.'" data-object="'.  get_class($menu).'" class="change-status"><span class="change-status glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';     
             }
             
             $response['rows'][] = $menu;
@@ -86,6 +87,9 @@ class CMSMenuService extends BaseService
         
         $menu->title = trim($request->get('title'));
         $menu->description = trim($request->get('description'));
+        $menu->meta_title = trim($request->get('meta_title'));
+        $menu->meta_keyword = trim($request->get('meta_keyword'));
+        $menu->meta_description = trim($request->get('meta_description'));
         $menu->image = 'test.png';        
         $menu->save();
 

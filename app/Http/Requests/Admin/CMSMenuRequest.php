@@ -27,6 +27,9 @@ class CMSMenuRequest extends Request
         $rules = [
             'title' => 'required|max:150',
             'description' => 'required',
+            'meta_title' => 'required|max:255',
+            'meta_keyword' => 'required|max:255',
+            'meta_description' => 'required|max:255',
             'image' => 'required|mimes:jpeg,jpg,png',
         ];
 
@@ -47,6 +50,12 @@ class CMSMenuRequest extends Request
         return [
             'title.required' => 'Menu title is missing',
             'title.max' => 'Menu title must not be greater than 150 characters',
+            'meta_title.required' => 'Meta title is missing',
+            'meta_title.max' => 'Meta title must not be greater than 255 characters',
+            'meta_keyword.required' => 'Meta Keyword is missing',
+            'meta_keyword.max' => 'Meta Keyword must not be greater than 255 characters',
+            'meta_description.required' => 'Meta description is missing',
+            'meta_description.max' => 'Meta description must not be greater than 255 characters',
             //'title.alpha_spaces' => 'Menu title must contain letters and spaces',
             'description.required' => 'Menu description is missing',
             'image.required' => 'Menu Image is missing',

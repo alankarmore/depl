@@ -23,6 +23,9 @@ class CMSMenuTableSeeder extends Seeder
                    This book is a treatise on the theory of ethics, very popular during the Renaissance. 
                    The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet...'),
                 'image' => 'test.jpg',
+                'meta_title' => 'About Us',
+                'meta_keyword' => 'About Us',
+                'meta_description' => 'About Us',
                 'status' => 1,
                 'created_at' => date("Y-m-d H:i:s"),
             ],
@@ -35,6 +38,9 @@ class CMSMenuTableSeeder extends Seeder
                    This book is a treatise on the theory of ethics, very popular during the Renaissance. 
                    The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet...'),
                 'image' => 'test.jpg',
+                'meta_title' => 'Contact Us',
+                'meta_keyword' => 'Contact Us',
+                'meta_description' => 'Contact Us',
                 'status' => 1,
                 'created_at' => date("Y-m-d H:i:s"),
             ],
@@ -47,6 +53,9 @@ class CMSMenuTableSeeder extends Seeder
                    This book is a treatise on the theory of ethics, very popular during the Renaissance. 
                    The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet...'),
                 'image' => 'test.jpg',
+                'meta_title' => 'Terms And Condtion',
+                'meta_keyword' => 'Terms And Condtion',
+                'meta_description' => 'Terms And Condtion',
                 'status' => 1,
                 'created_at' => date("Y-m-d H:i:s"),
             ],
@@ -59,6 +68,9 @@ class CMSMenuTableSeeder extends Seeder
                    This book is a treatise on the theory of ethics, very popular during the Renaissance. 
                    The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet...'),
                 'image' => 'test.jpg',
+                'meta_title' => 'Privacy Policy',
+                'meta_keyword' => 'Privacy Policy',
+                'meta_description' => 'Privacy Policy',
                 'status' => 1,
                 'created_at' => date("Y-m-d H:i:s"),
             ]
