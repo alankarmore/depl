@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\CMSMenuRequest;
-use App\Http\Services\Admin\CMSMenuService;
+use App\Http\Requests\Admin\OurOfficesRequest;
+use App\Http\Services\Admin\OurOfficesService;
 
-class CMSMenuController extends Controller
+class OurOfficesController extends Controller
 {
 
     public function __construct()
     {
-        $this->service = new CMSMenuService();
+        $this->office = new OurOfficesService();
     }
 
     /**
@@ -21,7 +21,7 @@ class CMSMenuController extends Controller
      */
     public function index()
     {
-        return view('admin.menu.index');
+        return view('admin.office.index');
     }
 
     /**
@@ -31,7 +31,7 @@ class CMSMenuController extends Controller
      */
     public function create()
     {
-        return view('admin.menu.create');
+        return view('admin.office.create');
     }
 
     /**
@@ -40,11 +40,11 @@ class CMSMenuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CMSMenuRequest $request)
+    public function store(OurOfficesRequest $request)
     {
-        $menu = $this->service->saveOrUpdateDetails($request);
-        if ($menu) {
-            return redirect(route('menu.edit',['menu' => $menu]))->with('success', 'Menu updated!');
+        $office = $this->office->saveOrUpdateDetails($request);
+        if ($office) {
+            return redirect(route('office.edit',['office' => $office]))->with('success', 'Service has been created successfully!');
         }
 
         return back()->withInput();
@@ -59,12 +59,12 @@ class CMSMenuController extends Controller
     public function show($id)
     {
         if (!empty($id)) {
-            $menuDetails = $this->service->getDetailsById($id);
+            $officeDetails = $this->office->getDetailsById($id);
 
-            return view('admin.menu.show', ['menu' => $menuDetails]);
+            return view('admin.office.show', ['office' => $officeDetails]);
         }
 
-        return redirect(route('menu.list'));
+        return redirect(route('office.list'));
     }
 
     /**
@@ -76,12 +76,12 @@ class CMSMenuController extends Controller
     public function edit($id)
     {
         if (!empty($id)) {
-            $menuDetails = $this->service->getDetailsById($id);
+            $officeDetails = $this->office->getDetailsById($id);
 
-            return view('admin.menu.edit', ['menu' => $menuDetails]);
+            return view('admin.office.edit', ['office' => $officeDetails]);
         }
 
-        return redirect(route('menu.list'));
+        return redirect(route('office.list'));
     }
 
     /**
@@ -91,11 +91,11 @@ class CMSMenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CMSMenuRequest $request, $id)
+    public function update(OurOfficesRequest $request, $id)
     {
-        $menu = $this->service->saveOrUpdateDetails($request, $id);
-        if ($menu) {
-            return redirect(route('menu.edit',['menu' => $menu]))->with('success', 'Menu updated!');
+        $office = $this->office->saveOrUpdateDetails($request, $id);
+        if ($office) {
+            return redirect(route('office.edit',['office' => $office]))->with('success', 'Service has been  successfully!');
         }
 
         return back()->withInput();
@@ -110,13 +110,13 @@ class CMSMenuController extends Controller
     public function destroy($id)
     {
         if(!empty($id)) {
-            $deleted = $this->service->deleteById($id);
+            $deleted = $this->office->deleteById($id);
             if($deleted) {
-                return redirect(route('menu.list'))->with('success', 'Menu delted successfully!');
+                return redirect(route('office.list'))->with('success', 'Service delted successfully!');
             }
         }
         
-        return redirect(route('menu.list'))->with('error', 'Oops something went wrong !');
+        return redirect(route('office.list'))->with('error', 'Oops something went wrong !');
     }
 
 }

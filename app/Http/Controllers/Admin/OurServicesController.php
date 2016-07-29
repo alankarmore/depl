@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\CMSMenuRequest;
-use App\Http\Services\Admin\CMSMenuService;
+use App\Http\Requests\Admin\OurServicesRequest;
+use App\Http\Services\Admin\OurServicesService;
 
-class CMSMenuController extends Controller
+class OurServicesController extends Controller
 {
 
     public function __construct()
     {
-        $this->service = new CMSMenuService();
+        $this->service = new OurServicesService();
     }
 
     /**
@@ -21,7 +21,7 @@ class CMSMenuController extends Controller
      */
     public function index()
     {
-        return view('admin.menu.index');
+        return view('admin.service.index');
     }
 
     /**
@@ -31,7 +31,7 @@ class CMSMenuController extends Controller
      */
     public function create()
     {
-        return view('admin.menu.create');
+        return view('admin.service.create');
     }
 
     /**
@@ -40,11 +40,11 @@ class CMSMenuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CMSMenuRequest $request)
+    public function store(OurServicesRequest $request)
     {
-        $menu = $this->service->saveOrUpdateDetails($request);
-        if ($menu) {
-            return redirect(route('menu.edit',['menu' => $menu]))->with('success', 'Menu updated!');
+        $service = $this->service->saveOrUpdateDetails($request);
+        if ($service) {
+            return redirect(route('service.edit',['service' => $service]))->with('success', 'Service has been created successfully!');
         }
 
         return back()->withInput();
@@ -59,12 +59,12 @@ class CMSMenuController extends Controller
     public function show($id)
     {
         if (!empty($id)) {
-            $menuDetails = $this->service->getDetailsById($id);
+            $serviceDetails = $this->service->getDetailsById($id);
 
-            return view('admin.menu.show', ['menu' => $menuDetails]);
+            return view('admin.service.show', ['service' => $serviceDetails]);
         }
 
-        return redirect(route('menu.list'));
+        return redirect(route('service.list'));
     }
 
     /**
@@ -76,12 +76,12 @@ class CMSMenuController extends Controller
     public function edit($id)
     {
         if (!empty($id)) {
-            $menuDetails = $this->service->getDetailsById($id);
+            $serviceDetails = $this->service->getDetailsById($id);
 
-            return view('admin.menu.edit', ['menu' => $menuDetails]);
+            return view('admin.service.edit', ['service' => $serviceDetails]);
         }
 
-        return redirect(route('menu.list'));
+        return redirect(route('service.list'));
     }
 
     /**
@@ -91,11 +91,11 @@ class CMSMenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CMSMenuRequest $request, $id)
+    public function update(OurServicesRequest $request, $id)
     {
-        $menu = $this->service->saveOrUpdateDetails($request, $id);
-        if ($menu) {
-            return redirect(route('menu.edit',['menu' => $menu]))->with('success', 'Menu updated!');
+        $service = $this->service->saveOrUpdateDetails($request, $id);
+        if ($service) {
+            return redirect(route('service.edit',['service' => $service]))->with('success', 'Service has been  successfully!');
         }
 
         return back()->withInput();
@@ -112,11 +112,11 @@ class CMSMenuController extends Controller
         if(!empty($id)) {
             $deleted = $this->service->deleteById($id);
             if($deleted) {
-                return redirect(route('menu.list'))->with('success', 'Menu delted successfully!');
+                return redirect(route('service.list'))->with('success', 'Service delted successfully!');
             }
         }
         
-        return redirect(route('menu.list'))->with('error', 'Oops something went wrong !');
+        return redirect(route('service.list'))->with('error', 'Oops something went wrong !');
     }
 
 }

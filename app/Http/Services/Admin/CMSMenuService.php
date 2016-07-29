@@ -86,6 +86,7 @@ class CMSMenuService extends BaseService
         }
         
         $menu->title = trim($request->get('title'));
+        $menu->slug = strtolower(str_replace(' ', '_', $menu->title));
         $menu->description = trim($request->get('description'));
         $menu->meta_title = trim($request->get('meta_title'));
         $menu->meta_keyword = trim($request->get('meta_keyword'));
