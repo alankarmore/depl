@@ -52,12 +52,12 @@
                             </div>
                             <div class="form-group">
                                 <label>Phone Number</label>
-                                <input class="form-control" placeholder="Phone Number" name="phone" id="phone" value="{{old('phone')?old('phone'):''}}">
+                                <input class="form-control" placeholder="Phone Number" name="phone" id="phone" value="{{old('phone')?old('phone'):''}}" maxlength="15">
                                 <span class="alert-danger">{{$errors->first('phone')}}</span>
                             </div>
                             <div class="form-group">
                                 <label>Fax</label>
-                                <input class="form-control" placeholder="Fax Number Name" name="fax" id="fax" value="{{old('fax')?old('fax'):''}}">
+                                <input class="form-control" placeholder="Fax Number Name" name="fax" id="fax" value="{{old('fax')?old('fax'):''}}" maxlength="15">
                                 <span class="alert-danger">{{$errors->first('fax')}}</span>
                             </div>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">

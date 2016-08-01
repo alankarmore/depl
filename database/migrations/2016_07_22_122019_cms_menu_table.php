@@ -21,7 +21,7 @@ class CmsMenuTable extends Migration
             $table->string('meta_title',255);
             $table->string('meta_keyword',255);
             $table->string('meta_description',255);
-            $table->smallInteger('status');
+            $table->tinyInteger('status');
             $table->timestamps();            
         });
     }

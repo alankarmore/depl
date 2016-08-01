@@ -35,13 +35,9 @@ class OurServicesService extends BaseService
 
         foreach ($services as $service) {
             $service->description = ($service->description && strlen($service->description) > 50) ? substr($service->description, 0, 50) : $service->description;
-            $service->action = '<a href="' . URL::route('menu.show', ['id' => $service->id]) . '" title="view"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-                             <a href="' . URL::route('menu.edit', ['id' => $service->id]) . '" title="edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>';
-            if (!in_array($service->id, [1, 2, 3, 4])) {
-                $service->action .= ' <a href="' . URL::route('menu.destroy', ['id' => $service->id]) . '" onClick="javascript: return confirm(\'Are You Sure\');" title="delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>';
-            } else {
-                $service->action .= ' <a href="javascript:void(0);" title="Not allowed to remove"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></a>';
-            }
+            $service->action = '<a href="' . URL::route('service.show', ['id' => $service->id]) . '" title="view"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+                             <a href="' . URL::route('service.edit', ['id' => $service->id]) . '" title="edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                             <a href="' . URL::route('service.destroy', ['id' => $service->id]) . '" onClick="javascript: return confirm(\'Are You Sure\');" title="delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>';
             
             if($service->status) {
                 $service->action .= ' <a href="javascript:void(0);" title="Change To Inactive" data-status="'.$service->status.'" data-id="'.$service->id.'" data-object="'.  get_class($service).'" class="change-status"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a>';   
@@ -85,7 +81,7 @@ class OurServicesService extends BaseService
         }
         
         $service->title = trim($request->get('title'));
-        $service->slug = strtolower(str_replace(' ', '_', $service->title));
+        $service->slug = strtolower(str_replace(' ', '-', $service->title));
         $service->description = trim($request->get('description'));
         $service->image = 'test.png';
         $service->save();

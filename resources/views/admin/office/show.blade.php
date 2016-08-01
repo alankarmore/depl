@@ -54,4 +54,9 @@
         </div><!-- /.col-->
     </div><!-- /.row -->
 </div><!--/.main-->
+@section('page-script')
+<script>
+    activeParentMenu('office'); 
+</script>
+@endsection
 @endsection

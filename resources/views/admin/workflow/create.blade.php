@@ -4,7 +4,7 @@
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="{{route('admin.dashboard')}}"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-            <li ><a href="{{route('workflow.list')}}">Our Work Flow</a></li>
+            <li ><a href="{{route('workflow.list')}}">Service Work Flow</a></li>
             <li class="active">Add New Work Flow</li>
         </ol>
     </div><!--/.row-->
@@ -25,12 +25,15 @@
                                 <label>Service which this work flow belongs to</label>
                                 <select name="service" id="service" class="form-control">
                                     <option value="0">Select Service</option>
+                                    @foreach($services as $service)
+                                        <option value="{{$service->id}}">{{ucwords($service->title)}}</option>
+                                    @endforeach
                                 </select>
                                 <span class="alert-danger">{{$errors->first('service')}}</span>
                             </div>                            
                             <div class="form-group">
                                 <label>Title</label>
-                                <input class="form-control" placeholder="Work Flow Title" name="title" id="title" value="{{old('title')?old('title'):''}}">
+                                <input class="form-control" placeholder="Work Flow Title" name="title" id="title" value="{{old('title')?old('title'):''}}" maxlength="200">
                                 <span class="alert-danger">{{$errors->first('title')}}</span>
                             </div>
                             <div class="form-group">

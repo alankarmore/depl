@@ -11,7 +11,7 @@ class OurOfficesController extends Controller
 
     public function __construct()
     {
-        $this->office = new OurOfficesService();
+        $this->service = new OurOfficesService();
     }
 
     /**
@@ -42,7 +42,7 @@ class OurOfficesController extends Controller
      */
     public function store(OurOfficesRequest $request)
     {
-        $office = $this->office->saveOrUpdateDetails($request);
+        $office = $this->service->saveOrUpdateDetails($request);
         if ($office) {
             return redirect(route('office.edit',['office' => $office]))->with('success', 'Service has been created successfully!');
         }
@@ -59,7 +59,7 @@ class OurOfficesController extends Controller
     public function show($id)
     {
         if (!empty($id)) {
-            $officeDetails = $this->office->getDetailsById($id);
+            $officeDetails = $this->service->getDetailsById($id);
 
             return view('admin.office.show', ['office' => $officeDetails]);
         }
@@ -76,7 +76,7 @@ class OurOfficesController extends Controller
     public function edit($id)
     {
         if (!empty($id)) {
-            $officeDetails = $this->office->getDetailsById($id);
+            $officeDetails = $this->service->getDetailsById($id);
 
             return view('admin.office.edit', ['office' => $officeDetails]);
         }
@@ -93,7 +93,7 @@ class OurOfficesController extends Controller
      */
     public function update(OurOfficesRequest $request, $id)
     {
-        $office = $this->office->saveOrUpdateDetails($request, $id);
+        $office = $this->service->saveOrUpdateDetails($request, $id);
         if ($office) {
             return redirect(route('office.edit',['office' => $office]))->with('success', 'Service has been  successfully!');
         }
@@ -110,7 +110,7 @@ class OurOfficesController extends Controller
     public function destroy($id)
     {
         if(!empty($id)) {
-            $deleted = $this->office->deleteById($id);
+            $deleted = $this->service->deleteById($id);
             if($deleted) {
                 return redirect(route('office.list'))->with('success', 'Service delted successfully!');
             }

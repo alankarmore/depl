@@ -30,8 +30,8 @@ class OurOfficesRequest extends Request
             'city' => 'required|alpha',
             'address' => 'required',
             'pincode' => 'required',
-            'phone' => 'required|min:10|max:12',
-            'fax' => 'required|min:10|max:12'
+            'phone' => 'required|min:10|max:15',
+            'fax' => 'min:10|max:15'
         ];
     }
 
@@ -49,7 +49,11 @@ class OurOfficesRequest extends Request
             'address.required' => 'Office address is missing',
             'pincode.required' => 'Pincode is missing',
             'phone.required' => 'Phone number is missing',
+            'phone.min' => 'Phone number must be atleast 10 digits',
+            'phone.max' => 'Phone number must not be greater than 15 digits',
             'fax.required' => 'Fax number is missing',
+            'fax.min' => 'Fax number must be atleast 10 digits',
+            'fax.max' => 'Fax number must not be greater than 15 digits',
         ];
     }
 

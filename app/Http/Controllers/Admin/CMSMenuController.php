@@ -112,7 +112,7 @@ class CMSMenuController extends Controller
         if(!empty($id)) {
             $deleted = $this->service->deleteById($id);
             if($deleted) {
-                return redirect(route('menu.list'))->with('success', 'Menu delted successfully!');
+                return redirect(route('menu.list'))->with('success', 'Menu deleted successfully!');
             }
         }
         

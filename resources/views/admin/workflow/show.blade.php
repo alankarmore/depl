@@ -11,7 +11,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">{{$workflow->title}}</h1>
+            <h1 class="page-header">{{ucfirst($workflow->title)}}</h1>
         </div>
     </div><!--/.row-->
     <div class="row">
@@ -21,7 +21,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Service Name</label>
-                            <div>{{$workflow->serviceTitle}}</div>
+                            <div>{{ucfirst($workflow->serviceTitle)}}</div>
                         </div>
                         <div class="form-group">
                             <label>Description</label>
@@ -33,4 +33,9 @@
         </div><!-- /.col-->
     </div><!-- /.row -->
 </div><!--/.main-->
+@section('page-script')
+<script>
+    activeParentMenu('workflow'); 
+</script>
+@endsection
 @endsection

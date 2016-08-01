@@ -31,7 +31,9 @@ class WorkFlowController extends Controller
      */
     public function create()
     {
-        return view('admin.workflow.create');
+        $services = $this->service->getServices();
+        
+        return view('admin.workflow.create',['services' => $services]);
     }
 
     /**
@@ -76,9 +78,10 @@ class WorkFlowController extends Controller
     public function edit($id)
     {
         if (!empty($id)) {
-            $serviceDetails = $this->service->getDetailsById($id);
-
-            return view('admin.workflow.edit', ['service' => $serviceDetails]);
+            $workflowDetails = $this->service->getDetailsById($id);
+            $services = $this->service->getServices();
+            
+            return view('admin.workflow.edit', ['workflow' => $workflowDetails,'services' => $services]);
         }
 
         return redirect(route('workflow.list'));
@@ -91,7 +94,7 @@ class WorkFlowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(OurServicesRequest $request, $id)
+    public function update(WorkFlowRequest $request, $id)
     {
         $service = $this->service->saveOrUpdateDetails($request, $id);
         if ($service) {

@@ -20,10 +20,10 @@
                 <div class="panel-body">
                     <div class="col-md-12">
                         @include('admin.messages')
-                        <form role="form" name="frmService" id='frmService' action="{{route('service.save')}}" method="POST">
+                        <form role="form" name="frmService" id='frmService' action="{{route('service.save')}}" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label>Title</label>
-                                <input class="form-control" placeholder="Service Title" name="title" id="title" value="{{old('title')?old('title'):''}}">
+                                <input class="form-control" placeholder="Service Title" name="title" id="title" value="{{old('title')?old('title'):''}}" maxlength="150">
                                 <span class="alert-danger">{{$errors->first('title')}}</span>
                             </div>
                             <div class="form-group">

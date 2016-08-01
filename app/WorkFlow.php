@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class OurService extends Model
+class WorkFlow extends Model
 {
-    protected $table  = 'workflows';
+    protected $table  = 'work_flows';
 }

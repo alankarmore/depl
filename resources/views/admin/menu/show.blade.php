@@ -33,4 +33,9 @@
         </div><!-- /.col-->
     </div><!-- /.row -->
 </div><!--/.main-->
+@section('page-script')
+<script>
+    activeParentMenu('menu'); 
+</script>
+@endsection
 @endsection

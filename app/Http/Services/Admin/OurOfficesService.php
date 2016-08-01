@@ -21,7 +21,7 @@ class OurOfficesService extends BaseService
         $response = array('total' => 0, 'rows' => '');
         $allOffices = OurOffice::select(\DB::raw('COUNT(*) as cnt'))->first();
         $response['total'] = $allOffices->cnt;
-        $query = OurOffice::select('id', 'state','city','type','address','pincode','phone','fax','status');
+        $query = OurOffice::select('id', 'state', 'city', 'type', 'address', 'pincode', 'phone', 'fax', 'status');
         if (!empty($request->get('search'))) {
             $query->where('address', 'LIKE', '%' . $request->get('search') . '%');
         }
@@ -34,20 +34,17 @@ class OurOfficesService extends BaseService
         }
 
         foreach ($offices as $office) {
+            $office->type = ($office->type == 2) ? 'Branch Office' : 'Head Office';
             $office->action = '<a href="' . URL::route('office.show', ['id' => $office->id]) . '" title="view"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-                             <a href="' . URL::route('office.edit', ['id' => $office->id]) . '" title="edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>';
-            if (!in_array($office->id, [1, 2, 3, 4])) {
-                $office->action .= ' <a href="' . URL::route('office.destroy', ['id' => $office->id]) . '" onClick="javascript: return confirm(\'Are You Sure\');" title="delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>';
+                             <a href="' . URL::route('office.edit', ['id' => $office->id]) . '" title="edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                             <a href="' . URL::route('office.destroy', ['id' => $office->id]) . '" onClick="javascript: return confirm(\'Are You Sure\');" title="delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>';
+
+            if ($office->status) {
+                $office->action .= ' <a href="javascript:void(0);" title="Change To Inactive" data-status="' . $office->status . '" data-id="' . $office->id . '" data-object="' . get_class($office) . '" class="change-status"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a>';
             } else {
-                $office->action .= ' <a href="javascript:void(0);" title="Not allowed to remove"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></a>';
+                $office->action .= ' <a href="javascript:void(0);" title="Change To Active" data-status="' . $office->status . '" data-id="' . $office->id . '" data-object="' . get_class($office) . '" class="change-status"><span class="change-status glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';
             }
-            
-            if($office->status) {
-                $office->action .= ' <a href="javascript:void(0);" title="Change To Inactive" data-status="'.$office->status.'" data-id="'.$office->id.'" data-object="'.  get_class($office).'" class="change-status"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a>';   
-            } else {
-                $office->action .= ' <a href="javascript:void(0);" title="Change To Active" data-status="'.$office->status.'" data-id="'.$office->id.'" data-object="'.  get_class($office).'" class="change-status"><span class="change-status glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';     
-            }
-            
+
             $response['rows'][] = $office;
         }
 
@@ -64,7 +61,7 @@ class OurOfficesService extends BaseService
     {
         return OurOffice::find($id);
     }
-    
+
     /**
      * Update record details according to the id 
      * 
@@ -75,25 +72,26 @@ class OurOfficesService extends BaseService
     public function saveOrUpdateDetails($request, $id = null)
     {
         $office = new OurOffice();
-        if(!empty($id)) {
+        if (!empty($id)) {
             $office = $this->getDetailsById($id);
             $office->updated_at = date("Y-m-d H:i:s");
         } else {
             $office->status = 1;
             $office->created_at = date("Y-m-d H:i:s");
         }
-        
+
+        $office->type = trim($request->get('type'));
         $office->state = trim($request->get('state'));
         $office->city = trim($request->get('city'));
         $office->address = trim($request->get('address'));
         $office->pincode = trim($request->get('pincode'));
-        $office->phone = $request->get('phone')?trim($request->get('phone')):null;
-        $office->fax = $request->get('fax')?trim($request->get('phone')):null;
+        $office->phone = $request->get('phone') ? trim($request->get('phone')) : null;
+        $office->fax = $request->get('fax') ? trim($request->get('phone')) : null;
         $office->save();
 
         return $office;
     }
-    
+
     /**
      * Deleting menu according to the menu id 
      * 
@@ -103,10 +101,11 @@ class OurOfficesService extends BaseService
     public function deleteById($id)
     {
         $office = $this->getDetailsById($id);
-        if($office) {
+        if ($office) {
             return $office->delete();
         }
-        
+
         return false;
     }
+
 }

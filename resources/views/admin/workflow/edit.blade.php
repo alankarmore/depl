@@ -25,6 +25,10 @@
                                 <label>Service which this work flow belongs to</label>
                                 <select name="service" id="service" class="form-control">
                                     <option value="0">Select Service</option>
+                                    @foreach($services as $service)
+                                        <option value="{{$service->id}}" @if($workflow->services_id == $service->id) selected="selected" @endif>{{ucwords($service->title)}}</option>
+                                    @endforeach
+                                </select>                                    
                                 </select>
                                 <span class="alert-danger">{{$errors->first('service')}}</span>
                             </div>                               
@@ -53,5 +57,8 @@
 @section('page-script')
  <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
  <script>tinymce.init({ selector:'#description' });</script>
+<script>
+    activeParentMenu('workflow'); 
+</script>
 @endsection
 @endsection

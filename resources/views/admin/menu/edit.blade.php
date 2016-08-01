@@ -70,5 +70,8 @@
 @section('page-script')
  <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
  <script>tinymce.init({ selector:'#description' });</script>
+ <script>
+    activeParentMenu('menus'); 
+</script>
 @endsection
 @endsection

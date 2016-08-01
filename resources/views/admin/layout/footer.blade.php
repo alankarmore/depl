@@ -90,7 +90,16 @@ function generateTable(selector, route, sortColumn, sortOrder) {
         pageSize: 10,
     });
 }
-$(document).on('click', '#menuTable .change-status', function (e) {
+
+function activeParentMenu(menu)
+{
+    $("#"+sidebar-menu+' ul.menu-nav li.parent').removeClass('active')
+    var parentMenu = $("#"+menu).parent();
+    parentMenu.addClass('active');
+    $("ul:first", parentMenu).slideDown();
+}
+
+$(document).on('click', '.change-status', function (e) {
     var route = '{{route("change.status")}}';
     var data = {'id': $(this).attr('data-id'), 'object': $(this).attr('data-object'), 'status': $(this).attr('data-status')};
     sendAjaxRequest($(this), route, data, 'POST', 'JSON', 'handelStatusResponse', 1);

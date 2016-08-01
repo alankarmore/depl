@@ -25,8 +25,8 @@
                                 <label>Title</label>
                                 <select name="type" id="type" class="form-control">
                                     <option value="0">Select Option</option>
-                                    <option value="1" @f(1 == $office->id) selected="selected" @endif>Head Office</option>
-                                    <option value="2" @f(2 == $office->id) selected="selected" @endif>Branch Office</option>
+                                    <option value="1" @if(1 == $office->type) selected="selected" @endif>Head Office</option>
+                                    <option value="2" @if(2 == $office->type) selected="selected" @endif>Branch Office</option>
                                 </select>
                                 <span class="alert-danger">{{$errors->first('type')}}</span>
                             </div>
@@ -72,4 +72,9 @@
         </div><!-- /.col-->
     </div><!-- /.row -->
 </div><!--/.main-->
+@section('page-script')
+<script>
+    activeParentMenu('office');
+</script>
+@endsection
 @endsection

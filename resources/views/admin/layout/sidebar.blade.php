@@ -1,24 +1,70 @@
 <div id="sidebar-menu" class="col-sm-3 col-lg-2 sidebar">
     <form role="search">
-        <a href="">Show Front End</a>
+        <a href="{{url("/")}}" target="_blank">Show Website</a>
     </form>
     <ul class="nav menu">
         <li ><a href="{{route('admin.dashboard')}}"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>
         <li class="parent ">
             <a href="javascript:void(0);">
-                <span data-toggle="collapse" href="#sub-item-1"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> CMS Management
+                <span data-toggle="collapse" href="#menus"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> CMS Management
             </a>
-            <ul class="children collapse" id="sub-item-1">
+            <ul class="children collapse" id="menus">
                 <li>
-                    <a class="{{ MenuHelper::isSubMenuActive('menu.list')}}" href="{{route('menu.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Menu Listing</a>
+                    <a href="{{route('menu.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Menu Listing</a>
                 </li>
                 <li>
-                    <a class="{{ MenuHelper::isSubMenuActive('menu.create')}}" href="{{route('menu.create')}}">
+                    <a href="{{route('menu.create')}}">
                         <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Add New Menu
                     </a>
                 </li>
             </ul>            
         </li>
+        <li class="parent ">
+            <a href="javascript:void(0);">
+                <span data-toggle="collapse" href="#services"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Our Services
+            </a>
+            <ul class="children collapse" id="services">
+                <li>
+                    <a href="{{route('service.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Services</a>
+                </li>
+                <li>
+                    <a href="{{route('service.create')}}">
+                        <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Create New Service
+                    </a>
+                </li>
+            </ul>            
+        </li>
+        <li class="parent ">
+            <a href="javascript:void(0);">
+                <span data-toggle="collapse" href="#workflow"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Services Work Flows
+            </a>
+            <ul class="children collapse" id="workflow">
+                <li>
+                    <a href="{{route('workflow.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Work Flows</a>
+                </li>
+                <li>
+                    <a href="{{route('workflow.create')}}">
+                        <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Create New Work Flow
+                    </a>
+                </li>
+            </ul>            
+        </li>
+        <li class="parent ">
+            <a href="javascript:void(0);">
+                <span data-toggle="collapse" href="#office"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Offices
+            </a>
+            <ul class="children collapse" id="office">
+                <li>
+                    <a href="{{route('office.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Offices</a>
+                </li>
+                <li>
+                    <a href="{{route('office.create')}}">
+                        <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Create New Office
+                    </a>
+                </li>
+            </ul>            
+        </li>
+<!--        
         <li><a href="widgets.html"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Widgets</a></li>
         <li><a href="charts.html"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> Charts</a></li>
         <li><a href="tables.html"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg> Tables</a></li>
@@ -48,6 +94,6 @@
             </ul>
         </li>
         <li role="presentation" class="divider"></li>
-        <li><a href="login.html"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Login Page</a></li>
+        <li><a href="login.html"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Login Page</a></li>-->
     </ul>
 </div><!--/.sidebar-->

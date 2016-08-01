@@ -112,7 +112,7 @@ class OurServicesController extends Controller
         if(!empty($id)) {
             $deleted = $this->service->deleteById($id);
             if($deleted) {
-                return redirect(route('service.list'))->with('success', 'Service delted successfully!');
+                return redirect(route('service.list'))->with('success', 'Service deleted successfully!');
             }
         }
         
