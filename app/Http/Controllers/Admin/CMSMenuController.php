@@ -31,7 +31,9 @@ class CMSMenuController extends Controller
      */
     public function create()
     {
-        return view('admin.menu.create');
+        $parentMenus = $this->service->getParentMenus();
+        
+        return view('admin.menu.create',['parentMenus' => $parentMenus]);
     }
 
     /**
@@ -77,8 +79,9 @@ class CMSMenuController extends Controller
     {
         if (!empty($id)) {
             $menuDetails = $this->service->getDetailsById($id);
-
-            return view('admin.menu.edit', ['menu' => $menuDetails]);
+            $parentMenus = $this->service->getParentMenus();
+            
+            return view('admin.menu.edit', ['menu' => $menuDetails, 'parentMenus' => $parentMenus]);
         }
 
         return redirect(route('menu.list'));

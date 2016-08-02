@@ -27,11 +27,14 @@ class CMSMenuRequest extends Request
         $rules = [
             'title' => 'required|max:150',
             'description' => 'required',
-            'meta_title' => 'required|max:255',
-            'meta_keyword' => 'required|max:255',
-            'meta_description' => 'required|max:255',
             'image' => 'required|mimes:jpeg,jpg,png',
         ];
+
+        if($this->include_in <= 0) {
+            $rules['meta_title'] = 'sometimes|required|max:255';
+            $rules['meta_keyword'] = 'sometimes|required|max:255';
+            $rules['meta_description'] = 'sometimes|required|max:255';
+        }
 
         if (!empty($this->id)) {
             $rules['image'] = 'mimes:jpeg,jpg,png';

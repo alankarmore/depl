@@ -20,6 +20,10 @@
                 <div class="panel-body">
                     <div class="col-md-12">
                         <div class="form-group">
+                            <label>Included In</label>
+                            <div>{{($menu->includedIn->title)?$menu->includedIn->title:'Nothing'}}</div>
+                        </div>
+                        <div class="form-group">
                             <label>Description</label>
                             <div>{{$menu->description}}</div>
                         </div>
@@ -35,7 +39,7 @@
 </div><!--/.main-->
 @section('page-script')
 <script>
-    activeParentMenu('menu'); 
+    activeParentMenu('menus'); 
 </script>
 @endsection
 @endsection

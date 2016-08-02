@@ -14,6 +14,7 @@ class CmsMenuTable extends Migration
     {
         Schema::create('cms_menu',function(BluePrint $table) {
             $table->increments('id');
+            $table->integer('include_in')->nullable();
             $table->string('title',150);
             $table->string('slug');
             $table->string('image');

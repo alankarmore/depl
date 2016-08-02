@@ -34,8 +34,19 @@ class Controller extends BaseController
         return $this->service->getRecords($request);
     }
     
+    /**
+     * Changing status of the element. 
+     * 
+     * @param Request $request
+     * @return JSON
+     */
     public function changeStatus(Request $request)
     {
         return BaseService::changeStatus($request->all());
+    }
+    
+    public function uploadTempImage()
+    {
+        
     }
 }

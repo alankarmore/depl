@@ -9,6 +9,18 @@ use App\Http\Services\BaseService;
 
 class CMSMenuService extends BaseService
 {
+    /**
+     * Get parent menu list which can be used to include the other sub contents.
+     * 
+     * @return Collection App\CMSMenu
+     */
+    public function getParentMenus()
+    {
+        return CMSMenu::select('id','title')
+                       ->whereNull('include_in')
+                       ->orderBY('title','ASC')
+                       ->get();
+    }
 
     /**
      * Get all menus
@@ -34,8 +46,9 @@ class CMSMenuService extends BaseService
         }
 
         foreach ($menus as $menu) {
-            $menu->meta_keyword = ($menu->meta_keyword && strlen($menu->meta_keyword) > 50) ? substr($menu->meta_keyword, 0, 50) : $menu->meta_keyword;
-            $menu->meta_description = ($menu->meta_description && strlen($menu->meta_description) > 50) ? substr($menu->meta_description, 0, 50) : $menu->meta_description;
+            $menu->meta_title = ($menu->meta_title && strlen($menu->meta_title) > 50) ? substr($menu->meta_title, 0, 50) : ($menu->meta_title == null) ? 'NA' : $menu->meta_title;
+            $menu->meta_keyword = ($menu->meta_keyword && strlen($menu->meta_keyword) > 50) ? substr($menu->meta_keyword, 0, 50) : ($menu->meta_keyword == null) ? 'NA' : $menu->meta_keyword;
+            $menu->meta_description = ($menu->meta_description && strlen($menu->meta_description) > 50) ? substr($menu->meta_description, 0, 50) : ($menu->meta_description == null) ? 'NA' : $menu->meta_description;
             $menu->action = '<a href="' . URL::route('menu.show', ['id' => $menu->id]) . '" title="view"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
                              <a href="' . URL::route('menu.edit', ['id' => $menu->id]) . '" title="edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>';
             if (!in_array($menu->id, [1, 2, 3, 4])) {
@@ -86,6 +99,7 @@ class CMSMenuService extends BaseService
         }
         
         $menu->title = trim($request->get('title'));
+        $menu->include_in = (trim($request->get('include_in'))) ? trim($request->get('include_in')) : NULL;
         $menu->slug = strtolower(str_replace(' ', '-', $menu->title));
         $menu->description = trim($request->get('description'));
         $menu->meta_title = trim($request->get('meta_title'));
