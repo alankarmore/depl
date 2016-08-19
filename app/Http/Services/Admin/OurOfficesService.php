@@ -86,7 +86,7 @@ class OurOfficesService extends BaseService
         $office->address = trim($request->get('address'));
         $office->pincode = trim($request->get('pincode'));
         $office->phone = $request->get('phone') ? trim($request->get('phone')) : null;
-        $office->fax = $request->get('fax') ? trim($request->get('phone')) : null;
+        $office->fax = $request->get('fax') ? trim($request->get('fax')) : null;
         $office->save();
 
         return $office;

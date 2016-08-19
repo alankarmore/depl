@@ -44,7 +44,7 @@ class OurOfficesController extends Controller
     {
         $office = $this->service->saveOrUpdateDetails($request);
         if ($office) {
-            return redirect(route('office.edit',['office' => $office]))->with('success', 'Service has been created successfully!');
+            return redirect(route('office.edit',['office' => $office]))->with('success', 'Office address has been saved successfully!');
         }
 
         return back()->withInput();
@@ -95,7 +95,7 @@ class OurOfficesController extends Controller
     {
         $office = $this->service->saveOrUpdateDetails($request, $id);
         if ($office) {
-            return redirect(route('office.edit',['office' => $office]))->with('success', 'Service has been  successfully!');
+            return redirect(route('office.edit',['office' => $office]))->with('success', 'Office has been modified successfully!');
         }
 
         return back()->withInput();
@@ -112,7 +112,7 @@ class OurOfficesController extends Controller
         if(!empty($id)) {
             $deleted = $this->service->deleteById($id);
             if($deleted) {
-                return redirect(route('office.list'))->with('success', 'Service delted successfully!');
+                return redirect(route('office.list'))->with('success', 'Office delted successfully!');
             }
         }
         

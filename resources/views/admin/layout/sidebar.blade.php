@@ -47,7 +47,7 @@
                         <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Create New Work Flow
                     </a>
                 </li>
-            </ul>            
+            </ul>
         </li>
         <li class="parent ">
             <a href="javascript:void(0);">
@@ -62,7 +62,22 @@
                         <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Create New Office
                     </a>
                 </li>
-            </ul>            
+            </ul>
+        </li>
+        <li class="parent ">
+            <a href="javascript:void(0);">
+                <span data-toggle="collapse" href="#project"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Projects
+            </a>
+            <ul class="children collapse" id="project">
+                <li>
+                    <a href="{{route('project.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Projects</a>
+                </li>
+                <li>
+                    <a href="{{route('project.create')}}">
+                        <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Create New Project
+                    </a>
+                </li>
+            </ul>     
         </li>
 <!--        
         <li><a href="widgets.html"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Widgets</a></li>

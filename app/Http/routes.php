@@ -55,6 +55,15 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['web']], function() {
     Route::post('office/update/{id}', ['as' => 'office.update', 'uses' => 'Admin\OurOfficesController@update']);
     Route::get('office/show/{id}', ['as' => 'office.show', 'uses' => 'Admin\OurOfficesController@show']);
     Route::get('office/destroy/{id}', ['as' => 'office.destroy', 'uses' => 'Admin\OurOfficesController@destroy']);
+
+    Route::get('project/list', ['as' => 'project.list', 'uses' => 'Admin\ProjectsController@index']);
+    Route::post('project/list', ['as' => 'project.list', 'uses' => 'Admin\ProjectsController@getData']);
+    Route::get('project/create', ['as' => 'project.create', 'uses' => 'Admin\ProjectsController@create']);
+    Route::post('project/save', ['as' => 'project.save', 'uses' => 'Admin\ProjectsController@store']);
+    Route::get('project/edit/{id}', ['as' => 'project.edit', 'uses' => 'Admin\ProjectsController@edit']);
+    Route::post('project/update/{id}', ['as' => 'project.update', 'uses' => 'Admin\ProjectsController@update']);
+    Route::get('project/show/{id}', ['as' => 'project.show', 'uses' => 'Admin\ProjectsController@show']);
+    Route::get('project/destroy/{id}', ['as' => 'project.destroy', 'uses' => 'Admin\ProjectsController@destroy']);
     
     Route::post('change/status', ['as' => 'change.status', 'uses' => 'Controller@changeStatus']);
     Route::get('admin/logout', ['as' => 'admin.logout', 'uses' => 'Admin\AuthController@logout']);

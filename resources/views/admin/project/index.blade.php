@@ -4,7 +4,7 @@
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="javascript:void(0);"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-            <li class="active">Our Offices</li>
+            <li class="active">Major Projects</li>
         </ol>
     </div><!--/.row-->
     <div class="row">&nbsp;</div>
@@ -14,20 +14,19 @@
             <div class="panel panel-default">
                     <div class="col-sm-2 pull-right">
                         <br/>
-                        <a href="{{route('office.create')}}" title="Add Service" class="btn btn-primary">Add New Office</a>
+                        <a href="{{route('project.create')}}" title="Add Project" class="btn btn-primary">Add New Project</a>
                     </div>
                     <div class="clearfix"></div>
                 <div class="panel-body">
-                    <table id="officeTable"> 
+                    <table id="projectTable"> 
                         <thead>
                             <tr>
-                                <th data-field="type" data-sortable="true">Type</th>
+                                <th data-field="title" data-sortable="true">Title</th>
+                                <th data-field="company" data-sortable="true">Company Name</th>
                                 <th data-field="state" data-sortable="true">State</th>
-                                <th data-field="city" data-sortable="true">City</th>
-                                <th data-field="address" data-sortable="true">Address</th>
-                                <th data-field="pincode" data-sortable="true">Pincode</th>
-                                <th data-field="phone" data-sortable="fals">Phone</th>
-                                <th data-field="fax" data-sortable="fals">Fax</th>
+                                <th data-field="project_type" data-sortable="true">Project Type</th>
+                                <th data-field="length" data-sortable="true">Length</th>
+                                <th data-field="completion_date" data-sortable="fals">Completion Date</th>
                                 <th data-field="action" data-sortable="false">Action</th>
                             </tr>
                         </thead>
@@ -41,8 +40,8 @@
 <script src="{{asset('admin/js/bootstrap-table.js')}}"></script>
 <script>
 $(function () {
-    var route = "{{route('office.list')}}";
-    generateTable("officeTable",route,'city','ASC');
+    var route = "{{route('project.list')}}";
+    generateTable("projectTable",route,'title','ASC');
 });
 </script>
 @endsection

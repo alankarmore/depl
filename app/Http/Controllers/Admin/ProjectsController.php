@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\OurServicesRequest;
-use App\Http\Services\Admin\OurServicesService;
+use App\Http\Requests\Admin\ProjectsRequest;
+use App\Http\Services\Admin\ProjectsService;
 
-class OurServicesController extends Controller
+class ProjectsController extends Controller
 {
 
     public function __construct()
     {
-        $this->service = new OurServicesService();
+        $this->service = new ProjectsService();
     }
 
     /**
@@ -21,7 +21,7 @@ class OurServicesController extends Controller
      */
     public function index()
     {
-        return view('admin.service.index');
+        return view('admin.project.index');
     }
 
     /**
@@ -31,7 +31,7 @@ class OurServicesController extends Controller
      */
     public function create()
     {
-        return view('admin.service.create');
+        return view('admin.project.create');
     }
 
     /**
@@ -40,11 +40,11 @@ class OurServicesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(OurServicesRequest $request)
+    public function store(ProjectsRequest $request)
     {
-        $service = $this->service->saveOrUpdateDetails($request);
-        if ($service) {
-            return redirect(route('service.edit',['service' => $service]))->with('success', 'Service has been created successfully!');
+        $project = $this->service->saveOrUpdateDetails($request);
+        if ($project) {
+            return redirect(route('project.edit',['project' => $project]))->with('success', 'Project has been saved successfully!');
         }
 
         return back()->withInput();
@@ -59,12 +59,12 @@ class OurServicesController extends Controller
     public function show($id)
     {
         if (!empty($id)) {
-            $serviceDetails = $this->service->getDetailsById($id);
+            $projectDetails = $this->service->getDetailsById($id);
 
-            return view('admin.service.show', ['service' => $serviceDetails]);
+            return view('admin.project.show', ['project' => $projectDetails]);
         }
 
-        return redirect(route('service.list'));
+        return redirect(route('project.list'));
     }
 
     /**
@@ -76,12 +76,12 @@ class OurServicesController extends Controller
     public function edit($id)
     {
         if (!empty($id)) {
-            $serviceDetails = $this->service->getDetailsById($id);
+            $projectDetails = $this->service->getDetailsById($id);
 
-            return view('admin.service.edit', ['service' => $serviceDetails]);
+            return view('admin.project.edit', ['project' => $projectDetails]);
         }
 
-        return redirect(route('service.list'));
+        return redirect(route('project.list'));
     }
 
     /**
@@ -91,11 +91,11 @@ class OurServicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(OurServicesRequest $request, $id)
+    public function update(ProjectsRequest $request, $id)
     {
-        $service = $this->service->saveOrUpdateDetails($request, $id);
-        if ($service) {
-            return redirect(route('service.edit',['service' => $service]))->with('success', 'Service has been updated successfully!');
+        $project = $this->service->saveOrUpdateDetails($request, $id);
+        if ($project) {
+            return redirect(route('project.edit',['project' => $project]))->with('success', 'Project has been modified successfully!');
         }
 
         return back()->withInput();
@@ -112,11 +112,11 @@ class OurServicesController extends Controller
         if(!empty($id)) {
             $deleted = $this->service->deleteById($id);
             if($deleted) {
-                return redirect(route('service.list'))->with('success', 'Service deleted successfully!');
+                return redirect(route('project.list'))->with('success', 'Project has been deleted successfully!');
             }
         }
         
-        return redirect(route('service.list'))->with('error', 'Oops something went wrong !');
+        return redirect(route('project.list'))->with('error', 'Oops something went wrong !');
     }
 
 }
