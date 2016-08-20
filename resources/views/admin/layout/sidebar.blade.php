@@ -62,11 +62,22 @@
                         <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Create New Office
                     </a>
                 </li>
+                <li>
+                    <a href="{{route('office.images')}}">
+                        <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Add Office Images
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('office.images.show')}}">
+                        <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Show Office Images
+                    </a>
+                </li>
             </ul>
         </li>
         <li class="parent ">
             <a href="javascript:void(0);">
-                <span data-toggle="collapse" href="#project"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Projects
+                <span data-toggle="collapse" href="#project"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span>
+                Projects
             </a>
             <ul class="children collapse" id="project">
                 <li>
@@ -79,7 +90,17 @@
                 </li>
             </ul>     
         </li>
-<!--        
+        <li id="inquiry">
+            <a href="{{route('inquiry.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-down"></use></svg></span>
+                Manage Inquiries
+            </a>
+        </li>
+        <li id="seo">
+            <a href="{{route('admin.seo')}}">
+                <span data-toggle="collapse" ><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-down"></use></svg></span> SEO Management
+            </a>
+        </li>
+<!--
         <li><a href="widgets.html"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Widgets</a></li>
         <li><a href="charts.html"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> Charts</a></li>
         <li><a href="tables.html"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg> Tables</a></li>

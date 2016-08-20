@@ -58,9 +58,13 @@
                             <div class="form-group  meta">
                                 <label>Image</label>
                                 <input type="file" name="image" id="image" accept="image/*" />
+                                <input type="hidden" name="mediatype" id="mediatype" value="image" />
+                                <input type="hidden" name="fileName" id="fileName" value="" />
                                 <span class="alert-danger">{{$errors->first('image')}}</span>
                             </div>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <div id="uploadwrapper"></div>
+                            <br/>
                             <div class="form-group">
                                 <a href="{{route('menu.list')}}" class="btn btn-default">Cancel</a>
                                 <button name="submit" type="reset" class="btn btn-info">Reset</button>

@@ -4,7 +4,7 @@
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="{{route('admin.dashboard')}}"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-            <li ><a href="{{route('project.list')}}">projects</a></li>
+            <li ><a href="{{route('project.list')}}">Projects</a></li>
             <li class="active">Project Details</li>
         </ol>
     </div><!--/.row-->
@@ -38,6 +38,10 @@
                         <div class="form-group">
                             <label>Description</label>
                             <div>{{$project->description}}</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Image</label><br/>
+                            <img src="{{asset('uploads/project')}}/{{$project->image}}" width="100px" height="100px" title="{{$project->title}}"/>
                         </div>
                     </div>
                 </div>

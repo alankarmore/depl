@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('file/temp/upload', array('as' => 'file.temp.upload', 'uses' => 'Controller@uploadToTemp'));
+Route::post('file/temp/remove', array('as' => 'file.temp.remove', 'uses' => 'Controller@removeTempImage'));
+
 Route::get('admin/login', ['as' => 'admin.login', 'uses' => 'Admin\AuthController@getLogin']);
 Route::post('admin/login', ['as' => 'admin.login', 'uses' => 'Admin\AuthController@postLogin']);
 Route::group(['prefix' => 'admin/', 'middleware' => ['web']], function() {
@@ -55,6 +58,10 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['web']], function() {
     Route::post('office/update/{id}', ['as' => 'office.update', 'uses' => 'Admin\OurOfficesController@update']);
     Route::get('office/show/{id}', ['as' => 'office.show', 'uses' => 'Admin\OurOfficesController@show']);
     Route::get('office/destroy/{id}', ['as' => 'office.destroy', 'uses' => 'Admin\OurOfficesController@destroy']);
+    Route::get('office/add/images', ['as' => 'office.images', 'uses' => 'Admin\OurOfficesController@addImages']);
+    Route::post('office/add/images', ['as' => 'office.save.images', 'uses' => 'Admin\OurOfficesController@saveOfficeImages']);
+    Route::get('office/images/show', ['as' => 'office.images.show', 'uses' => 'Admin\OurOfficesController@showOfficeImages']);
+    Route::post('office/images/remove', ['as' => 'office.images.remove', 'uses' => 'Admin\OurOfficesController@removeOfficeImage']);
 
     Route::get('project/list', ['as' => 'project.list', 'uses' => 'Admin\ProjectsController@index']);
     Route::post('project/list', ['as' => 'project.list', 'uses' => 'Admin\ProjectsController@getData']);
@@ -64,7 +71,16 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['web']], function() {
     Route::post('project/update/{id}', ['as' => 'project.update', 'uses' => 'Admin\ProjectsController@update']);
     Route::get('project/show/{id}', ['as' => 'project.show', 'uses' => 'Admin\ProjectsController@show']);
     Route::get('project/destroy/{id}', ['as' => 'project.destroy', 'uses' => 'Admin\ProjectsController@destroy']);
-    
+
+    Route::get('inquiry/list', ['as' => 'inquiry.list', 'uses' => 'Admin\InquiriesController@index']);
+    Route::post('inquiry/list', ['as' => 'inquiry.list', 'uses' => 'Admin\InquiriesController@getData']);
+    Route::get('inquiry/show/{id}', ['as' => 'inquiry.show', 'uses' => 'Admin\InquiriesController@show']);
+    Route::get('inquiry/destroy/{id}', ['as' => 'inquiry.destroy', 'uses' => 'Admin\InquiriesController@destroy']);
+
+
+    Route::get('seo', ['as' => 'admin.seo', 'uses' => 'Admin\SEOManagementController@edit']);
+    Route::post('seo/update/{id}', ['as' => 'admin.seo.update', 'uses' => 'Admin\SEOManagementController@update']);
+
     Route::post('change/status', ['as' => 'change.status', 'uses' => 'Controller@changeStatus']);
     Route::get('admin/logout', ['as' => 'admin.logout', 'uses' => 'Admin\AuthController@logout']);
 });

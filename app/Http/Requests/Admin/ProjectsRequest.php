@@ -30,7 +30,7 @@ class ProjectsRequest extends Request
             'description' => 'required',
             'state' => 'required|alpha',
             'company' => 'required|alpha',
-            'image' => 'mimes:jpeg,jpg,png,bmp',
+            //'image' => 'mimes:jpeg,jpg,png,bmp',
             //'length' => 'alpha_num'
         ];
     }
@@ -44,14 +44,14 @@ class ProjectsRequest extends Request
     {
         return [
             'title.required' => 'Project title is missing',
-            'title.alpha_num' => 'Title must be alpha numberic. Special characters are not allowed',
-            'project_type.alpha_num' => 'Project type must be alpha numberic. Special characters are not allowed',
+            'title.alpha_num' => 'Title must be alpha numeric. Special characters are not allowed',
+            'project_type.alpha_num' => 'Project type must be alpha numeric. Special characters are not allowed',
             'description.required' => 'Project description is missing',
             'state.required' => 'State is missing',
-            'company.required' => 'Comapny name is missing',
-            'company.alpha_num' => 'Comapny name must be alpha numeric. Special characters are not allowed',
+            'company.required' => 'Company name is missing',
+            'company.alpha_num' => 'Company name must be alpha numeric. Special characters are not allowed',
             'image.mimes' => 'Image must be of type jpeg,jpg,png,bmp',
-            'length.alpha_num' => 'Lenght must be of type alpah numeric. Special characters are not allowed'
+            'length.alpha_num' => 'Length must be of type alpha numeric. Special characters are not allowed'
         ];
     }
 

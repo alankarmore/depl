@@ -73,7 +73,7 @@ class CMSMenuService extends BaseService
      * Get menu details according to the id 
      * 
      * @param integer $id
-     * @return App\CMSMenu
+     * @return \App\CMSMenu
      */
     public function getDetailsById($id)
     {
@@ -85,7 +85,7 @@ class CMSMenuService extends BaseService
      * 
      * @param App\Http\Requests\Admin\CMSMenuRequest $request
      * @param integer $id
-     * @return App\CMSMenu
+     * @return \App\CMSMenu
      */
     public function saveOrUpdateDetails($request, $id = null)
     {
@@ -105,7 +105,10 @@ class CMSMenuService extends BaseService
         $menu->meta_title = trim($request->get('meta_title'));
         $menu->meta_keyword = trim($request->get('meta_keyword'));
         $menu->meta_description = trim($request->get('meta_description'));
-        $menu->image = 'test.png';        
+
+        $fileName = !empty($id) ? $menu->image : null;
+        $file = trim($request->get('fileName'));
+        $menu->image = $this->uploadFile($file,'cms',$fileName);
         $menu->save();
 
         return $menu;

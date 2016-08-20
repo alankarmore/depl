@@ -4,6 +4,7 @@ namespace App\Http\Services\Admin;
 
 use URL;
 use App\OurOffice;
+use App\OfficeImage;
 use Illuminate\Http\Request;
 use App\Http\Services\BaseService;
 
@@ -12,7 +13,7 @@ class OurOfficesService extends BaseService
 
     /**
      * Get all menus
-     * 
+     *
      * @param Request $request
      * @return json
      */
@@ -21,15 +22,16 @@ class OurOfficesService extends BaseService
         $response = array('total' => 0, 'rows' => '');
         $allOffices = OurOffice::select(\DB::raw('COUNT(*) as cnt'))->first();
         $response['total'] = $allOffices->cnt;
-        $query = OurOffice::select('id', 'state', 'city', 'type', 'address', 'pincode', 'phone', 'fax', 'status');
-        if (!empty($request->get('search'))) {
+        $query = OurOffice::select('id', 'state', 'city', 'type', 'address', 'pincode');
+        $search = $request->get('search');
+        if (!empty($search)) {
             $query->where('address', 'LIKE', '%' . $request->get('search') . '%');
         }
 
         $offices = $query->orderBy($request->get('sort'), $request->get('order'))
-                ->skip($request->get('offset'))->take($request->get('limit'))
-                ->get();
-        if (!empty($request->get('search'))) {
+            ->skip($request->get('offset'))->take($request->get('limit'))
+            ->get();
+        if (!empty($search)) {
             $response['total'] = $offices->count();
         }
 
@@ -52,10 +54,10 @@ class OurOfficesService extends BaseService
     }
 
     /**
-     * Get menu details according to the id 
-     * 
+     * Get menu details according to the id
+     *
      * @param integer $id
-     * @return App\OurOffice
+     * @return \App\OurOffice
      */
     public function getDetailsById($id)
     {
@@ -63,11 +65,11 @@ class OurOfficesService extends BaseService
     }
 
     /**
-     * Update record details according to the id 
-     * 
+     * Update record details according to the id
+     *
      * @param App\Http\Requests\Admin\OurOfficeRequest $request
      * @param integer $id
-     * @return App\OurOffice
+     * @return \App\OurOffice
      */
     public function saveOrUpdateDetails($request, $id = null)
     {
@@ -80,6 +82,7 @@ class OurOfficesService extends BaseService
             $office->created_at = date("Y-m-d H:i:s");
         }
 
+        $office->title = trim($request->get('title'));
         $office->type = trim($request->get('type'));
         $office->state = trim($request->get('state'));
         $office->city = trim($request->get('city'));
@@ -93,8 +96,8 @@ class OurOfficesService extends BaseService
     }
 
     /**
-     * Deleting menu according to the menu id 
-     * 
+     * Deleting menu according to the menu id
+     *
      * @param integer $id
      * @return boolean
      */
@@ -103,6 +106,76 @@ class OurOfficesService extends BaseService
         $office = $this->getDetailsById($id);
         if ($office) {
             return $office->delete();
+        }
+
+        return false;
+    }
+
+
+    /**
+     * Getting all added offices.
+     *
+     * @return collection OurOffice
+     */
+    public function getOffices()
+    {
+        return OurOffice::select('id', 'title')->orderBy('title', 'ASC')->get();
+    }
+
+    /**
+     * Uploading and saving office images in the database
+     *
+     * @param Request $request
+     * @return bool
+     */
+    public function uploadAndSaveOfficeImages(Request $request)
+    {
+        $office = $request->get('office');
+        $fileNames = $request->get('fileName');
+        if (!empty($office) && !empty($fileNames)) {
+            $files = explode(",", $fileNames);
+            foreach ($files as $file) {
+                $uploadedFile = $this->uploadFile($file, 'office');
+                if (!empty($uploadedFile)) {
+                    $officeImage = new OfficeImage();
+                    $officeImage->offices_id = $office;
+                    $officeImage->image = $uploadedFile;
+                    $officeImage->save();
+                }
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get all office images
+     *
+     * @return collection OfficeImage
+     */
+    public function getOfficeImages()
+    {
+        return OfficeImage::orderBy('id','desc')->get();
+    }
+
+    /**
+     * Removing office image according to the id and removing image from folder.
+     *
+     * @param $id
+     * @return bool
+     */
+    public function removeOfficeImage($id)
+    {
+        $officeImage = OfficeImage::find($id);
+        if(!empty($officeImage)){
+            $filePath = public_path('uploads/office/').$officeImage->image;
+            if(file_exists($filePath)) {
+                unlink($filePath);
+                $officeImage->delete();
+                return true;
+            }
         }
 
         return false;

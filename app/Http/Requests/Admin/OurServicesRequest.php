@@ -27,12 +27,12 @@ class OurServicesRequest extends Request
         $rules = [
             'title' => 'required|max:150',
             'description' => 'required',
-            'image' => 'required|mimes:jpeg,jpg,png',
+//            'image' => 'required|mimes:jpeg,jpg,png',
         ];
 
-        if (!empty($this->id)) {
-            $rules['image'] = 'mimes:jpeg,jpg,png';
-        }
+//        if (!empty($this->id)) {
+//            $rules['image'] = 'mimes:jpeg,jpg,png';
+//        }
         
         return $rules;
     }

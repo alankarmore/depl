@@ -23,6 +23,11 @@
                         <form role="form" name="frmOffice" id='frmOffice' action="{{route('office.save')}}" method="POST">
                             <div class="form-group">
                                 <label>Title</label>
+                                <input class="form-control" placeholder="Office Title" name="title" id="title" value="{{old('title')?old('title'):''}}">
+                                <span class="alert-danger">{{$errors->first('title')}}</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Type</label>
                                 <select name="type" id="type" class="form-control">
                                     <option value="0">Select Option</option>
                                     <option value="1">Head Office</option>

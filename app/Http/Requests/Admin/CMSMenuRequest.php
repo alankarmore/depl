@@ -27,7 +27,7 @@ class CMSMenuRequest extends Request
         $rules = [
             'title' => 'required|max:150',
             'description' => 'required',
-            'image' => 'required|mimes:jpeg,jpg,png',
+            //'image' => 'required|mimes:jpeg,jpg,png',
         ];
 
         if($this->include_in <= 0) {
@@ -36,9 +36,9 @@ class CMSMenuRequest extends Request
             $rules['meta_description'] = 'sometimes|required|max:255';
         }
 
-        if (!empty($this->id)) {
-            $rules['image'] = 'mimes:jpeg,jpg,png';
-        }
+//        if (!empty($this->id)) {
+//            $rules['image'] = 'mimes:jpeg,jpg,png';
+//        }
         
         return $rules;
     }

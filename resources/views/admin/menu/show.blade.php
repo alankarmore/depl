@@ -21,7 +21,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Included In</label>
-                            <div>{{($menu->includedIn->title)?$menu->includedIn->title:'Nothing'}}</div>
+                            <div>{{(!empty($menu->includedIn->title))?$menu->includedIn->title:'Nothing'}}</div>
                         </div>
                         <div class="form-group">
                             <label>Description</label>
@@ -29,7 +29,7 @@
                         </div>
                         <div class="form-group">
                             <label>Image</label><br/>
-                            <img src="{{asset('uploads/menu/')}}{{$menu->image_name}}" width="100px" height="100px" title="{{$menu->title}}"/>
+                            <img src="{{asset('uploads/cms')}}/{{$menu->image}}" width="100px" height="100px" title="{{$menu->title}}"/>
                         </div>
                     </div>
                 </div>

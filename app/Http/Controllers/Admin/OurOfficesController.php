@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\OurOfficesRequest;
 use App\Http\Services\Admin\OurOfficesService;
@@ -17,7 +18,7 @@ class OurOfficesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function index()
     {
@@ -27,7 +28,7 @@ class OurOfficesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function create()
     {
@@ -37,8 +38,8 @@ class OurOfficesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  OurOfficesRequest  $request
+     * @return \Illuminate\Http\Redirect
      */
     public function store(OurOfficesRequest $request)
     {
@@ -54,7 +55,7 @@ class OurOfficesController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Redirect
      */
     public function show($id)
     {
@@ -71,7 +72,7 @@ class OurOfficesController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Redirect
      */
     public function edit($id)
     {
@@ -87,9 +88,9 @@ class OurOfficesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  OurOfficesRequest  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Redirect
      */
     public function update(OurOfficesRequest $request, $id)
     {
@@ -105,18 +106,73 @@ class OurOfficesController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Redirect
      */
     public function destroy($id)
     {
         if(!empty($id)) {
             $deleted = $this->service->deleteById($id);
             if($deleted) {
-                return redirect(route('office.list'))->with('success', 'Office delted successfully!');
+                return redirect(route('office.list'))->with('success', 'Office deleted successfully!');
             }
         }
-        
+
         return redirect(route('office.list'))->with('error', 'Oops something went wrong !');
+    }
+
+    /**
+     * Adding images for office.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function addImages()
+    {
+        $offices = $this->service->getOffices();
+
+        return view('admin.office.addimages',['offices' => $offices]);
+    }
+
+    /**
+     * Saving office images
+     *
+     * @param Request $request
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
+    public function saveOfficeImages(Request $request)
+    {
+        $saved = $this->service->uploadAndSaveOfficeImages($request);
+        if($saved) {
+            return redirect(route('office.images.show'))->with('success', 'Office Images has been added successfully!');
+        }
+
+        return back()->withInput();
+    }
+
+    /**
+     * Showing added office images
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showOfficeImages()
+    {
+        $officeImages = $this->service->getOfficeImages();
+
+        return view('admin.office.showimages',['officeImages' => $officeImages]);
+    }
+
+    /**
+     * Removing office images according to the id
+     *
+     * @param Request $request
+     * @return json
+     */
+    public function removeOfficeImage(Request $request)
+    {
+        $response = array('valid' => false);
+        $id = $request->get('id');
+        $response['valid'] = $this->service->removeOfficeImage($id);
+
+        return json_encode($response);
     }
 
 }

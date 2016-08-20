@@ -83,7 +83,9 @@ class OurServicesService extends BaseService
         $service->title = trim($request->get('title'));
         $service->slug = strtolower(str_replace(' ', '-', $service->title));
         $service->description = trim($request->get('description'));
-        $service->image = 'test.png';
+        $fileName = !empty($id) ? $service->image : null;
+        $file = trim($request->get('fileName'));
+        $service->image = $this->uploadFile($file,'service',$fileName);
         $service->save();
 
         return $service;

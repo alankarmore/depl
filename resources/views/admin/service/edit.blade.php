@@ -31,13 +31,15 @@
                                 <textarea class="form-control" rows="10" name="description" id="description" placeholder="Service Description">{{$service->description}}</textarea>
                                 <span class="alert-danger">{{$errors->first('description')}}</span>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="uploadwrapper">
                                 <label>Previous Image</label><br/>
-                                <img src="{{asset('uploads/services/')}}{{$service->image_name}}" width="100px" height="100px" title="{{$service->title}}"/>
+                                <img src="{{asset('uploads/service')}}/{{$service->image}}" width="100px" height="100px" title="{{$service->title}}"/>
                             </div>
                             <div class="form-group">
-                                <label>Image</label>
+                                <label>New Image</label>
                                 <input type="file" name="image" id="image" accept="image/*" />
+                                <input type="hidden" name="mediatype" id="mediatype" value="image" />
+                                <input type="hidden" name="fileName" id="fileName" value="" />
                                 <span class="alert-danger">{{$errors->first('image')}}</span>
                             </div>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">

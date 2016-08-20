@@ -55,13 +55,17 @@
                                 <textarea class="form-control" rows="3" name="meta_description" id="meta_description" placeholder="Meta Description">{{$menu->meta_description}}</textarea>
                                 <span class="alert-danger">{{$errors->first('meta_description')}}</span>
                             </div>                            
-                            <div class="form-group  meta">
+                            <div class="form-group  meta" id="uploadwrapper">
                                 <label>Previous Image</label><br/>
-                                <img src="{{asset('uploads/menu/')}}{{$menu->image_name}}" width="100px" height="100px" title="{{$menu->title}}"/>
+                                <img src="{{asset('uploads/cms')}}/{{$menu->image}}" width="100px" height="100px" title="{{$menu->title}}"/>
+                                <a href="javascript:void(0);" class="removeuploadmedia deleteMedia" data-file="{{$menu->image}}" data-container="cms"><i class="glyphicon glyphicon-remove"></i></a>
                             </div>
+                            <br/>
                             <div class="form-group  meta">
-                                <label>Image</label>
+                                <label>New Image</label>
                                 <input type="file" name="image" id="image" accept="image/*" />
+                                <input type="hidden" name="mediatype" id="mediatype" value="image" />
+                                <input type="hidden" name="fileName" id="fileName" value="" />
                                 <span class="alert-danger">{{$errors->first('image')}}</span>
                             </div>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">

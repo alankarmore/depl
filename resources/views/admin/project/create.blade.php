@@ -55,8 +55,16 @@
                                 <label>Description</label>
                                 <textarea class="form-control" rows="5" name="description" id="description" placeholder="Description For Project">{{old('description')?old('description'):''}}</textarea>
                                 <span class="alert-danger">{{$errors->first('description')}}</span>
-                            </div>                            
+                            </div>
+                            <div class="form-group">
+                                <label>Image</label>
+                                <input type="file" name="image" id="image" accept="image/*" />
+                                <input type="hidden" name="mediatype" id="mediatype" value="image" />
+                                <input type="hidden" name="fileName" id="fileName" value="" />
+                                <span class="alert-danger">{{$errors->first('image')}}</span>
+                            </div>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <div id="uploadwrapper"></div>
                             <div class="form-group">
                                 <a href="{{route('project.list')}}" class="btn btn-default">Cancel</a>
                                 <button name="submit" type="reset" class="btn btn-info">Reset</button>
@@ -70,7 +78,14 @@
     </div><!-- /.row -->
 </div><!--/.main-->
 @section('page-script')
+<link rel="stylesheet" href="{{asset('admin/css/datepicker.css')}}"/>
+<script src="{{asset('admin/js/bootstrap-datepicker.js')}}"></script>
 <script>
+    $(function(){
+        $('#completion_date').datepicker({
+            format:'dd/mm/yyyy'
+        });
+    });
 </script>
 @endsection
 @endsection

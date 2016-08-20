@@ -67,7 +67,7 @@ class ProjectsService extends BaseService
      * 
      * @param App\Http\Requests\Admin\ProjectRequest $request
      * @param integer $id
-     * @return App\Project
+     * @return \App\Project
      */
     public function saveOrUpdateDetails($request, $id = null)
     {
@@ -84,11 +84,13 @@ class ProjectsService extends BaseService
         $project->description = trim($request->get('description'));
         $project->state = trim($request->get('state'));
         $project->company = trim($request->get('company')) ? trim($request->get('company')) : null;
-        $project->image = 'test.jpg';
         $project->project_type = trim($request->get('project_type')) ? trim($request->get('project_type')) : null;
         $project->length = trim($request->get('length')) ? trim($request->get('length')) : null;
         $project->completion_date = trim($request->get('completion_date')) ? date("Y-m-d H:i:s", strtotime(trim($request->get('completion_date')))) : null;
-        $project->created_at = date("Y-m-d H:i:s");
+        $fileName = !empty($id) ? $project->image : null;
+        $file = trim($request->get('fileName'));
+        $project->image = $this->uploadFile($file,'project',$fileName);
+
         $project->save();
 
         return $project;

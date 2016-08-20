@@ -25,7 +25,7 @@
                         </div>
                         <div class="form-group">
                             <label>Image</label><br/>
-                            <img src="{{asset('uploads/services/')}}{{$service->image_name}}" width="100px" height="100px" title="{{$service->title}}"/>
+                            <img src="{{asset('uploads/service')}}/{{$service->image}}" width="100px" height="100px" title="{{$service->title}}"/>
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
 </div><!--/.main-->
 @section('page-script')
 <script>
-activeParentMenu('service');         
+activeParentMenu('services');
 </script>
 @endsection
 @endsection

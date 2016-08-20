@@ -48,14 +48,26 @@
                             </div>
                             <div class="form-group">
                                 <label>Completion Date</label>
-                                <input class="form-control" placeholder="Complettion Date" name="completion_date" id="completion_date" value="{{$project->completion_date}}">
+                                <input class="form-control" placeholder="Complettion Date" name="completion_date" id="completion_date" value="{{date("d/m/Y",strtotime($project->completion_date))}}">
                                 <span class="alert-danger">{{$errors->first('completion_date')}}</span>
                             </div>
                             <div class="form-group">
                                 <label>Description</label>
                                 <textarea class="form-control" rows="5" name="description" id="description" placeholder="Description For Project">{{$project->description}}</textarea>
                                 <span class="alert-danger">{{$errors->first('description')}}</span>
-                            </div>                           
+                            </div>
+                            <div class="form-group" id="uploadwrapper">
+                                <label>Previous Image</label><br/>
+                                <img src="{{asset('uploads/project')}}/{{$project->image}}" width="100px" height="100px" title="{{$project->title}}"/>
+                            </div>
+                            <div class="form-group">
+                                <label>New Image</label>
+                                <input type="file" name="image" id="image" accept="image/*" />
+                                <input type="hidden" name="mediatype" id="mediatype" value="image" />
+                                <input type="hidden" name="fileName" id="fileName" value="" />
+                                <span class="alert-danger">{{$errors->first('image')}}</span>
+                            </div>
+
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="form-group">
                                 <a href="{{route('project.list')}}" class="btn btn-default">Cancel</a>
@@ -69,7 +81,14 @@
     </div><!-- /.row -->
 </div><!--/.main-->
 @section('page-script')
+<link rel="stylesheet" href="{{asset('admin/css/datepicker.css')}}"/>
+<script src="{{asset('admin/js/bootstrap-datepicker.js')}}"></script>
 <script>
+    $(function(){
+        $('#completion_date').datepicker({
+            format:'dd/mm/yyyy'
+        });
+    });
     activeParentMenu('project');
 </script>
 @endsection

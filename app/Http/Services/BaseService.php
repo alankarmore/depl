@@ -4,21 +4,22 @@ namespace App\Http\Services;
 
 use Response;
 use Illuminate\Http\Request;
+use App\Http\Helpers\FileHelper;
 
 abstract class BaseService
 {
 
     /**
-     * Abstract function to display records every service needs to define 
+     * Abstract function to display records every service needs to define
      * its definition
-     * 
+     *
      * @param Illuminate\Http\Request $request
      */
     abstract public function getRecords(Request $request);
 
     /**
      * Changing status of the record according to the previous status
-     * 
+     *
      * @param array $data
      * @return json
      */
@@ -35,7 +36,7 @@ abstract class BaseService
                 if ($record->status) {
                     $response['message'] = "Record has been activated successfully";
                 }
-                
+
                 $response['valid'] = 1;
                 $response['status'] = $record->status;
             }
@@ -44,6 +45,39 @@ abstract class BaseService
         }
 
         return Response::json($response);
+    }
+
+    /**
+     * Uploading file to it's respective folder.
+     *
+     * @param string $tempFileName
+     * @param string $imageContainer
+     * @param string|null $imageName
+     * @return string|bool
+     */
+    public function uploadFile($tempFileName,$imageContainer,$imageName = null)
+    {
+        if(isset($tempFileName) && !empty($tempFileName)) {
+            if(!empty($imageName)) {
+                $previousPath = public_path('uploads/'.$imageContainer.'/' . $imageName);
+                if(file_exists($previousPath)) {
+                    @unlink($previousPath);
+                }
+            }
+
+            $fileHelper = new FileHelper();
+            $tempPath = public_path('uploads/temp/' . $tempFileName);
+            if(file_exists($tempPath)) {
+                $destination = public_path('uploads/'.$imageContainer.'/' . $tempFileName);
+                $fileHelper->moveFile($tempPath, $destination);
+
+                return $tempFileName;
+            }
+
+            return  false;
+        }
+
+        return  false;
     }
 
 }
