@@ -22,14 +22,15 @@ class OurServicesService extends BaseService
         $allMenus = OurService::select(\DB::raw('COUNT(*) as cnt'))->first();
         $response['total'] = $allMenus->cnt;
         $query = OurService::select('id', 'title','status','description','image','status');
-        if (!empty($request->get('search'))) {
+        $search = $request->get('search');
+        if (!empty($search)) {
             $query->where('title', 'LIKE', '%' . $request->get('search') . '%');
         }
 
         $services = $query->orderBy($request->get('sort'), $request->get('order'))
                 ->skip($request->get('offset'))->take($request->get('limit'))
                 ->get();
-        if (!empty($request->get('search'))) {
+        if (!empty($search)) {
             $response['total'] = $services->count();
         }
 
@@ -55,7 +56,7 @@ class OurServicesService extends BaseService
      * Get menu details according to the id 
      * 
      * @param integer $id
-     * @return App\OurService
+     * @return \App\OurService
      */
     public function getDetailsById($id)
     {
@@ -67,7 +68,7 @@ class OurServicesService extends BaseService
      * 
      * @param App\Http\Requests\Admin\OurServiceRequest $request
      * @param integer $id
-     * @return App\OurService
+     * @return \App\OurService
      */
     public function saveOrUpdateDetails($request, $id = null)
     {
@@ -85,7 +86,10 @@ class OurServicesService extends BaseService
         $service->description = trim($request->get('description'));
         $fileName = !empty($id) ? $service->image : null;
         $file = trim($request->get('fileName'));
-        $service->image = $this->uploadFile($file,'service',$fileName);
+        if(!empty($file)) {
+            $service->image = $this->uploadFile($file,'service',$fileName);
+        }
+
         $service->save();
 
         return $service;

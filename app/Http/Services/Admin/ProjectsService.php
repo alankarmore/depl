@@ -22,14 +22,15 @@ class ProjectsService extends BaseService
         $allProjects = Project::select(\DB::raw('COUNT(*) as cnt'))->first();
         $response['total'] = $allProjects->cnt;
         $query = Project::select('id', 'title', 'company', 'state', 'project_type', 'length', 'completion_date');
-        if (!empty($request->get('search'))) {
+        $seach = $request->get('search');
+        if (!empty($seach)) {
             $query->where('title', 'LIKE', '%' . $request->get('search') . '%');
         }
 
         $projects = $query->orderBy($request->get('sort'), $request->get('order'))
                 ->skip($request->get('offset'))->take($request->get('limit'))
                 ->get();
-        if (!empty($request->get('search'))) {
+        if (!empty($seach)) {
             $response['total'] = $projects->count();
         }
 
@@ -55,7 +56,7 @@ class ProjectsService extends BaseService
      * Get menu details according to the id 
      * 
      * @param integer $id
-     * @return App\Project
+     * @return \App\Project
      */
     public function getDetailsById($id)
     {
@@ -89,7 +90,10 @@ class ProjectsService extends BaseService
         $project->completion_date = trim($request->get('completion_date')) ? date("Y-m-d H:i:s", strtotime(trim($request->get('completion_date')))) : null;
         $fileName = !empty($id) ? $project->image : null;
         $file = trim($request->get('fileName'));
-        $project->image = $this->uploadFile($file,'project',$fileName);
+        if(!empty($file)) {
+            $project->image = $this->uploadFile($file,'project',$fileName);
+        }
+
 
         $project->save();
 

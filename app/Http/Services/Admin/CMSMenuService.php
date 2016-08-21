@@ -34,14 +34,15 @@ class CMSMenuService extends BaseService
         $allMenus = CMSMenu::select(\DB::raw('COUNT(*) as cnt'))->first();
         $response['total'] = $allMenus->cnt;
         $query = CMSMenu::select('id', 'title','status','meta_title', 'meta_description','meta_keyword');
-        if (!empty($request->get('search'))) {
+        $search = $request->get('search');
+        if (!empty($search)) {
             $query->where('title', 'LIKE', '%' . $request->get('search') . '%');
         }
 
         $menus = $query->orderBy($request->get('sort'), $request->get('order'))
                 ->skip($request->get('offset'))->take($request->get('limit'))
                 ->get();
-        if (!empty($request->get('search'))) {
+        if (!empty($search)) {
             $response['total'] = $menus->count();
         }
 
@@ -108,7 +109,10 @@ class CMSMenuService extends BaseService
 
         $fileName = !empty($id) ? $menu->image : null;
         $file = trim($request->get('fileName'));
-        $menu->image = $this->uploadFile($file,'cms',$fileName);
+        if(!empty($file)) {
+            $menu->image = $this->uploadFile($file,'cms',$fileName);
+        }
+
         $menu->save();
 
         return $menu;

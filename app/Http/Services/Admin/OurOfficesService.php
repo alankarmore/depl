@@ -22,7 +22,7 @@ class OurOfficesService extends BaseService
         $response = array('total' => 0, 'rows' => '');
         $allOffices = OurOffice::select(\DB::raw('COUNT(*) as cnt'))->first();
         $response['total'] = $allOffices->cnt;
-        $query = OurOffice::select('id', 'state', 'city', 'type', 'address', 'pincode');
+        $query = OurOffice::select('id','title', 'state', 'city', 'type', 'address', 'pincode','status');
         $search = $request->get('search');
         if (!empty($search)) {
             $query->where('address', 'LIKE', '%' . $request->get('search') . '%');
@@ -90,6 +90,14 @@ class OurOfficesService extends BaseService
         $office->pincode = trim($request->get('pincode'));
         $office->phone = $request->get('phone') ? trim($request->get('phone')) : null;
         $office->fax = $request->get('fax') ? trim($request->get('fax')) : null;
+
+        $address = $office->address." ".$office->city." ".$office->state." ".$office->pincode;
+        $latLong = $this->getLatLong($address);
+        if($latLong) {
+            $office->lat = $latLong['latitude'];
+            $office->lng = $latLong['longitude'];
+        }
+
         $office->save();
 
         return $office;
@@ -181,4 +189,31 @@ class OurOfficesService extends BaseService
         return false;
     }
 
+    /**
+     * Get latitude and longitude according to the address
+     *
+     * @param string $address
+     * @return bool
+     */
+    public function getLatLong($address)
+    {
+        if (!empty($address)) {
+            //Formatted address
+            $formattedAddr = str_replace(' ', '+', $address);
+            //Send request and receive json data by address
+            $geocodeFromAddr = file_get_contents('http://maps.googleapis.com/maps/api/geocode/json?address=' . $formattedAddr . '&sensor=false');
+            $output = json_decode($geocodeFromAddr);
+            //Get latitude and longitute from json data
+            $data['latitude'] = $output->results[0]->geometry->location->lat;
+            $data['longitude'] = $output->results[0]->geometry->location->lng;
+            //Return latitude and longitude of the given address
+            if (!empty($data)) {
+                return $data;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }

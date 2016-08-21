@@ -129,39 +129,40 @@ class FileHelper
     }
 
     /**
-     * Crropping image according to the provided image dimensions.
+     * Cropping image according to the given width and height
      *
-     * @param array $imageDimensions
-     * @param string $key
-     * @return string thumbnail image name
+     * @param integer $width
+     * @param integer $height
+     * @param null|string $key
+     * @return string
      */
-    private function _cropImage($imageDimensions, $key)
+    private function _cropImage($width,$height, $key = null)
     {
         $sourceImage = $this->sourceFilepath . $this->sourceFilename;
-        $widthHeight = $imageDimensions[0] . 'X' . $imageDimensions[1];
+        $widthHeight = $width . 'X' . $height;
 
-        $widthAuto = $this->sourceFilepath . 'thumb_width_auto_' . $imageDimensions[0] . '_' . $this->sourceFilename;
+        $widthAuto = $this->sourceFilepath . 'thumb_width_auto_' . $width . '_' . $this->sourceFilename;
         $thumb = $this->destinationPath . $this->sourceFilename;
-        $command = '/usr/bin/convert ' . $sourceImage . ' -resize ' . $imageDimensions[0] . ' x ' . $widthAuto;
+        $command = '/usr/bin/convert ' . $sourceImage . ' -resize ' . $width . ' x ' . $widthAuto;
         if ($key == 'small') {
-            $command = '/usr/bin/convert ' . $sourceImage . ' -resize x' . $imageDimensions[1] . ' ' . $widthAuto;
+            $command = '/usr/bin/convert ' . $sourceImage . ' -resize x' . $height . ' ' . $widthAuto;
         }
         exec($command);
 
         $newImageSize = getimagesize($widthAuto);
 
         if ($key == 'small') {
-            if ($newImageSize[0] >= $imageDimensions[0]) {
-                $ratio = round(($newImageSize[0] - $imageDimensions[0]) / 2);
+            if ($newImageSize[0] >= $width) {
+                $ratio = round(($newImageSize[0] - $width) / 2);
                 // if width >= expected width and height is not maching.
-                $command = '/usr/bin/convert ' . $widthAuto . ' -crop ' . $imageDimensions[0] . 'x' . $imageDimensions[1] . '+' . $ratio . ' ! -quality 100' . ' ' . $thumb;
+                $command = '/usr/bin/convert ' . $widthAuto . ' -crop ' . $width . 'x' . $height . '+' . $ratio . ' ! -quality 100' . ' ' . $thumb;
                 exec($command);
             } else {
                 copy($widthAuto, $thumb);
             }
         } else {
-            if ($newImageSize[1] >= $imageDimensions[1]) {
-                $ratio = round(($newImageSize[1] - $imageDimensions[1]) / 2);
+            if ($newImageSize[1] >= $height) {
+                $ratio = round(($newImageSize[1] - $height) / 2);
                 // if width >= expected width and height is not maching.
                 $command = '/usr/bin/convert ' . $widthAuto . ' -shave 0x' . $ratio . ' -quality 100' . ' ' . $thumb;
                 exec($command);
@@ -178,11 +179,12 @@ class FileHelper
     /**
      * Resizing image as per the given image ratios.
      *
-     * @param string $entityName
+     * @param integer $width
+     * @param integer $height
      * @param boolean $checkDir
      * @return string
      */
-    public function resizeImage($entityName, $checkDir = false)
+    public function resizeImage($width,$height,$checkDir = false)
     {
         $sourceImage = $this->sourceFilepath . $this->sourceFilename;
         if ($checkDir) {
@@ -193,7 +195,18 @@ class FileHelper
         }
 
         $originalImageSize = getimagesize($sourceImage);
-        foreach ($this->$entityName as $key => $dimension) {
+        if ($originalImageSize[0] >= $width || $originalImageSize[1] >= $height) {
+            $thumbnail = $this->_cropImage($width,$height);
+            if (!empty($thumbnail)) {
+                return $thumbnail;
+            } else {
+                copy($sourceImage, $this->destinationPath . $this->sourceFilename);
+            }
+        } else {
+            copy($sourceImage, $this->destinationPath . $this->sourceFilename);
+        }
+
+        /*foreach ($this->$entityName as $key => $dimension) {
             foreach ($dimension as $value) {
                 $imageDimensions = explode("X", $value);
                 if ($originalImageSize[0] >= $imageDimensions[0] || $originalImageSize[1] >= $imageDimensions[1]) {
@@ -207,7 +220,7 @@ class FileHelper
                     copy($sourceImage, $this->destinationPath . $this->sourceFilename);
                 }
             }
-        }
+        }*/
 
         return $this->sourceFilename;
         //rename($sourceImage, $this->destinationPath . $this->sourceFilename);

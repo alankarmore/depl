@@ -11,9 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',array('as' => '/', 'uses' => 'HomeController@index'));
+Route::get('/image/{folder}/{width}/{height}/{file}', array('as' => 'getimage', 'uses' => 'Controller@getImage'));
+Route::get('/services',array('as' => 'services', 'uses' => 'ServicesController@index'));
+Route::get('/services/{name}',array('as' => 'service-details', 'uses' => 'ServicesController@getDetails'));
+Route::get('/contact-us',array('as' => 'contactus', 'uses' => 'HomeController@contactus'));
+
 
 Route::post('file/temp/upload', array('as' => 'file.temp.upload', 'uses' => 'Controller@uploadToTemp'));
 Route::post('file/temp/remove', array('as' => 'file.temp.remove', 'uses' => 'Controller@removeTempImage'));
@@ -49,7 +52,7 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['web']], function() {
     Route::post('workflow/update/{id}', ['as' => 'workflow.update', 'uses' => 'Admin\WorkFlowController@update']);
     Route::get('workflow/show/{id}', ['as' => 'workflow.show', 'uses' => 'Admin\WorkFlowController@show']);
     Route::get('workflow/destroy/{id}', ['as' => 'workflow.destroy', 'uses' => 'Admin\WorkFlowController@destroy']);
-    
+
     Route::get('office/list', ['as' => 'office.list', 'uses' => 'Admin\OurOfficesController@index']);
     Route::post('office/list', ['as' => 'office.list', 'uses' => 'Admin\OurOfficesController@getData']);
     Route::get('office/create', ['as' => 'office.create', 'uses' => 'Admin\OurOfficesController@create']);
@@ -89,3 +92,5 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['web']], function() {
     Route::post('change/status', ['as' => 'change.status', 'uses' => 'Controller@changeStatus']);
     Route::get('admin/logout', ['as' => 'admin.logout', 'uses' => 'Admin\AuthController@logout']);
 });
+
+Route::get('/{pageName}',array('as' => 'page-content', 'uses' => 'HomeController@getPage'));

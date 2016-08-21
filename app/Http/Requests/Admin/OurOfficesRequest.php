@@ -30,7 +30,7 @@ class OurOfficesRequest extends Request
             'city' => 'required|alpha',
             'address' => 'required',
             'pincode' => 'required',
-            'phone' => 'required|min:10|max:15',
+            'phone' => 'min:10|max:15',
             'fax' => 'min:10|max:15'
         ];
     }

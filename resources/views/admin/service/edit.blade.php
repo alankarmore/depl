@@ -31,10 +31,12 @@
                                 <textarea class="form-control" rows="10" name="description" id="description" placeholder="Service Description">{{$service->description}}</textarea>
                                 <span class="alert-danger">{{$errors->first('description')}}</span>
                             </div>
+                            @if(!empty($service->image))
                             <div class="form-group" id="uploadwrapper">
                                 <label>Previous Image</label><br/>
                                 <img src="{{asset('uploads/service')}}/{{$service->image}}" width="100px" height="100px" title="{{$service->title}}"/>
                             </div>
+                            @endif
                             <div class="form-group">
                                 <label>New Image</label>
                                 <input type="file" name="image" id="image" accept="image/*" />
