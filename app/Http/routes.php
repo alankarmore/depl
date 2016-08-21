@@ -77,6 +77,11 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['web']], function() {
     Route::get('inquiry/show/{id}', ['as' => 'inquiry.show', 'uses' => 'Admin\InquiriesController@show']);
     Route::get('inquiry/destroy/{id}', ['as' => 'inquiry.destroy', 'uses' => 'Admin\InquiriesController@destroy']);
 
+    Route::get('config/list', ['as' => 'config.list', 'uses' => 'Admin\SiteConfigurationController@index']);
+    Route::post('config/list', ['as' => 'config.list', 'uses' => 'Admin\SiteConfigurationController@getData']);
+    Route::get('config/edit/{id}', ['as' => 'config.edit', 'uses' => 'Admin\SiteConfigurationController@edit']);
+    Route::post('config/update/{id}', ['as' => 'config.update', 'uses' => 'Admin\SiteConfigurationController@update']);
+    Route::get('config/show/{id}', ['as' => 'config.show', 'uses' => 'Admin\SiteConfigurationController@show']);
 
     Route::get('seo', ['as' => 'admin.seo', 'uses' => 'Admin\SEOManagementController@edit']);
     Route::post('seo/update/{id}', ['as' => 'admin.seo.update', 'uses' => 'Admin\SEOManagementController@update']);

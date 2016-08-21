@@ -51,15 +51,19 @@ abstract class BaseService
      * Uploading file to it's respective folder.
      *
      * @param string $tempFileName
-     * @param string $imageContainer
+     * @param string|null $imageContainer
      * @param string|null $imageName
      * @return string|bool
      */
-    public function uploadFile($tempFileName,$imageContainer,$imageName = null)
+    public function uploadFile($tempFileName,$imageContainer = null,$imageName = null)
     {
         if(isset($tempFileName) && !empty($tempFileName)) {
             if(!empty($imageName)) {
-                $previousPath = public_path('uploads/'.$imageContainer.'/' . $imageName);
+                $previousPath = public_path('uploads/' . $imageName);
+                if(null != $imageContainer) {
+                    $previousPath = public_path('uploads/'.$imageContainer.'/' . $imageName);
+                }
+
                 if(file_exists($previousPath)) {
                     @unlink($previousPath);
                 }
@@ -68,7 +72,11 @@ abstract class BaseService
             $fileHelper = new FileHelper();
             $tempPath = public_path('uploads/temp/' . $tempFileName);
             if(file_exists($tempPath)) {
-                $destination = public_path('uploads/'.$imageContainer.'/' . $tempFileName);
+                $destination = public_path('uploads/'.$tempFileName);
+                if(null != $imageContainer) {
+                    $destination = public_path('uploads/'.$imageContainer.'/' . $tempFileName);
+                }
+
                 $fileHelper->moveFile($tempPath, $destination);
 
                 return $tempFileName;

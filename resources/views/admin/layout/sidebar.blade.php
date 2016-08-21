@@ -90,12 +90,23 @@
                 </li>
             </ul>     
         </li>
-        <li id="inquiry">
+        <li class="parent ">
+            <a href="javascript:void(0);">
+                <span data-toggle="collapse" href="#configuration"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span>
+                Site Configuration
+            </a>
+            <ul class="children collapse" id="config">
+                <li>
+                    <a href="{{route('config.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Configuration</a>
+                </li>
+            </ul>
+        </li>
+        <li class="parent " id="inquiry">
             <a href="{{route('inquiry.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-down"></use></svg></span>
                 Manage Inquiries
             </a>
         </li>
-        <li id="seo">
+        <li class="parent " id="seo">
             <a href="{{route('admin.seo')}}">
                 <span data-toggle="collapse" ><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-down"></use></svg></span> SEO Management
             </a>
