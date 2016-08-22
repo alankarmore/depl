@@ -1,15 +1,15 @@
 <?php
 
 /*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+  |--------------------------------------------------------------------------
+  | Application Routes
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register all of the routes for an application.
+  | It's a breeze. Simply tell Laravel the URIs it should respond to
+  | and give it the controller to call when that URI is requested.
+  |
+ */
 
 Route::get('/',array('as' => '/', 'uses' => 'HomeController@index'));
 Route::get('/image/{folder}/{width}/{height}/{file}', array('as' => 'getimage', 'uses' => 'Controller@getImage'));
@@ -35,6 +35,16 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['web']], function() {
     Route::get('menu/show/{id}', ['as' => 'menu.show', 'uses' => 'Admin\CMSMenuController@show']);
     Route::get('menu/destroy/{id}', ['as' => 'menu.destroy', 'uses' => 'Admin\CMSMenuController@destroy']);
 
+    Route::get('slogan/list', ['as' => 'slogan.list', 'uses' => 'Admin\SloganController@index']);
+    Route::post('slogan/list', ['as' => 'slogan.list', 'uses' => 'Admin\SloganController@getData']);
+    Route::get('slogan/create', ['as' => 'slogan.create', 'uses' => 'Admin\SloganController@create']);
+    Route::post('slogan/save', ['as' => 'slogan.save', 'uses' => 'Admin\SloganController@store']);
+    Route::get('slogan/edit/{id}', ['as' => 'slogan.edit', 'uses' => 'Admin\SloganController@edit']);
+    Route::post('slogan/update/{id}', ['as' => 'slogan.update', 'uses' => 'Admin\SloganController@update']);
+    Route::get('slogan/show/{id}', ['as' => 'slogan.show', 'uses' => 'Admin\SloganController@show']);
+    Route::get('slogan/destroy/{id}', ['as' => 'slogan.destroy', 'uses' => 'Admin\SloganController@destroy']);
+
+    
     Route::get('service/list', ['as' => 'service.list', 'uses' => 'Admin\OurServicesController@index']);
     Route::post('service/list', ['as' => 'service.list', 'uses' => 'Admin\OurServicesController@getData']);
     Route::get('service/create', ['as' => 'service.create', 'uses' => 'Admin\OurServicesController@create']);
@@ -79,6 +89,12 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['web']], function() {
     Route::post('inquiry/list', ['as' => 'inquiry.list', 'uses' => 'Admin\InquiriesController@getData']);
     Route::get('inquiry/show/{id}', ['as' => 'inquiry.show', 'uses' => 'Admin\InquiriesController@show']);
     Route::get('inquiry/destroy/{id}', ['as' => 'inquiry.destroy', 'uses' => 'Admin\InquiriesController@destroy']);
+
+    Route::get('career/list', ['as' => 'career.list', 'uses' => 'Admin\CareersController@index']);
+    Route::post('career/list', ['as' => 'career.list', 'uses' => 'Admin\CareersController@getData']);
+    Route::get('career/show/{id}', ['as' => 'career.show', 'uses' => 'Admin\CareersController@show']);
+    Route::get('career/destroy/{id}', ['as' => 'career.destroy', 'uses' => 'Admin\CareersController@destroy']);
+    Route::get('/resume/{file}', array('as' => 'career.download', 'uses' => 'Admin\CareersController@downloadResume'));
 
     Route::get('config/list', ['as' => 'config.list', 'uses' => 'Admin\SiteConfigurationController@index']);
     Route::post('config/list', ['as' => 'config.list', 'uses' => 'Admin\SiteConfigurationController@getData']);
