@@ -21,6 +21,21 @@
         </li>
         <li class="parent ">
             <a href="javascript:void(0);">
+                <span data-toggle="collapse" href="#menus"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Home Slider Slogans
+            </a>
+            <ul class="children collapse" id="menus">
+                <li>
+                    <a href="{{route('slogans.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Menu Listing</a>
+                </li>
+                <li>
+                    <a href="{{route('slogans.create')}}">
+                        <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Add new Slogan
+                    </a>
+                </li>
+            </ul>            
+        </li>
+        <li class="parent ">
+            <a href="javascript:void(0);">
                 <span data-toggle="collapse" href="#services"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Our Services
             </a>
             <ul class="children collapse" id="services">
@@ -101,14 +116,20 @@
                 </li>
             </ul>
         </li>
+        <form role="separation"></form>
+        <li class="parent " id="career">
+            <a href="{{route('career.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg></span>
+                Careers Request
+            </a>
+        </li>        
         <li class="parent " id="inquiry">
-            <a href="{{route('inquiry.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-down"></use></svg></span>
+            <a href="{{route('inquiry.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg></span>
                 Manage Inquiries
             </a>
         </li>
         <li class="parent " id="seo">
             <a href="{{route('admin.seo')}}">
-                <span data-toggle="collapse" ><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-down"></use></svg></span> SEO Management
+                <span data-toggle="collapse" ><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg></span> SEO Management
             </a>
         </li>
 <!--
