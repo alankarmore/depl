@@ -49,6 +49,7 @@ class HomeController extends Controller
         $offices = $this->service->getAllOffices();
         $officesArray = array();
         foreach($offices as $office) {
+            $office->address = str_replace(array("\r\n","<br/>","<br>"),array(" "),trim($office->address));
             $info = $office->title.'<br/>'.$office->address.',<br/>'.$office->city.',<br/>'.$office->state.',<br/>'.$office->pincode;
             if(!empty($office->phone)) {
                 $info .= "<br/> Phone = ".$office->phone;
@@ -63,7 +64,7 @@ class HomeController extends Controller
                     'lat' => $office->lat,
                     'lng' => $office->lng,
                 ),
-                'location_address' => trim($office->address),
+                'location_address' => $office->address,
                 'location_name'    => $office->title,
                 'info' => $info
             );

@@ -38,13 +38,6 @@
             <div id="navbar" class="navbar-collapse collapse no-padding">
                 <div class="container">
                     <ul id="top-menu" class="nav navbar-nav main-nav menu-scroll">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="{{route('page-content',array('pageName' => 'about-us'))}}">ABOUT US</a></li>
-                        <li><a href="#">Networks</a></li>
-                        <li><a href="{{route('services')}}">SERVICE</a></li>
-                        <li><a href="#">Clients</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="{{route('contactus')}}">CONTACT</a></li>
                     </ul>
                 </div>
             </div><!--/.nav-collapse -->

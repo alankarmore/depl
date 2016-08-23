@@ -70,7 +70,7 @@ class HomeService
      */
     public function getAllOffices()
     {
-        $offices = OurOffice::select('id','title','state','city','address','pincode','phone','fax')
+        $offices = OurOffice::select('id','title','state','city','address','pincode','phone','fax','lat','lng')
             ->where('status','=',\DB::raw(1))
             ->take(5)
             ->get();
