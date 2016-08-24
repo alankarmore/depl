@@ -16,6 +16,9 @@ Route::get('/image/{folder}/{width}/{height}/{file}', array('as' => 'getimage', 
 Route::get('/services',array('as' => 'services', 'uses' => 'ServicesController@index'));
 Route::get('/services/{name}',array('as' => 'service-details', 'uses' => 'ServicesController@getDetails'));
 Route::get('/contact-us',array('as' => 'contactus', 'uses' => 'HomeController@contactus'));
+Route::post('/post/contact',array('as' => 'post-contact', 'uses' => 'HomeController@postContactus'));
+Route::get('/careers',array('as' => 'careers', 'uses' => 'HomeController@careers'));
+Route::post('/post/careers',array('as' => 'post-careers', 'uses' => 'HomeController@postCareers'));
 
 
 Route::post('file/temp/upload', array('as' => 'file.temp.upload', 'uses' => 'Controller@uploadToTemp'));

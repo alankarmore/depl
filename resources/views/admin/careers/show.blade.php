@@ -37,7 +37,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Resume</label>
-                                <div><a href="{{$career->file_name}}">Download Resume</a></div>
+                                <div><a href="{{route('career.download',array('file' => $career->file_name))}}">Download Resume</a></div>
                             </div>
                         </div>
                     </div>

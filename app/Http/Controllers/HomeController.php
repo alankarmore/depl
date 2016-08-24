@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Services\HomeService;
+use App\Http\Requests\ContactRequest;
+use App\Http\Requests\CareersRequest;
 
 class HomeController extends Controller
 {
@@ -21,6 +23,12 @@ class HomeController extends Controller
         return view('index');
     }
 
+    /**
+     * Showing cms content for the page
+     *
+     * @param string $pageName
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
     public function getPage($pageName)
     {
         $pageContent = $this->service->getPageContent($pageName);
@@ -44,6 +52,9 @@ class HomeController extends Controller
         return redirect(route('/'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function contactus()
     {
         $offices = $this->service->getAllOffices();
@@ -71,5 +82,49 @@ class HomeController extends Controller
         }
 
         return view('contact',array('offices' => $offices,'officesArray' => $officesArray));
+    }
+
+    /**
+     * Posting contact information and sending mail to customer and admin team
+     *
+     * @param ContactRequest $request
+     * @return RedirectResponse
+     */
+    public function postContactUs(ContactRequest $request)
+    {
+        $inputData = $request->all();
+        $posted = $this->service->saveInquiry($inputData);
+        if($posted) {
+            return redirect(route('contactus'))->with('success','Thank you for sending message to us. We will get back to you very soon');
+        }
+
+        return redirect()->back()->withInput();
+    }
+
+    /**
+     * Showing careers form to user
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function careers()
+    {
+        return view('careers');
+    }
+
+    /**
+     * Posting careers form and sending mail to admin as well as to customer
+     *
+     * @param CareersRequest $request
+     * @return RedirectResponse
+     */
+    public function postCareers(CareersRequest $request)
+    {
+        $inputData = $request->all();
+        $posted = $this->service->saveCareersRequest($inputData);
+        if($posted) {
+            return redirect(route('careers'))->with('success','Thank you for sending message to us. We will get back to you very soon');
+        }
+
+        return redirect()->back()->withInput();
     }
 }

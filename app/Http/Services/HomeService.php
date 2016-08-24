@@ -2,9 +2,12 @@
 
 namespace App\Http\Services;
 
+use Mail;
+use App\Career;
 use App\OurOffice;
 use App\Project;
 use App\CMSMenu;
+use App\Inquiry;
 
 class HomeService
 {
@@ -79,5 +82,74 @@ class HomeService
         }
 
         return false;
+    }
+
+    /**
+     * Saving inquiry in database and sending mail notification to admin as well as user
+     *
+     * @param array $data
+     * @return bool
+     */
+    public function saveInquiry($data)
+    {
+        $inquiry = new Inquiry();
+        $inquiry->first_name = trim($data['first_name']);
+        $inquiry->last_name = trim($data['last_name']);
+        $inquiry->email = trim($data['email']);
+        $inquiry->subject = trim($data['subject']);
+        $inquiry->message= trim($data['message']);
+
+        $isSaved = $inquiry->save();
+        if($isSaved) {
+            $params = $inquiry;
+            Mail::send('emails.inquiry', ['inquiry' => $inquiry], function ($message) use ($params) {
+                $message->from('alankar.more@gmail.com', 'DEPL Team');
+                $message->to('alankar.more@gmail.com', 'Alankar More')->subject('New inquiry!');
+            });
+
+            Mail::send('emails.customer', ['inquiry' => $inquiry], function ($message) use ($params) {
+                $message->from('alankar.more@gmail.com', 'DEPL Team');
+                $message->to($params->email, ucfirst($params->first_name))->subject('No Reply!. We will get you very soon');
+            });
+        }
+
+        return $isSaved;
+    }
+
+    /**
+     * Saving career request and sending email to admin as well as customer
+     *
+     * @param array $data
+     * @return bool
+     */
+    public function saveCareersRequest($data)
+    {
+        $career = new Career();
+        $career->first_name = trim($data['first_name']);
+        $career->last_name = trim($data['last_name']);
+        $career->email = trim($data['email']);
+        if ($data['file']->isValid()) {
+            $extension =  $data['file']->getClientOriginalExtension();
+            $fileName = time().".".$extension;
+            $data['file']->move(public_path('uploads/resume/'), $fileName);
+            $career->file_name = $fileName;
+        }
+
+        $career->message= trim($data['message']);
+        $isSaved = $career->save();
+        if($isSaved) {
+            $params = $career;
+            Mail::send('emails.career', ['inquiry' => $career], function ($message) use ($params) {
+                $message->from('alankar.more@gmail.com', 'DEPL Team');
+                $message->to('alankar.more@gmail.com', 'Alankar More')->subject('New Career Request!');
+            });
+
+            Mail::send('emails.customer', ['inquiry' => $career], function ($message) use ($params) {
+                $message->from('alankar.more@gmail.com', 'DEPL Team');
+                $message->to($params->email, ucfirst($params->first_name))->subject('No Reply!. We will get you very soon');
+            });
+        }
+
+        return $isSaved;
     }
 }

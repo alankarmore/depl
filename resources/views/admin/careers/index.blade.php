@@ -19,7 +19,6 @@
                                 <th data-field="first_name" data-sortable="true">First Name</th>
                                 <th data-field="last_name" data-sortable="true">Last Name</th>
                                 <th data-field="email" data-sortable="true">Email</th>
-                                <th data-field="subject" data-sortable="true">Subject</th>
                                 <th data-field="message" data-sortable="true">Message</th>
                                 <th data-field="action" data-sortable="false">Action</th>
                             </tr>
@@ -35,7 +34,7 @@
 <script>
 $(function () {
     var route = "{{route('career.list')}}";
-    generateTable("careerTable",route,'subject','ASC');
+    generateTable("careerTable",route,'first_name','ASC');
 });
 </script>
 @endsection

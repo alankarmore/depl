@@ -298,49 +298,4 @@
         </div>
     </section>
     <!-- End news section -->
-    <!-- Start Contact section -->
-    <section id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-sm-12 col-xs-12">
-                    <div class="contact-left wow fadeInLeft">
-                        <h2>Useful Links</h2>
-                        <ul class="footer-links">
-                            <li><a href="#">about us</a></li>
-                            <li><a href="#">Networks</a></li>
-                            <li><a href="#">Services</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-12 col-xs-12">
-                    <div class="contact-left wow fadeInRight">
-                        <h2>SOCIAL NETWORK</h2>
-                        <p>
-                            Follow Us If you want to be kept up to date
-                            about what’s going on, minute by minute,
-                            then search for Grant and give us a follow!
-                        </p>
-                        <ul class="social-links">
-                            <li><a href="#" class="twitter-icon">&nbsp;</a></li>
-                            <li><a href="#" class="facebook-icon">&nbsp;</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-12 col-xs-12">
-                    <div class="contact-left wow fadeInRight">
-                        <h2>Contact Us</h2>
-                        <p>
-                            25, Lorem Lis Street, Orange
-                            California, US
-                            Phone: 800 123 3456 <br>
-                            Fax: 800 123 3456 <br>
-                            Email: info@anybiz.com
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Contact section -->
 @endsection

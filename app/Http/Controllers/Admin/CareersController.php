@@ -60,7 +60,7 @@ class CareersController extends Controller
     }
     
     /**
-     * Download uplaoded resume by the candidate.
+     * Download uploaded resume by the candidate.
      * 
      * @param string $file
      * @return Response

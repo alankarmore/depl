@@ -21,10 +21,10 @@ class CareersService extends BaseService
         $response = array('total' => 0, 'rows' => '');
         $careers = Career::select(\DB::raw('COUNT(*) as cnt'))->first();
         $response['total'] = $careers->cnt;
-        $query = Career::select('id', 'first_name', 'last_name', 'email', 'subject', 'message', 'file_name');
+        $query = Career::select('id', 'first_name', 'last_name', 'email','message', 'file_name');
         $search = $request->get('search');
         if (!empty($search)) {
-            $query->where('subject', 'LIKE', '%' . $request->get('search') . '%');
+            $query->where('first_name', 'LIKE', '%' . $request->get('search') . '%');
         }
 
         $careers = $query->orderBy($request->get('sort'), $request->get('order'))
