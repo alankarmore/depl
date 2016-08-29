@@ -38,7 +38,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Description</label>
-                                <textarea class="form-control" rows="3" name="description" id="description" placeholder="Work Flow Description">{{old('description')?old('description'):''}}</textarea>
+                                <textarea class="form-control" rows="8" name="description" id="description" placeholder="Work Flow Description">{{old('description')?old('description'):''}}</textarea>
                                 <span class="alert-danger">{{$errors->first('description')}}</span>
                             </div>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -55,7 +55,7 @@
     </div><!-- /.row -->
 </div><!--/.main-->
 @section('page-script')
-<script>
-</script>
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script>tinymce.init({ selector:'#description' });</script>
 @endsection
 @endsection

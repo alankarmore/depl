@@ -21,7 +21,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Description</label>
-                            <div>{{$service->description}}</div>
+                            <div>{!! $service->description !!}</div>
                         </div>
                         <div class="form-group">
                             <label>Image</label><br/>

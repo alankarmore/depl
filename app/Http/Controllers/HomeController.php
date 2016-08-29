@@ -20,7 +20,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $services = $this->service->getServices();
+        $whatWeAre = $this->service->getWhatWeAreContent();
+        $aboutUs = $this->service->getPageContent('about-us');
+        $slogans = $this->service->getSlogans();
+
+        return view('index',array('services' => $services,
+            'whatWeAre' => $whatWeAre,
+            'aboutus' => $aboutUs,
+            'slogans' => $slogans));
     }
 
     /**

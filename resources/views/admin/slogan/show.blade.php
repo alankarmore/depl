@@ -4,15 +4,12 @@
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="{{route('admin.dashboard')}}"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-            <li ><a href="{{route('service.list')}}">Work Flows</a></li>
-            <li class="active">Work Flow Details</li>
+            <li ><a href="{{route('slogan.list')}}">Slogan</a></li>
+            <li class="active">Slogan Details</li>
         </ol>
     </div><!--/.row-->
-
     <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">{{ucfirst($workflow->title)}}</h1>
-        </div>
+        <div class="col-lg-12">&nbsp;</div>
     </div><!--/.row-->
     <div class="row">
         <div class="col-lg-12">
@@ -20,12 +17,12 @@
                 <div class="panel-body">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>Service Name</label>
-                            <div>{{ucfirst($workflow->serviceTitle)}}</div>
+                            <label>Main Phrase</label>
+                            <div>{{ ucfirst($slogan->main_phrase)}}</div>
                         </div>
                         <div class="form-group">
-                            <label>Description</label>
-                            <div>{!! $workflow->description !!}</div>
+                            <label>Sub Phrase</label>
+                            <div>{{ $slogan->sub_phrase}}</div>
                         </div>
                     </div>
                 </div>
@@ -35,7 +32,7 @@
 </div><!--/.main-->
 @section('page-script')
 <script>
-    activeParentMenu('workflow'); 
+activeParentMenu('slogans');
 </script>
 @endsection
 @endsection

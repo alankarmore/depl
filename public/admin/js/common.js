@@ -54,7 +54,6 @@ $(function () {
 });
 
 function handelStatusResponse(response, selector, info) {
-    console.log(selector);
     if (response.valid) {
         if (response.status) {
             $("#loader").replaceWith(' <a href="javascript:void(0);" title="Change To Inactive" data-status="' + response.status + '" data-id="' + info.id + '" data-object="' + info.object + '" class="change-status"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a>');
@@ -159,7 +158,7 @@ function activeParentMenu(menu)
 }
 
 $(document).on('click', '.change-status', function (e) {
-    var route = '{{route("change.status")}}';
+    var route = changeStatus;
     var data = {'id': $(this).attr('data-id'), 'object': $(this).attr('data-object'), 'status': $(this).attr('data-status')};
     sendAjaxRequest($(this), route, data, 'POST', 'JSON', 'handelStatusResponse', 1);
 });

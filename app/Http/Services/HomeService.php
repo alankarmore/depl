@@ -2,6 +2,8 @@
 
 namespace App\Http\Services;
 
+use App\OurService;
+use App\Slogan;
 use Mail;
 use App\Career;
 use App\OurOffice;
@@ -67,6 +69,24 @@ class HomeService
     }
 
     /**
+     * Get latest top services for home page
+     *
+     * @return mixed \App\OurService|boolean
+     */
+    public function getServices()
+    {
+        $services = OurService::select('id','title','slug','description','image')
+            ->where('status','=',\DB::raw(1))
+            ->take(4)
+            ->get();
+        if($services->count()) {
+            return $services;
+        }
+
+        return false;
+    }
+
+    /**
      * Get all offices
      *
      * @return OurOffice | bool
@@ -79,6 +99,36 @@ class HomeService
             ->get();
         if($offices->count()) {
             return $offices;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get what we are content for home page
+     *
+     * @return \App\CMSMenu|bool
+     */
+    public function getWhatWeAreContent()
+    {
+        $whatWeAreContent = CMSMenu::select('description')->where('id','=',\DB::raw(5))->first();
+        if($whatWeAreContent->count()) {
+           return $whatWeAreContent;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get slogans for home page slider
+     *
+     * @return mixed App\Slogan|bool
+     */
+    public function getSlogans()
+    {
+        $slogans = Slogan::where('status','=',\DB::raw(1))->get();
+        if($slogans->count()) {
+            return $slogans;
         }
 
         return false;

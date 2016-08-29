@@ -19,21 +19,21 @@
                 </li>
             </ul>            
         </li>
-{{--        <li class="parent ">
+        <li class="parent ">
             <a href="javascript:void(0);">
-                <span data-toggle="collapse" href="#menus"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Home Slider Slogans
+                <span data-toggle="collapse" href="#slogans"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Home Slider Slogans
             </a>
-            <ul class="children collapse" id="menus">
+            <ul class="children collapse" id="slogans">
                 <li>
-                    <a href="{{route('slogans.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Menu Listing</a>
+                    <a href="{{route('slogan.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Slogan Listing</a>
                 </li>
                 <li>
-                    <a href="{{route('slogans.create')}}">
+                    <a href="{{route('slogan.create')}}">
                         <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Add new Slogan
                     </a>
                 </li>
             </ul>            
-        </li>--}}
+        </li>
         <li class="parent ">
             <a href="javascript:void(0);">
                 <span data-toggle="collapse" href="#services"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Our Services
@@ -59,8 +59,7 @@
                 </li>
                 <li>
                     <a href="{{route('workflow.create')}}">
-                        <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Create New Work Flow
-                    </a>
+                        <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> New Work Flow</a>
                 </li>
             </ul>
         </li>

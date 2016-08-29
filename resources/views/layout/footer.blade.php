@@ -6,10 +6,10 @@
                 <div class="contact-left wow fadeInLeft">
                     <h2>Useful Links</h2>
                     <ul class="footer-links">
-                        <li><a href="#">about us</a></li>
-                        <li><a href="#">Networks</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="{{route('page-content',array('pageName' => 'about-us'))}}">about us</a></li>
+                        {{--<li><a href="#">Networks</a></li>--}}
+                        <li><a href="{{route('services')}}">Services</a></li>
+                        <li><a href="{{route('contactus')}}">Contact</a></li>
                     </ul>
                 </div>
             </div>
@@ -30,13 +30,7 @@
             <div class="col-md-4 col-sm-12 col-xs-12">
                 <div class="contact-left wow fadeInRight">
                     <h2>Contact Us</h2>
-                    <p>
-                        25, Lorem Lis Street, Orange
-                        California, US
-                        Phone: 800 123 3456 <br>
-                        Fax: 800 123 3456 <br>
-                        Email: info@anybiz.com
-                    </p>
+                    <p>{!! $siteConfig['SITE_ADDRESS']!!}</p>
                 </div>
             </div>
         </div>
@@ -51,7 +45,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="footer-top-area">
-                        <a class="footer-logo" href="#"><img src="{{asset('uploads/logo.png')}}" alt="Logo"></a>
+                        <a class="footer-logo" href="{{route('/')}}"><img src="{{asset('uploads')}}/{{$siteConfig['SITE_LOGO']}}" alt="{{$siteConfig['SITE_NAME']}}"></a>
                         <div class="footer-social">
                             <a class="facebook" href="#"><span class="fa fa-facebook"></span></a>
                             <a class="twitter" href="#"><span class="fa fa-twitter"></span></a>
@@ -66,7 +60,7 @@
         </div>
     </div>
     <div class="footer-bottom">
-        <p>Copyright &copy; Dinesh Engineers Pvt. Ltd. All rights reserved.</p>
+        <p>{!! $siteConfig['COPYRIGHT_MESSAGE'] !!}.</p>
     </div>
 </footer>
 <!-- End Footer -->

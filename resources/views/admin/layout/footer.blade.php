@@ -9,5 +9,6 @@
     var fileTempUpload = '{{route("file.temp.upload")}}';
     var removeRoute = '{{route("file.temp.remove")}}';
     var tempPath = '{{asset("uploads/temp")}}/';
+    var changeStatus = '{{route("change.status")}}';
 </script>
 <script src="{{asset('admin/js/common.js')}}"></script>

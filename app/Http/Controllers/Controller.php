@@ -40,7 +40,7 @@ class Controller extends BaseController
                 }
             }
 
-            Cache::put('siteConfig',$configArray);
+            Cache::put('siteConfig',$configArray,60);
         } else {
             $configArray = Cache::get('siteConfig');
         }

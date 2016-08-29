@@ -2,46 +2,27 @@
 @section('content')
     <!-- Start banner section -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        @if($slogans)
         <!-- Indicators -->
         <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-            <li data-target="#myCarousel" data-slide-to="3"></li>
+            @foreach($slogans as $key => $slogan)
+            <li data-target="#myCarousel" data-slide-to="{{$key}}" class="@if(0 == $key) active @endif"></li>
+            @endforeach
         </ol>
-
+        @endif
+        @if($slogans)
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
-
-            <div class="item active">
+            @foreach($slogans as $key => $slogan)
+            <div class="item @if(0 == $key) active @endif">
                 <div class="carousel-caption">
-                    <h3>SMART CITIES</h3>
-                    <p>Integrated Solutions for Efficient Cities</p>
+                    <h3>{{strtoupper($slogan->main_phrase)}}</h3>
+                    <p>{{ucwords($slogan->sub_phrase)}}</p>
                 </div>
             </div>
-
-            <div class="item">
-                <div class="carousel-caption">
-                    <h3>SMART CITIES</h3>
-                    <p>Integrated Solutions for Efficient Cities</p>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="carousel-caption">
-                    <h3>SMART CITIES</h3>
-                    <p>Integrated Solutions for Efficient Cities</p>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="carousel-caption">
-                    <h3>SMART CITIES</h3>
-                    <p>Integrated Solutions for Efficient Cities</p>
-                </div>
-            </div>
-
+            @endforeach
         </div>
+        @endif
 
     </div>
     <!-- End banner section -->
@@ -126,15 +107,7 @@
                 <div class="about-to-content wow fadeInUp">
                     <h2>Find More About Us</h2>
                     <div class="green-sep"></div>
-                    <p>Dinesh Engineers Pvt. Ltd. is one of the Premier Telecom Turnkey Project Management Company, which stands at par with other leading Telecom Service Providers.
-                        It has been a saga of commitment to quality, sheer hard work and customer orientation that has helped Dinesh Engineers Pvt. Ltd. to achieve today's position.
-                        A strong customer-focused approach and constant quest for highest quality have enabled the Company to attain and sustain the growth for nearly Twenty years.
-                    </p>
-                    <p>
-                        Dinesh Engineers Pvt. Ltd is also a registered Infrastructure Provider (IP-1) with Government Of India, Ministry of Communications & IT , Department of Telecommunications,
-                        to establish and maintain the assets such as Dark Fibers, Right of Way, Duct Space for the purpose to grant on Lease/Rent/Sale basis to the Licensees of
-                        Telecom Services, on mutually agreed terms and conditions.</p>
-
+                    {!! substr($aboutus->description,0,1000) !!}...
                 </div>
             </div>
         </div>
@@ -142,6 +115,7 @@
     <!-- End About Us action -->
 
     <!-- Start Services action -->
+    @if($services)
     <section id="our-services">
         <div class="container-fluid no-padding">
             <div class="row">
@@ -153,54 +127,16 @@
                         </div>
                         <!-- Start team content -->
                         <ul class="services">
-                            <li class="all-services wow fadeInUp">
-                                <div>
-                                    <img src="{{asset('assets/images/services-5.jpg')}}">
-                                    <div class="service-head">Telecom Infrastructure</div>
-                                    <p>
-                                        Sed feugiat porttitor nunc, non dignissim
-                                        ipsum vestibulum in. Donec in blandit dolor.
-                                        Vivamus a fringilla lorem
-                                    </p>
-                                    <div align="center"><a href="#" class="learn-more">Learn more</a></div>
-                                </div>
-                            </li>
-                            <li class="all-services wow fadeInUp">
-                                <div>
-                                    <img src="{{asset('assets/images/services-6.jpg')}}">
-                                    <div class="service-head">Fiber Network</div>
-                                    <p>
-                                        Sed feugiat porttitor nunc, non dignissim
-                                        ipsum vestibulum in. Donec in blandit dolor.
-                                        Vivamus a fringilla lorem
-                                    </p>
-                                    <div align="center"><a href="#" class="learn-more">Learn more</a></div>
-                                </div>
-                            </li>
-                            <li class="all-services wow fadeInUp">
-                                <div>
-                                    <img src="{{asset('assets/images/services-7.jpg')}}">
-                                    <div class="service-head">Infrastructure Maintenance</div>
-                                    <p>
-                                        Sed feugiat porttitor nunc, non dignissim
-                                        ipsum vestibulum in. Donec in blandit dolor.
-                                        Vivamus a fringilla lorem
-                                    </p>
-                                    <div align="center"><a href="#" class="learn-more">Learn more</a></div>
-                                </div>
-                            </li>
-                            <li class="all-services wow fadeInUp">
-                                <div>
-                                    <img src="{{asset('assets/images/services-8.jpg')}}">
-                                    <div class="service-head">Fiber Maintenance</div>
-                                    <p>
-                                        Sed feugiat porttitor nunc, non dignissim
-                                        ipsum vestibulum in. Donec in blandit dolor.
-                                        Vivamus a fringilla lorem
-                                    </p>
-                                    <div align="center"><a href="#" class="learn-more">Learn more</a></div>
-                                </div>
-                            </li>
+                            @foreach($services as $service)
+                                <li class="all-services wow fadeInUp">
+                                    <div>
+                                        <img src="{{route('getimage',array('width' => 343, 'height' => 264, 'folder' => 'service', 'file' => $service->image))}}" alt="{{ucwords($service->title)}}">
+                                        <div class="service-head">{{ucwords($service->title)}}</div>
+                                        <p>{{strip_tags(substr($service->description,0,66))}}</p>
+                                        <div align="center"><a href="{{route('service-details',array('name' => $service->slug))}}" title="{{ucwords($service->title)}}" class="learn-more">Read More</a></div>
+                                    </div>
+                                </li>
+                            @endforeach
                         </ul>
                         <!-- End Services content -->
                     </div>
@@ -208,9 +144,11 @@
             </div>
         </div>
     </section>
+    @endif
     <!-- Start Services action -->
 
     <!-- Start what we are section -->
+    @if($whatWeAre)
     <section id="service">
         <div class="container">
             <div class="row">
@@ -220,15 +158,14 @@
                             <div align="center"><img src="{{asset('assets/images/we-icon.png')}}"></div>
                             <h2 class="white-font">What we are</h2>
                             <span class="tittle-line"></span>
-                            <p>Dinesh Engineers Pvt. Ltd. Undertake various Telecom Projects on turnkey basis such as Out Station Plant (OSP) ,
-                                laying of Optical Fiber Cable (OFC) through HDPE Ducts buried at a depth of more than
-                                1.6 meter by using Open Trench method and more than 2 meters depth by employing Horizontal Directional Drilling ( HDD ).</p>
+                            <p>{!! $whatWeAre->description !!}</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    @endif
     <!-- End what we are section -->
 
     <!-- Start Clients section -->

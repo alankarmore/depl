@@ -14,8 +14,8 @@ class CreateSloganTable extends Migration
     {
         Schema::create('slogans',function(Blueprint $table) {
             $table->increments('id');
-            $table->string('main_pharase');
-            $table->string('sub_pharase');
+            $table->string('main_phrase');
+            $table->string('sub_phrase');
             $table->tinyInteger('status');
             $table->timestamps();
             $table->softDeletes();

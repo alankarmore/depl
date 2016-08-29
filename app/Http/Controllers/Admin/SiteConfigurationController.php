@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Cache;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SiteConfigurationRequest;
 use App\Http\Services\Admin\SiteConfigurationService;
@@ -75,6 +76,7 @@ class SiteConfigurationController extends Controller
         }
 
         if ($config) {
+            Cache::flush();
             return redirect(route('config.edit', ['id' => $config->id]))->with('success', 'Config updated!');
         }
 
