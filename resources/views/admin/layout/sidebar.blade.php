@@ -106,6 +106,23 @@
         </li>
         <li class="parent ">
             <a href="javascript:void(0);">
+                <span data-toggle="collapse" href="#networks"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span>
+                Networks
+            </a>
+            <ul class="children collapse" id="project">
+                <li>
+                    <a href="{{route('network.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Routes</a>
+                </li>
+                <li>
+                    <a href="{{route('network.create')}}">
+                        <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Create New Route
+                    </a>
+                </li>
+            </ul>     
+        </li>
+        
+        <li class="parent ">
+            <a href="javascript:void(0);">
                 <span data-toggle="collapse" href="#configuration"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span>
                 Site Configuration
             </a>

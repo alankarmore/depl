@@ -28,6 +28,11 @@ class SiteConfigurationTableSeeder extends Seeder
                 'config_value' => '25, Lorem Lis Street, Orange California, US Phone: 800 123 3456 <br>Fax: 800 123 3456<br>Email: info@anybiz.com',
                 'created_at' => date("Y-m-d H:i:s"),
             ),
+            array(
+                'config_name' => 'COPYRIGHT_MESSAGE',
+                'config_value' => 'copyrights&copy;dinesh pvt ltd 2016',
+                'created_at' => date("Y-m-d H:i:s"),
+            )
         );
 
         foreach($configs as $config) {

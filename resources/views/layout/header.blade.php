@@ -40,7 +40,7 @@
                     <ul id="top-menu" class="nav navbar-nav main-nav menu-scroll">
                         <li><a href="{{route('/')}}">Home</a></li>
                         <li><a href="{{route('page-content',array('pageName' => 'about-us'))}}">ABOUT US</a></li>
-                        {{--<li><a href="#">Networks</a></li>--}}
+                        <li><a href="{{route('networks')}}">Networks</a></li>
                         <li><a href="{{route('services')}}">SERVICE</a></li>
                         {{--<li><a href="#">Clients</a></li>--}}
                         <li><a href="{{route('careers')}}">Careers</a></li>

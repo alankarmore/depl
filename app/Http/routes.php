@@ -14,6 +14,8 @@
 Route::get('/',array('as' => '/', 'uses' => 'HomeController@index'));
 Route::get('/image/{folder}/{width}/{height}/{file}', array('as' => 'getimage', 'uses' => 'Controller@getImage'));
 Route::get('/services',array('as' => 'services', 'uses' => 'ServicesController@index'));
+Route::get('/networks',array('as' => 'networks', 'uses' => 'NetworkController@index'));
+Route::post('/get-map',array('as' => 'get-map', 'uses' => 'NetworkController@getMap'));
 Route::get('/services/{name}',array('as' => 'service-details', 'uses' => 'ServicesController@getDetails'));
 Route::get('/contact-us',array('as' => 'contactus', 'uses' => 'HomeController@contactus'));
 Route::post('/post/contact',array('as' => 'post-contact', 'uses' => 'HomeController@postContactus'));
@@ -87,6 +89,15 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['web']], function() {
     Route::post('project/update/{id}', ['as' => 'project.update', 'uses' => 'Admin\ProjectsController@update']);
     Route::get('project/show/{id}', ['as' => 'project.show', 'uses' => 'Admin\ProjectsController@show']);
     Route::get('project/destroy/{id}', ['as' => 'project.destroy', 'uses' => 'Admin\ProjectsController@destroy']);
+
+    Route::get('network/list', ['as' => 'network.list', 'uses' => 'Admin\NetworkController@index']);
+    Route::post('network/list', ['as' => 'network.list', 'uses' => 'Admin\NetworkController@getData']);
+    Route::get('network/create', ['as' => 'network.create', 'uses' => 'Admin\NetworkController@create']);
+    Route::post('network/save', ['as' => 'network.save', 'uses' => 'Admin\NetworkController@store']);
+    Route::get('network/edit/{id}', ['as' => 'network.edit', 'uses' => 'Admin\NetworkController@edit']);
+    Route::post('network/update/{id}', ['as' => 'network.update', 'uses' => 'Admin\NetworkController@update']);
+    Route::get('network/show/{id}', ['as' => 'network.show', 'uses' => 'Admin\NetworkController@show']);
+    Route::get('network/destroy/{id}', ['as' => 'network.destroy', 'uses' => 'Admin\NetworkController@destroy']);
 
     Route::get('inquiry/list', ['as' => 'inquiry.list', 'uses' => 'Admin\InquiriesController@index']);
     Route::post('inquiry/list', ['as' => 'inquiry.list', 'uses' => 'Admin\InquiriesController@getData']);
