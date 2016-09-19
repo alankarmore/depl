@@ -42,7 +42,7 @@ class SloganService extends BaseService
             if($slogan->status) {
                 $slogan->action .= ' <a href="javascript:void(0);" title="Change To Inactive" data-status="'.$slogan->status.'" data-id="'.$slogan->id.'" data-object="'.  get_class($slogan).'" class="change-status"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a>';   
             } else {
-                $slogan->action .= ' <a href="javascript:void(0);" title="Change To Active" data-status="'.$slogan->status.'" data-id="'.$slogan->id.'" data-object="'.  get_class($slogan).'" class="change-status"><span class="change-status glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';     
+                $slogan->action .= ' <a href="javascript:void(0);" title="Change To Active" data-status="'.$slogan->status.'" data-id="'.$slogan->id.'" data-object="'.  get_class($slogan).'" class="change-status"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';     
             }
             
             $response['rows'][] = $slogan;

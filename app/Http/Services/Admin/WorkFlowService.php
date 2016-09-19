@@ -43,7 +43,7 @@ class WorkFlowService extends BaseService
             if($workflow->status) {
                 $workflow->action .= ' <a href="javascript:void(0);" title="Change To Inactive" data-status="'.$workflow->status.'" data-id="'.$workflow->id.'" data-object="'.  get_class($workflow).'" class="change-status"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a>';   
             } else {
-                $workflow->action .= ' <a href="javascript:void(0);" title="Change To Active" data-status="'.$workflow->status.'" data-id="'.$workflow->id.'" data-object="'.  get_class($workflow).'" class="change-status"><span class="change-status glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';     
+                $workflow->action .= ' <a href="javascript:void(0);" title="Change To Active" data-status="'.$workflow->status.'" data-id="'.$workflow->id.'" data-object="'.  get_class($workflow).'" class="change-status"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';     
             }
             
             $response['rows'][] = $workflow;

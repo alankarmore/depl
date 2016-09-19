@@ -43,7 +43,7 @@ class ProjectsService extends BaseService
             if ($project->status) {
                 $project->action .= ' <a href="javascript:void(0);" title="Change To Inactive" data-status="' . $project->status . '" data-id="' . $project->id . '" data-object="' . get_class($project) . '" class="change-status"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a>';
             } else {
-                $project->action .= ' <a href="javascript:void(0);" title="Change To Active" data-status="' . $project->status . '" data-id="' . $project->id . '" data-object="' . get_class($project) . '" class="change-status"><span class="change-status glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';
+                $project->action .= ' <a href="javascript:void(0);" title="Change To Active" data-status="' . $project->status . '" data-id="' . $project->id . '" data-object="' . get_class($project) . '" class="change-status"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';
             }
 
             $response['rows'][] = $project;

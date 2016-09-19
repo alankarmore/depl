@@ -44,7 +44,7 @@ class OurOfficesService extends BaseService
             if ($office->status) {
                 $office->action .= ' <a href="javascript:void(0);" title="Change To Inactive" data-status="' . $office->status . '" data-id="' . $office->id . '" data-object="' . get_class($office) . '" class="change-status"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a>';
             } else {
-                $office->action .= ' <a href="javascript:void(0);" title="Change To Active" data-status="' . $office->status . '" data-id="' . $office->id . '" data-object="' . get_class($office) . '" class="change-status"><span class="change-status glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';
+                $office->action .= ' <a href="javascript:void(0);" title="Change To Active" data-status="' . $office->status . '" data-id="' . $office->id . '" data-object="' . get_class($office) . '" class="change-status"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';
             }
 
             $response['rows'][] = $office;

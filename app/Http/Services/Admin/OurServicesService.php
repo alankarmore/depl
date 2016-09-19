@@ -43,7 +43,7 @@ class OurServicesService extends BaseService
             if($service->status) {
                 $service->action .= ' <a href="javascript:void(0);" title="Change To Inactive" data-status="'.$service->status.'" data-id="'.$service->id.'" data-object="'.  get_class($service).'" class="change-status"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a>';   
             } else {
-                $service->action .= ' <a href="javascript:void(0);" title="Change To Active" data-status="'.$service->status.'" data-id="'.$service->id.'" data-object="'.  get_class($service).'" class="change-status"><span class="change-status glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';     
+                $service->action .= ' <a href="javascript:void(0);" title="Change To Active" data-status="'.$service->status.'" data-id="'.$service->id.'" data-object="'.  get_class($service).'" class="change-status"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';     
             }
             
             $response['rows'][] = $service;
