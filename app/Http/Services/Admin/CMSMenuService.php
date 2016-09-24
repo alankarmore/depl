@@ -61,7 +61,7 @@ class CMSMenuService extends BaseService
             if($menu->status) {
                 $menu->action .= ' <a href="javascript:void(0);" title="Change To Inactive" data-status="'.$menu->status.'" data-id="'.$menu->id.'" data-object="'.  get_class($menu).'" class="change-status"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a>';   
             } else {
-                $menu->action .= ' <a href="javascript:void(0);" title="Change To Active" data-status="'.$menu->status.'" data-id="'.$menu->id.'" data-object="'.  get_class($menu).'" class="change-status"><span class="change-status glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';     
+                $menu->action .= ' <a href="javascript:void(0);" title="Change To Active" data-status="'.$menu->status.'" data-id="'.$menu->id.'" data-object="'.  get_class($menu).'" class="change-status"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';     
             }
             
             $response['rows'][] = $menu;

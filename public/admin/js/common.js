@@ -58,7 +58,7 @@ function handelStatusResponse(response, selector, info) {
         if (response.status) {
             $("#loader").replaceWith(' <a href="javascript:void(0);" title="Change To Inactive" data-status="' + response.status + '" data-id="' + info.id + '" data-object="' + info.object + '" class="change-status"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a>');
         } else {
-            $("#loader").replaceWith(' <a href="javascript:void(0);" title="Change To Activ" data-status="' + response.status + '" data-id="' + info.id + '" data-object="' + info.object + '" class="change-status"><span class="change-status glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>');
+            $("#loader").replaceWith(' <a href="javascript:void(0);" title="Change To Activ" data-status="' + response.status + '" data-id="' + info.id + '" data-object="' + info.object + '" class="change-status"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>');
         }
 
         $("#reponseMessage").html('<div class="alert alert-success">' + response.message + '</div>');

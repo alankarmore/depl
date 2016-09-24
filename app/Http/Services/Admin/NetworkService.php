@@ -44,7 +44,7 @@ class NetworkService extends BaseService
             if ($network->status) {
                 $network->action .= ' <a href="javascript:void(0);" title="Change To Inactive" data-status="' . $network->status . '" data-id="' . $network->id . '" data-object="' . get_class($network) . '" class="change-status"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a>';
             } else {
-                $network->action .= ' <a href="javascript:void(0);" title="Change To Active" data-status="' . $network->status . '" data-id="' . $network->id . '" data-object="' . get_class($network) . '" class="change-status"><span class="change-status glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';
+                $network->action .= ' <a href="javascript:void(0);" title="Change To Active" data-status="' . $network->status . '" data-id="' . $network->id . '" data-object="' . get_class($network) . '" class="change-status"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';
             }
 
             $response['rows'][] = $network;
