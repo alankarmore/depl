@@ -32,6 +32,7 @@ class Controller extends BaseController
     public function __construct()
     {
         $configs = SiteConfig::select('config_name','config_value')->get();
+        $currentRoute = \Request::route()->getName();
         $configArray = array();
         if(!Cache::has('siteConfig')) {
             if($configs->count() > 0) {
@@ -45,7 +46,7 @@ class Controller extends BaseController
             $configArray = Cache::get('siteConfig');
         }
 
-        View::share(['siteConfig' => $configArray]);
+        View::share(['siteConfig' => $configArray,'currentRoute' => $currentRoute]);
     }
 
     /**

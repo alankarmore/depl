@@ -57,9 +57,9 @@ class HomeService
      */
     public function getMajorProjects()
     {
-        $projects = Project::select('id','title','description','state','project_type','image','company','length','completion_date')
+        $projects = Project::select('id','title','slug','description','state','project_type','image','company','length','completion_date')
                              ->where('status','=',\DB::raw(1))
-                             ->take(5)
+                             ->take(4)
                              ->get();
         if($projects->count()) {
             return $projects;

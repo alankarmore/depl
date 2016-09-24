@@ -38,13 +38,14 @@
             <div id="navbar" class="navbar-collapse collapse no-padding">
                 <div class="container">
                     <ul id="top-menu" class="nav navbar-nav main-nav menu-scroll">
-                        <li><a href="{{route('/')}}">Home</a></li>
-                        <li><a href="{{route('page-content',array('pageName' => 'about-us'))}}">ABOUT US</a></li>
-                        {{--<li><a href="{{}}">Networks</a></li>--}}
-                        <li><a href="{{route('services')}}">SERVICES</a></li>
+                        <li><a href="{{route('/')}}" @if($currentRoute == '/')class="active"@endif>Home</a></li>
+                        <li><a href="{{route('page-content',array('pageName' => 'about-us'))}}" @if($currentRoute == 'page-content')class="active"@endif>ABOUT US</a></li>
+                        {{--<li><a href="#">Networks</a></li>--}}
+                        <li><a href="{{route('projects')}}" @if($currentRoute == 'projects')class="active"@endif>PROJECTS</a></li>
+                        <li><a href="{{route('services')}}" @if($currentRoute == 'services')class="active"@endif>SERVICES</a></li>
                         {{--<li><a href="#">Clients</a></li>--}}
-                        <li><a href="{{route('careers')}}">Careers</a></li>
-                        <li><a href="{{route('contactus')}}">CONTACT</a></li>
+                        <li><a href="{{route('careers')}}" @if($currentRoute == 'careers')class="active"@endif>Careers</a></li>
+                        <li><a href="{{route('contactus')}}" @if($currentRoute == 'contactus')class="active"@endif>CONTACT</a></li>
                     </ul>
                 </div>
             </div><!--/.nav-collapse -->

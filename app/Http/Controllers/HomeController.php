@@ -24,11 +24,13 @@ class HomeController extends Controller
         $whatWeAre = $this->service->getWhatWeAreContent();
         $aboutUs = $this->service->getPageContent('about-us');
         $slogans = $this->service->getSlogans();
+        $projects =  $this->service->getMajorProjects();
 
         return view('index',array('services' => $services,
             'whatWeAre' => $whatWeAre,
             'aboutus' => $aboutUs,
-            'slogans' => $slogans));
+            'slogans' => $slogans,
+            'projects' => $projects,));
     }
 
     /**

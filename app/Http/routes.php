@@ -14,9 +14,11 @@
 Route::get('/',array('as' => '/', 'uses' => 'HomeController@index'));
 Route::get('/image/{folder}/{width}/{height}/{file}', array('as' => 'getimage', 'uses' => 'Controller@getImage'));
 Route::get('/services',array('as' => 'services', 'uses' => 'ServicesController@index'));
+Route::get('/projects',array('as' => 'projects', 'uses' => 'ProjectsController@index'));
 Route::get('/networks',array('as' => 'networks', 'uses' => 'NetworkController@index'));
 Route::post('/get-map',array('as' => 'get-map', 'uses' => 'NetworkController@getMap'));
 Route::get('/services/{name}',array('as' => 'service-details', 'uses' => 'ServicesController@getDetails'));
+Route::get('/projects/{name}',array('as' => 'project-details', 'uses' => 'ProjectsController@getDetails'));
 Route::get('/contact-us',array('as' => 'contactus', 'uses' => 'HomeController@contactus'));
 Route::post('/post/contact',array('as' => 'post-contact', 'uses' => 'HomeController@postContactus'));
 Route::get('/careers',array('as' => 'careers', 'uses' => 'HomeController@careers'));

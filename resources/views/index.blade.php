@@ -42,61 +42,28 @@
                     <!-- End welcome area -->
                 </div>
             </div>
+            @if(!empty($projects) && $projects->count() > 0)
             <div class="row">
                 <div class="col-md-12">
                     <!-- Start team content -->
                     <div class="team-content">
                         <ul class="team-grid">
+                            @foreach($projects as $project)
                             <li>
-                                <div class="team-item team-img-1 wow fadeInUp">
-                                    <div class="team-info">
-                                        <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p>
-                                        <a href="#"><span class="fa fa-facebook"></span></a>
-                                        <a href="#"><span class="fa fa-twitter"></span></a>
-                                        <a href="#"><span class="fa fa-pinterest"></span></a>
-                                        <a href="#"><span class="fa fa-rss"></span></a>
-                                    </div>
+                                <img src="{{route('getimage',array('width' => 345, 'height' => 426, 'folder' => 'project', 'file' => $project->image))}}" alt="{{ucwords($project->title)}}" class="team-item wow fadeInUp img-responsive" >
+                                <div class="team-info">
+                                    <p><a href="{{route('project-details',array('name' => $project->slug))}}">{{ucwords($project->title)}}</a></p>
+                                    <p>{{substr(strip_tags($project->description),0,135)}}...</p>
                                 </div>
                             </li>
-                            <li>
-                                <div class="team-item team-img-2 wow fadeInUp">
-                                    <div class="team-info">
-                                        <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p>
-                                        <a href="#"><span class="fa fa-facebook"></span></a>
-                                        <a href="#"><span class="fa fa-twitter"></span></a>
-                                        <a href="#"><span class="fa fa-pinterest"></span></a>
-                                        <a href="#"><span class="fa fa-rss"></span></a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="team-item team-img-3 wow fadeInUp">
-                                    <div class="team-info">
-                                        <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p>
-                                        <a href="#"><span class="fa fa-facebook"></span></a>
-                                        <a href="#"><span class="fa fa-twitter"></span></a>
-                                        <a href="#"><span class="fa fa-pinterest"></span></a>
-                                        <a href="#"><span class="fa fa-rss"></span></a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="team-item team-img-4 wow fadeInUp">
-                                    <div class="team-info">
-                                        <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p>
-                                        <a href="#"><span class="fa fa-facebook"></span></a>
-                                        <a href="#"><span class="fa fa-twitter"></span></a>
-                                        <a href="#"><span class="fa fa-pinterest"></span></a>
-                                        <a href="#"><span class="fa fa-rss"></span></a>
-                                    </div>
-                                </div>
-                            </li>
+                             @endforeach
                         </ul>
                     </div>
                     <!-- End team content -->
                 </div>
             </div>
         </div>
+        @endif
     </section>
     <!-- End about section -->
 

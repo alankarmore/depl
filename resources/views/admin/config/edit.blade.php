@@ -4,7 +4,7 @@
         <div class="row">
             <ol class="breadcrumb">
                 <li><a href="{{route('admin.dashboard')}}"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-                <li ><a href="{{route('config.list')}}">Our Offices</a></li>
+                <li ><a href="{{route('config.list')}}">Configuration Settings</a></li>
                 <li class="active">Edit Configuration Details</li>
             </ol>
         </div><!--/.row-->

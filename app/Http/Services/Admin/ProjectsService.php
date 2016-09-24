@@ -82,6 +82,8 @@ class ProjectsService extends BaseService
         }
 
         $project->title = trim($request->get('title'));
+        $cleanTitle = $this->clean($project->title);
+        $project->slug = strtolower(str_replace(" ","-",$cleanTitle));
         $project->description = trim($request->get('description'));
         $project->state = trim($request->get('state'));
         $project->company = trim($request->get('company')) ? trim($request->get('company')) : null;
