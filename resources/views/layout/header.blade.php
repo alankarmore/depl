@@ -27,10 +27,10 @@
                     <div class="pull-right">
                         <ul class="social-links">
                             <li>
-                                <a href="#"><img src="assets/images/email.png" align="absmiddle" alt="Email"> Email us</a>
+                                <a href="mailto:alankar.more@gmail.com"><img src="{{asset('assets//images/email.png')}}" align="absmiddle" alt="Email"> Email us</a>
                             </li>
-                            <li><a href="#" class="twitter-icon">&nbsp;</a></li>
-                            <li><a href="#" class="facebook-icon">&nbsp;</a></li>
+                            <li><a href="http://www.twitter.com"  target="_blank" class="twitter-icon">&nbsp;</a></li>
+                            <li><a href="http://www.facebook.com"  target="_blank" class="facebook-icon">&nbsp;</a></li>
                         </ul>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                     <ul id="top-menu" class="nav navbar-nav main-nav menu-scroll">
                         <li><a href="{{route('/')}}">Home</a></li>
                         <li><a href="{{route('page-content',array('pageName' => 'about-us'))}}">ABOUT US</a></li>
-                        <li><a href="{{route('networks')}}">Networks</a></li>
+                        {{--<li><a href="{{}}">Networks</a></li>--}}
                         <li><a href="{{route('services')}}">SERVICE</a></li>
                         {{--<li><a href="#">Clients</a></li>--}}
                         <li><a href="{{route('careers')}}">Careers</a></li>
