@@ -37,7 +37,7 @@
                     <ul id="top-menu" class="nav navbar-nav main-nav menu-scroll">
                         <li><a href="{{route('/')}}" @if($currentRoute == '/')class="active"@endif>Home</a></li>
                         <li><a href="{{route('page-content',array('pageName' => 'about-us'))}}" @if($currentRoute == 'page-content')class="active"@endif>ABOUT US</a></li>
-                        <li><a href="{{route('networks')}}">Networks</a></li>
+                        <li><a href="{{route('networks')}}" @if($currentRoute == 'networks')class="active"@endif>Networks</a></li>
                         <li><a href="{{route('projects')}}" @if($currentRoute == 'projects')class="active"@endif>PROJECTS</a></li>
                         <li><a href="{{route('services')}}" @if($currentRoute == 'services')class="active"@endif>SERVICES</a></li>
                         {{--<li><a href="#">Clients</a></li>--}}
