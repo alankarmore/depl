@@ -44,7 +44,8 @@ class HomeController extends Controller
     {
         $pageContent = $this->service->getPageContent($pageName);
         if($pageContent) {
-            $params = array('pageContent' => $pageContent);
+            $metaInfo = array('meta_title' => $pageContent->meta_title,'meta_keyword' => $pageContent->meta_keyword,'meta_description' => $pageContent->meta_keyword);
+            $params = array('pageContent' => $pageContent,'metaInfo' => $metaInfo);
             if(1 == $pageContent->id) {
                 $subContent = $this->service->getPageSubSections($pageContent->id);
                 if($subContent) {

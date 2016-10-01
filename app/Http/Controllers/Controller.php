@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use View;
 use Cache;
+use App\Seo;
 use App\SiteConfig;
 use Illuminate\Http\Request;
 use App\Http\Helpers\FileHelper;
@@ -32,8 +33,17 @@ class Controller extends BaseController
     public function __construct()
     {
         $configs = SiteConfig::select('config_name','config_value')->get();
+        $metaTags = Seo::select('meta_title','meta_keyword','meta_description')->where('id','=',1)->first();
+        $metaInfo = $metaTags->toArray();
+
         $currentRoute = \Request::route()->getName();
         $configArray = array();
+        if(!Cache::has('metaInfo') && count($metaInfo) > 0) {
+            Cache::put('metaInfo',$metaInfo,60);
+        } else {
+            $metaInfo = Cache::get('metaInfo');
+        }
+
         if(!Cache::has('siteConfig')) {
             if($configs->count() > 0) {
                 foreach($configs as $config) {
@@ -46,7 +56,7 @@ class Controller extends BaseController
             $configArray = Cache::get('siteConfig');
         }
 
-        View::share(['siteConfig' => $configArray,'currentRoute' => $currentRoute]);
+        View::share(['siteConfig' => $configArray,'currentRoute' => $currentRoute, 'metaInfo' => $metaInfo]);
     }
 
     /**
