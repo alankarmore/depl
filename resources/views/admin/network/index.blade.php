@@ -23,7 +23,7 @@
                             <tr>
                                 <th data-field="title" data-sortable="true">Title</th>
                                 <th data-field="stateName" data-sortable="true">State</th>
-                                <th data-field="city" data-sortable="true">City</th>
+                                <th data-field="cityName" data-sortable="true">City</th>
                                 <th data-field="address" data-sortable="true">Address</th>
                                 <th data-field="pincode" data-sortable="true">Pincode</th>
                                 <th data-field="action" data-sortable="false">Action</th>
