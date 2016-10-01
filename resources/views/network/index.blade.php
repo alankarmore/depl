@@ -50,7 +50,13 @@
 
             <div class="row margin-top20">
                 <div class="col-md-12">
-                    <div id="map" style="width:100%;height:500px"></div>
+                    @if($response && $response->count() > 0)
+                        <div id="map" style="width:100%;height:500px"></div>
+                    @else
+                        <div class="col-md-12">
+                        <div class="alert alert-warning"><center>Oops!! No records found for <strong>{{ucfirst($defaultState)}}</strong> and <strong>{{ucfirst($defaultCity)}}</strong></center></div>
+                        </div>
+                    @endif
                 </div>
             </div>
             <!-- End map section -->
@@ -91,6 +97,8 @@
                             }
                         });
                     }
+
+                    @if($response && $response->count() > 0)
 
                     function myMap() {
                         var locations = [
@@ -142,6 +150,7 @@
 
                 </script>
             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRUjHsGvBqOyviDKGicNPcqSd_jn355G4&callback=myMap" async defer></script>
+            @endif
                 <?php /*
 <script>
 
