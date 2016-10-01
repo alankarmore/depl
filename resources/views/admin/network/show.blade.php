@@ -17,23 +17,23 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Title</label>
-                            <div>{{$network->title}}</div>
+                            <div>{{$route->title}}</div>
                         </div>
                         <div class="form-group">
                             <label>State</label>
-                            <div>{{$network->state}}</div>
+                            <div>{{ucfirst($route->stateName)}}</div>
                         </div>
                         <div class="form-group">
                             <label>City</label>
-                            <div>{{$network->city}}</div>
+                            <div>{{ucfirst($route->cityName)}}</div>
                         </div>
                         <div class="form-group">
                             <label>Address</label>
-                            <div>{{$network->address}}</div>
+                            <div>{{$route->address}}</div>
                         </div>
                         <div class="form-group">
                             <label>Pincode</label>
-                            <div>{{$network->pincode}}</div>
+                            <div>{{$route->pincode}}</div>
                         </div>
                     </div>
                 </div>

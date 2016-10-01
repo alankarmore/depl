@@ -1840,6 +1840,9 @@ ul.footer-links li a:hover{
 .blue-text{
 	color:#283890;
 }
+.logo-text{
+    color:red;
+}
 ul.social-links{
 	padding-top:21px;
 }

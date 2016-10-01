@@ -12,6 +12,10 @@
 }(window.jQuery);
 
 $(function () {
+    var formExists = $("form").size();
+    if(formExists > 0) {
+        $("input:first").focus();
+    }
     $(window).on('resize', function () {
         if ($(window).width() > 768)
             $('#sidebar-collapse').collapse('show')

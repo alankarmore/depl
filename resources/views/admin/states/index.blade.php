@@ -4,7 +4,7 @@
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="javascript:void(0);"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-            <li class="active">Routes</li>
+            <li class="active">States</li>
         </ol>
     </div><!--/.row-->
     <div class="row">&nbsp;</div>
@@ -14,18 +14,14 @@
             <div class="panel panel-default">
                     <div class="col-sm-2 pull-right">
                         <br/>
-                        <a href="{{route('network.create')}}" title="Add Route" class="btn btn-primary">Add New Route</a>
+                        <a href="{{route('state.create')}}" title="Add Service" class="btn btn-primary">Add New State</a>
                     </div>
                     <div class="clearfix"></div>
                 <div class="panel-body">
-                    <table id="projectTable"> 
+                    <table id="stateTable">
                         <thead>
                             <tr>
-                                <th data-field="title" data-sortable="true">Title</th>
-                                <th data-field="stateName" data-sortable="true">State</th>
-                                <th data-field="city" data-sortable="true">City</th>
-                                <th data-field="address" data-sortable="true">Address</th>
-                                <th data-field="pincode" data-sortable="true">Pincode</th>
+                                <th data-field="name" data-sortable="true">State Name</th>
                                 <th data-field="action" data-sortable="false">Action</th>
                             </tr>
                         </thead>
@@ -39,8 +35,8 @@
 <script src="{{asset('admin/js/bootstrap-table.js')}}"></script>
 <script>
 $(function () {
-    var route = "{{route('network.list')}}";
-    generateTable("projectTable",route,'title','ASC');
+    var route = "{{route('state.list')}}";
+    generateTable("stateTable",route,'name','ASC');
 });
 </script>
 @endsection

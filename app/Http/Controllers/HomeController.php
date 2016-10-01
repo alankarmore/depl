@@ -24,7 +24,8 @@ class HomeController extends Controller
         $whatWeAre = $this->service->getWhatWeAreContent();
         $aboutUs = $this->service->getPageContent('about-us');
         $slogans = $this->service->getSlogans();
-        $projects =  $this->service->getMajorProjects();
+        //$projects =  $this->service->getMajorProjects();
+        $projects = 0;
 
         return view('index',array('services' => $services,
             'whatWeAre' => $whatWeAre,

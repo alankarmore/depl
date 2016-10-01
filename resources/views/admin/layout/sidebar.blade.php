@@ -106,10 +106,42 @@
         </li>
         <li class="parent ">
             <a href="javascript:void(0);">
+                <span data-toggle="collapse" href="#states"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span>
+                States
+            </a>
+            <ul class="children collapse" id="states">
+                <li>
+                    <a href="{{route('state.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> States</a>
+                </li>
+                <li>
+                    <a href="{{route('state.create')}}">
+                        <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Add New State
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="parent ">
+            <a href="javascript:void(0);">
+                <span data-toggle="collapse" href="#states"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span>
+                Cities
+            </a>
+            <ul class="children collapse" id="states">
+                <li>
+                    <a href="{{route('city.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Cities</a>
+                </li>
+                <li>
+                    <a href="{{route('city.create')}}">
+                        <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Add New City
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="parent ">
+            <a href="javascript:void(0);">
                 <span data-toggle="collapse" href="#networks"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span>
                 Networks
             </a>
-            <ul class="children collapse" id="project">
+            <ul class="children collapse" id="networks">
                 <li>
                     <a href="{{route('network.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Routes</a>
                 </li>

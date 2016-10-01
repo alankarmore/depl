@@ -22,16 +22,18 @@ class NetworkService extends BaseService
         $response = array('total' => 0, 'rows' => '');
         $allNetworks = Network::select(\DB::raw('COUNT(*) as cnt'))->first();
         $response['total'] = $allNetworks->cnt;
-        $query = Network::select('id', 'title', 'state_id', 'city', 'pincode', 'address', 'lat', 'long', 'status');
-        $seach = $request->get('search');
-        if (!empty($seach)) {
+        $query = Network::select('networks.id', 'networks.title', 'networks.state_id', 'networks.city_id', 'networks.pincode', 'networks.address', 'networks.lat', 'networks.long', 'networks.status','states.name As stateName','cities.name As cityName')
+                          ->join('states','states.id','=','networks.state_id')
+                          ->join('cities','cities.id','=','networks.city_id');
+        $search = $request->get('search');
+        if (!empty($search)) {
             $query->where('title', 'LIKE', '%' . $request->get('search') . '%');
         }
 
         $networks = $query->orderBy($request->get('sort'), $request->get('order'))
                 ->skip($request->get('offset'))->take($request->get('limit'))
                 ->get();
-        if (!empty($seach)) {
+        if (!empty($search)) {
             $response['total'] = $networks->count();
         }
 
@@ -61,7 +63,11 @@ class NetworkService extends BaseService
      */
     public function getDetailsById($id)
     {
-        return Network::find($id);
+        return Network::select('networks.id', 'networks.title', 'networks.state_id', 'networks.city_id', 'pincode', 'address', 'networks.lat', 'networks.long', 'networks.status','states.name As stateName','cities.name As cityName')
+            ->join('states','states.id','=','networks.state_id')
+            ->join('cities','cities.id','=','networks.city_id')
+            ->where('networks.id','=',$id)
+            ->first();
     }
 
     /**
@@ -85,7 +91,7 @@ class NetworkService extends BaseService
         $network->title = trim($request->get('title'));
         $network->state_id = trim($request->get('state'));
         $network->address = trim($request->get('address'));
-        $network->city = trim($request->get('city'));
+        $network->city_id = trim($request->get('city'));
         $network->pincode = trim($request->get('pincode'));
         $state = State::find($network->state_id);
         $address = $network->address . " ";

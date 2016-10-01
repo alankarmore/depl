@@ -15,8 +15,10 @@ Route::get('/',array('as' => '/', 'uses' => 'HomeController@index'));
 Route::get('/image/{folder}/{width}/{height}/{file}', array('as' => 'getimage', 'uses' => 'Controller@getImage'));
 Route::get('/services',array('as' => 'services', 'uses' => 'ServicesController@index'));
 Route::get('/projects',array('as' => 'projects', 'uses' => 'ProjectsController@index'));
-Route::get('/networks',array('as' => 'networks', 'uses' => 'NetworkController@index'));
-Route::post('/get-map',array('as' => 'get-map', 'uses' => 'NetworkController@getMap'));
+Route::get('/networks/{state?}/{city?}',array('as' => 'networks', 'uses' => 'NetworkController@index'));
+Route::post('/networks',array('as' => 'get-networks', 'uses' => 'NetworkController@showMap'));
+Route::post('get/cities', ['as' => 'map-getcities', 'uses' => 'NetworkController@getCities']);
+Route::post('/routes/get-map',array('as' => 'get-map', 'uses' => 'NetworkController@getMap'));
 Route::get('/services/{name}',array('as' => 'service-details', 'uses' => 'ServicesController@getDetails'));
 Route::get('/projects/{name}',array('as' => 'project-details', 'uses' => 'ProjectsController@getDetails'));
 Route::get('/contact-us',array('as' => 'contactus', 'uses' => 'HomeController@contactus'));
@@ -51,7 +53,23 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['web']], function() {
     Route::get('slogan/show/{id}', ['as' => 'slogan.show', 'uses' => 'Admin\SloganController@show']);
     Route::get('slogan/destroy/{id}', ['as' => 'slogan.destroy', 'uses' => 'Admin\SloganController@destroy']);
 
-    
+    Route::get('state/list', ['as' => 'state.list', 'uses' => 'Admin\StateController@index']);
+    Route::post('state/list', ['as' => 'state.list', 'uses' => 'Admin\StateController@getData']);
+    Route::get('state/create', ['as' => 'state.create', 'uses' => 'Admin\StateController@create']);
+    Route::post('state/save', ['as' => 'state.save', 'uses' => 'Admin\StateController@store']);
+    Route::get('state/edit/{id}', ['as' => 'state.edit', 'uses' => 'Admin\StateController@edit']);
+    Route::post('state/update/{id}', ['as' => 'state.update', 'uses' => 'Admin\StateController@update']);
+    Route::get('state/destroy/{id}', ['as' => 'state.destroy', 'uses' => 'Admin\StateController@destroy']);
+
+    Route::get('city/list', ['as' => 'city.list', 'uses' => 'Admin\CityController@index']);
+    Route::post('city/list', ['as' => 'city.list', 'uses' => 'Admin\CityController@getData']);
+    Route::get('city/create', ['as' => 'city.create', 'uses' => 'Admin\CityController@create']);
+    Route::post('city/save', ['as' => 'city.save', 'uses' => 'Admin\CityController@store']);
+    Route::get('city/edit/{id}', ['as' => 'city.edit', 'uses' => 'Admin\CityController@edit']);
+    Route::post('city/update/{id}', ['as' => 'city.update', 'uses' => 'Admin\CityController@update']);
+    Route::get('city/destroy/{id}', ['as' => 'city.destroy', 'uses' => 'Admin\CityController@destroy']);
+
+
     Route::get('service/list', ['as' => 'service.list', 'uses' => 'Admin\OurServicesController@index']);
     Route::post('service/list', ['as' => 'service.list', 'uses' => 'Admin\OurServicesController@getData']);
     Route::get('service/create', ['as' => 'service.create', 'uses' => 'Admin\OurServicesController@create']);
@@ -122,6 +140,7 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['web']], function() {
     Route::post('seo/update/{id}', ['as' => 'admin.seo.update', 'uses' => 'Admin\SEOManagementController@update']);
 
     Route::post('change/status', ['as' => 'change.status', 'uses' => 'Controller@changeStatus']);
+    Route::post('get/cities', ['as' => 'getcities', 'uses' => 'Admin\StateController@getCities']);
     Route::get('admin/logout', ['as' => 'admin.logout', 'uses' => 'Admin\AuthController@logout']);
 });
 

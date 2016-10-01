@@ -38,7 +38,9 @@
                             </div>
                             <div class="form-group">
                                 <label>City</label>
-                                <input class="form-control" placeholder="city" name="city" id="company" value="{{$route->city}}">
+                                <select name="city" id="city" class="form-control">
+                                    <option value="">Select City</option>
+                                </select>
                                 <span class="alert-danger">{{$errors->first('city')}}</span>
                             </div>
                             <div class="form-group">
@@ -66,7 +68,34 @@
 </div><!--/.main-->
 @section('page-script')
 <script>
-    activeParentMenu('network');
+    activeParentMenu('networks');
+    function getCities(stateId,city) {
+        city = city | null;
+        var res = null;
+        $.ajax({
+            url:route,
+            data:{'id': stateId, 'city': city},
+            dataType:"JSON",
+            type:"POST",
+            success:function(msg)  {
+                res = msg;
+            },
+            complete:function() {
+                if(res.string != null || res.string != '' || res.string != 'undefined') {
+                    $("#city").html(res.string);
+                    $("#city").focus();
+                }
+            }
+        });
+    }
+
+    var route = '{{route("getcities")}}';
+    var stateId = '{{$route->state_id}}';
+    var city = '{{$route->city_id}}';
+    getCities(stateId,city);
+    $(document).on('change','#state',function(){
+        getCities($(this).val(),null);
+    });
 </script>
 @endsection
 @endsection

@@ -23,12 +23,9 @@
                         <span class="icon-bar"></span>
                     </button>
                     <!-- LOGO -->
-                    <a class="navbar-brand logo" href="{{route('/')}}"><img src="{{asset('uploads')}}/{{$siteConfig['SITE_LOGO']}}" alt="{{$siteConfig['SITE_NAME']}}"> <span class="blue-text">Dinesh</span> Engineers Pvt. Ltd.</a>
+                    <a class="navbar-brand logo" href="{{route('/')}}"><img src="{{asset('uploads')}}/{{$siteConfig['SITE_LOGO']}}" alt="{{$siteConfig['SITE_NAME']}}"> <span class="logo-text">Dinesh Engineers Pvt. Ltd.</span> </a>
                     <div class="pull-right">
                         <ul class="social-links">
-                            <li>
-                                <a href="mailto:alankar.more@gmail.com"><img src="{{asset('assets//images/email.png')}}" align="absmiddle" alt="Email"> Email us</a>
-                            </li>
                             <li><a href="http://www.twitter.com"  target="_blank" class="twitter-icon">&nbsp;</a></li>
                             <li><a href="http://www.facebook.com"  target="_blank" class="facebook-icon">&nbsp;</a></li>
                         </ul>
@@ -40,7 +37,7 @@
                     <ul id="top-menu" class="nav navbar-nav main-nav menu-scroll">
                         <li><a href="{{route('/')}}" @if($currentRoute == '/')class="active"@endif>Home</a></li>
                         <li><a href="{{route('page-content',array('pageName' => 'about-us'))}}" @if($currentRoute == 'page-content')class="active"@endif>ABOUT US</a></li>
-                        {{--<li><a href="#">Networks</a></li>--}}
+                        <li><a href="{{route('networks')}}">Networks</a></li>
                         <li><a href="{{route('projects')}}" @if($currentRoute == 'projects')class="active"@endif>PROJECTS</a></li>
                         <li><a href="{{route('services')}}" @if($currentRoute == 'services')class="active"@endif>SERVICES</a></li>
                         {{--<li><a href="#">Clients</a></li>--}}
