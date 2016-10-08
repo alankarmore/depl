@@ -27,7 +27,13 @@ class CareersService extends BaseService
             $query->where('first_name', 'LIKE', '%' . $request->get('search') . '%');
         }
 
-        $careers = $query->orderBy($request->get('sort'), $request->get('order'))
+        $sort = $request->get('sort');
+        $order = $request->get('sort');
+        if($request->get('sort') == 'date') {
+            $sort = 'created_at';
+        }
+        
+        $careers = $query->orderBy($sort, $order)
                 ->skip($request->get('offset'))->take($request->get('limit'))
                 ->get();
         if (!empty($search)) {
