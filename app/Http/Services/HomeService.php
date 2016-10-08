@@ -6,6 +6,7 @@ use App\OurService;
 use App\Slogan;
 use Mail;
 use App\Career;
+use App\OfficeImage;
 use App\OurOffice;
 use App\Project;
 use App\CMSMenu;
@@ -100,6 +101,21 @@ class HomeService
             ->get();
         if($offices->count()) {
             return $offices;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get all office images
+     *
+     * @return bool
+     */
+    public function getOfficeImages()
+    {
+        $officeImages = OfficeImage::select('image')->inRandomOrder()->take(5)->get();
+        if($officeImages->count()) {
+            return $officeImages;
         }
 
         return false;

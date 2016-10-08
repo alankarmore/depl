@@ -100,7 +100,9 @@ class HomeController extends Controller
             Cache::add('officesArray',$officesArray,120);
         }
 
-        return view('contact',array('offices' => $offices,'officesArray' => $officesArray));
+        $officeImages = $this->service->getOfficeImages();
+
+        return view('contact',array('offices' => $offices,'officesArray' => $officesArray, 'officeImages' => $officeImages));
     }
 
     /**

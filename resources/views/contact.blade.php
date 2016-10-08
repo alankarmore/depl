@@ -46,16 +46,17 @@
         </div>
         <br/>
 
+        @if($officeImages)
         <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="autoplay">
-                <div><img src="assets/images/office1.jpg" alt="office"></div>
-                <div><img src="assets/images/office2.jpg" alt="office"></div>
-                <div><img src="assets/images/office3.jpg" alt="office"></div>
-                <div><img src="assets/images/office4.jpg" alt="office"></div>
+                @foreach($officeImages as $officeImage)
+                    <div><img src="{{route('getimage',array('width' => 1366, 'height' => 224, 'folder' => 'office', 'file' => $office->image))}}" alt="Office"></div>
+                @endforeach
             </div>
         </div>
         </div>
+        @endforeach
 
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="contact-right wow fadeInRight">
