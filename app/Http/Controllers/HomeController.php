@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Cache;
 use App\Http\Services\HomeService;
 use App\Http\Requests\ContactRequest;
 use App\Http\Requests\CareersRequest;
@@ -25,12 +26,14 @@ class HomeController extends Controller
         $aboutUs = $this->service->getPageContent('about-us');
         $slogans = $this->service->getSlogans();
         //$projects =  $this->service->getMajorProjects();
+        $news = $this->service->getNews();
         $projects = 0;
 
         return view('index',array('services' => $services,
             'whatWeAre' => $whatWeAre,
             'aboutus' => $aboutUs,
             'slogans' => $slogans,
+            'newsCollection' => $news,
             'projects' => $projects,));
     }
 
@@ -69,28 +72,32 @@ class HomeController extends Controller
      */
     public function contactus()
     {
-        $offices = $this->service->getAllOffices();
-        $officesArray = array();
-        foreach($offices as $office) {
-            $office->address = str_replace(array("\r\n","<br/>","<br>"),array(" "),trim($office->address));
-            $info = $office->title.'<br/>'.$office->address.',<br/>'.$office->city.',<br/>'.$office->state.',<br/>'.$office->pincode;
-            if(!empty($office->phone)) {
-                $info .= "<br/> Phone = ".$office->phone;
+        if(Cache::has('offices') && Cache::has('officesArray')) {
+            $offices = Cache::get('offices');
+            $officesArray = Cache::get('officesArray');
+        } else {
+            $offices = $this->service->getAllOffices();
+            $officesArray = array();
+            foreach($offices as $office) {
+                $temp = new \stdClass();
+                $temp->title = $office->title;
+                $temp->lat = $office->lat;
+                $temp->lng = $office->lng;
+                $temp->address = trim(preg_replace('/\s+/', ' ', $office->address));
+                $temp->address.= ",<br/>".ucfirst($office->state).",<br/>".ucfirst($office->city).",<br/>".$office->pincode;
+                if(!empty($office->phone)) {
+                    $temp->address .= "<br/> Phone : ".$office->phone;
+                }
+
+                if(!empty($office->fax)) {
+                    $temp->address .= "<br/> Fax : ".$office->fax;
+                }
+
+                $officesArray[] = $temp;
             }
 
-            if(!empty($office->fax)) {
-                $info .= "<br/> Fax = ".$office->fax;
-            }
-
-            $officesArray[] = array(
-                'google_map' => array(
-                    'lat' => $office->lat,
-                    'lng' => $office->lng,
-                ),
-                'location_address' => $office->address,
-                'location_name'    => $office->title,
-                'info' => $info
-            );
+            Cache::add('offices',$offices, 120);
+            Cache::add('officesArray',$officesArray,120);
         }
 
         return view('contact',array('offices' => $offices,'officesArray' => $officesArray));

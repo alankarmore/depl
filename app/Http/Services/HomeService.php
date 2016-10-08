@@ -9,6 +9,7 @@ use App\Career;
 use App\OurOffice;
 use App\Project;
 use App\CMSMenu;
+use App\News;
 use App\Inquiry;
 
 class HomeService
@@ -129,6 +130,21 @@ class HomeService
         $slogans = Slogan::where('status','=',\DB::raw(1))->get();
         if($slogans->count()) {
             return $slogans;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get news
+     *
+     * @return bool
+     */
+    public function getNews()
+    {
+        $news = News::select('description')->where('status','=',\DB::raw(1))->orderBy('id','DESC')->take(5)->get();
+        if($news->count()) {
+            return $news;
         }
 
         return false;

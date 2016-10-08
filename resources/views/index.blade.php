@@ -180,6 +180,7 @@
     </section>
     <!-- End Clients section -->
     <!-- Start News section -->
+    @if($newsCollection)
     <section id="news">
         <div class="counter-overlay">
             <div class="container">
@@ -195,14 +196,12 @@
                             <div class="news-conten">
                                 <!-- Start news slider -->
                                 <div class="news-slider">
+                                    @foreach($newsCollection as $news)
                                     <!-- single slide -->
                                     <div class="single-slide">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamcoquat. Duis aute irure d olor in reprehenderit</p>
+                                        <p>{{$news->description}}</p>
                                     </div>
-                                    <!-- single slide -->
-                                    <div class="single-slide">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamcoquat. Duis aute irure d olor in reprehenderit</p>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -211,5 +210,21 @@
             </div>
         </div>
     </section>
+    @endif
     <!-- End news section -->
+@section('page-script')
+    <script type="text/javascript" src="{{asset('assets/js/custom.js')}}"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.autoplay').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                arrows: false,
+            });
+        });
+
+    </script>
+@endsection
 @endsection

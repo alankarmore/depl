@@ -66,4 +66,4 @@
 <script type="text/javascript" src="{{asset('assets/js/wow.js')}}"></script>
 
 <!-- Custom js -->
-<script type="text/javascript" src="{{asset('assets/js/custom.js')}}"></script>
+<?php /* <script type="text/javascript" src="{{asset('assets/js/custom.js')}}"></script> */ ?>

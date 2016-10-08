@@ -299,11 +299,11 @@ img{
 	margin-right:23px;
 }
 .logo {
-	height: 95px;
+	height: 82px;
 	margin-right: 45px;
 	margin-top: -1px;
-	padding: 20px 0 0;
-	font-size:28px;
+	padding: 14px 0 0;
+	font-size:38px;
 	line-height: 45px;
 	text-shadow: 1px 1px #9b9e9f;
 }
@@ -1742,7 +1742,7 @@ ul.footer-links li a:hover{
 	color:#d5d5d5;
 }
 .autoplay img{
-	height:500px;
+	height:224px;
 	width:100%;
 }
 

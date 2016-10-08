@@ -124,6 +124,15 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['web']], function() {
     Route::get('inquiry/show/{id}', ['as' => 'inquiry.show', 'uses' => 'Admin\InquiriesController@show']);
     Route::get('inquiry/destroy/{id}', ['as' => 'inquiry.destroy', 'uses' => 'Admin\InquiriesController@destroy']);
 
+    Route::get('news/list', ['as' => 'news.list', 'uses' => 'Admin\NewsController@index']);
+    Route::post('news/list', ['as' => 'news.list', 'uses' => 'Admin\NewsController@getData']);
+    Route::get('news/create', ['as' => 'news.create', 'uses' => 'Admin\NewsController@create']);
+    Route::post('news/save', ['as' => 'news.save', 'uses' => 'Admin\NewsController@store']);
+    Route::get('news/edit/{id}', ['as' => 'news.edit', 'uses' => 'Admin\NewsController@edit']);
+    Route::post('news/update/{id}', ['as' => 'news.update', 'uses' => 'Admin\NewsController@update']);
+    Route::get('news/show/{id}', ['as' => 'news.show', 'uses' => 'Admin\NewsController@show']);
+    Route::get('news/destroy/{id}', ['as' => 'news.destroy', 'uses' => 'Admin\NewsController@destroy']);
+
     Route::get('career/list', ['as' => 'career.list', 'uses' => 'Admin\CareersController@index']);
     Route::post('career/list', ['as' => 'career.list', 'uses' => 'Admin\CareersController@getData']);
     Route::get('career/show/{id}', ['as' => 'career.show', 'uses' => 'Admin\CareersController@show']);

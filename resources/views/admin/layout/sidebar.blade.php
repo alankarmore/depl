@@ -65,6 +65,20 @@
         </li>
         <li class="parent ">
             <a href="javascript:void(0);">
+                <span data-toggle="collapse" href="#news"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> News
+            </a>
+            <ul class="children collapse" id="news">
+                <li>
+                    <a href="{{route('news.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> News </a>
+                </li>
+                <li>
+                    <a href="{{route('news.create')}}">
+                        <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Create New News</a>
+                </li>
+            </ul>
+        </li>
+        <li class="parent ">
+            <a href="javascript:void(0);">
                 <span data-toggle="collapse" href="#office"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Offices
             </a>
             <ul class="children collapse" id="office">

@@ -24,12 +24,6 @@
                     </button>
                     <!-- LOGO -->
                     <a class="navbar-brand logo" href="{{route('/')}}"><img src="{{asset('uploads')}}/{{$siteConfig['SITE_LOGO']}}" alt="{{$siteConfig['SITE_NAME']}}"> <span class="logo-text">Dinesh Engineers Pvt. Ltd.</span> </a>
-                    <div class="pull-right">
-                        <ul class="social-links">
-                            <li><a href="http://www.twitter.com"  target="_blank" class="twitter-icon">&nbsp;</a></li>
-                            <li><a href="http://www.facebook.com"  target="_blank" class="facebook-icon">&nbsp;</a></li>
-                        </ul>
-                    </div>
                 </div>
             </div>
             <div id="navbar" class="navbar-collapse collapse no-padding">
