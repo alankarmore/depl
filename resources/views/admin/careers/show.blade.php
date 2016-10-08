@@ -36,6 +36,10 @@
                                 <div>{{$career->message}}</div>
                             </div>
                             <div class="form-group">
+                                <label>Posted On</label>
+                                <div>{{date("d M,Y",strtotime($career->created_at))}}</div>
+                            </div>
+                            <div class="form-group">
                                 <label>Resume</label>
                                 <div><a href="{{route('career.download',array('file' => $career->file_name))}}">Download Resume</a></div>
                             </div>

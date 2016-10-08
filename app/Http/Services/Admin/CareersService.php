@@ -21,7 +21,7 @@ class CareersService extends BaseService
         $response = array('total' => 0, 'rows' => '');
         $careers = Career::select(\DB::raw('COUNT(*) as cnt'))->first();
         $response['total'] = $careers->cnt;
-        $query = Career::select('id', 'first_name', 'last_name', 'email','message', 'file_name');
+        $query = Career::select('id', 'first_name', 'last_name', 'email','message', 'file_name','created_at');
         $search = $request->get('search');
         if (!empty($search)) {
             $query->where('first_name', 'LIKE', '%' . $request->get('search') . '%');
@@ -38,11 +38,13 @@ class CareersService extends BaseService
             $career->first_name = ucfirst($career->first_name);
             $career->last_name = ucfirst($career->last_name);
             $career->subject = ucwords($career->subject);
+            $career->message = (strlen($career->message) > 50)?ucwords(substr($career->message,0,50))."...":ucwords($career->message);
+            $career->date = date("d M,Y",strtotime($career->created_at));
             $career->action = '<a href="' . URL::route('career.show', ['id' => $career->id]) . '" title="view"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
                              <a href="' . URL::route('career.destroy', ['id' => $career->id]) . '" onClick="javascript: return confirm(\'Are You Sure\');" title="delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>';
             $filePath = public_path('uploads/resume/') . $career->file_name;
             if (file_exists($filePath)) {
-                $career->action .= '<a href="' . URL::route('career.download', ['file' => $career->file_name]) . '"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>';
+                $career->action .= '<a href="' . URL::route('career.download', ['file' => $career->file_name]) . '" title="Download Resume"><span class="glyphicon glyphicon-download" aria-hidden="true"></span></a>';
             }
 
             $response['rows'][] = $career;

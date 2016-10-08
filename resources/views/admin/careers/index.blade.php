@@ -20,6 +20,7 @@
                                 <th data-field="last_name" data-sortable="true">Last Name</th>
                                 <th data-field="email" data-sortable="true">Email</th>
                                 <th data-field="message" data-sortable="true">Message</th>
+                                <th data-field="date" data-sortable="true">Posted On</th>
                                 <th data-field="action" data-sortable="false">Action</th>
                             </tr>
                         </thead>
