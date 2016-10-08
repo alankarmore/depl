@@ -28,11 +28,11 @@ class CareersService extends BaseService
         }
 
         $sort = $request->get('sort');
-        $order = $request->get('sort');
+        $order = $request->get('order');
         if($request->get('sort') == 'date') {
             $sort = 'created_at';
         }
-        
+
         $careers = $query->orderBy($sort, $order)
                 ->skip($request->get('offset'))->take($request->get('limit'))
                 ->get();
