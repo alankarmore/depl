@@ -3,6 +3,7 @@
 namespace App\Http\Services\Admin;
 
 use URL;
+use Cache;
 use App\SiteConfig;
 use Illuminate\Http\Request;
 use App\Http\Services\BaseService;
@@ -97,6 +98,10 @@ class SiteConfigurationService extends BaseService
         }
 
         $config->save();
+
+        if(Cache::has('siteConfig')) {
+            Cache::forget('siteConfig');
+        }
 
         return $config;
     }

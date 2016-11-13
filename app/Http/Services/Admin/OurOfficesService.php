@@ -3,6 +3,7 @@
 namespace App\Http\Services\Admin;
 
 use URL;
+use Cache;
 use App\OurOffice;
 use App\OfficeImage;
 use Illuminate\Http\Request;
@@ -100,6 +101,10 @@ class OurOfficesService extends BaseService
 
         $office->save();
 
+        if(Cache::has('offices')) {
+            Cache::forget('offices');
+        }
+
         return $office;
     }
 
@@ -113,6 +118,10 @@ class OurOfficesService extends BaseService
     {
         $office = $this->getDetailsById($id);
         if ($office) {
+            if(Cache::has('offices')) {
+                Cache::forget('offices');
+            }
+
             return $office->delete();
         }
 
@@ -203,17 +212,14 @@ class OurOfficesService extends BaseService
             //Send request and receive json data by address
             $geocodeFromAddr = file_get_contents('http://maps.googleapis.com/maps/api/geocode/json?address=' . $formattedAddr . '&sensor=false');
             $output = json_decode($geocodeFromAddr);
-            //Get latitude and longitute from json data
-            $data['latitude'] = $output->results[0]->geometry->location->lat;
-            $data['longitude'] = $output->results[0]->geometry->location->lng;
-            //Return latitude and longitude of the given address
-            if (!empty($data)) {
+            if(isset($output->results[0])) {
+                //Get latitude and longitute from json data
+                $data['latitude'] = $output->results[0]->geometry->location->lat;
+                $data['longitude'] = $output->results[0]->geometry->location->lng;
                 return $data;
-            } else {
-                return false;
             }
-        } else {
-            return false;
-        }
+       }
+
+        return false;
     }
 }

@@ -78,6 +78,35 @@
                                                                         </table></td>
                                                                 </tr>
                                                                 <tr>
+                                                                    <td height="15">&nbsp;</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="left" valign="top">
+                                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                            <tr>
+                                                                                <td width="35%">
+                                                                                    <font style="font-family: Verdana, Geneva, sans-serif; color:#000000; font-size:13px; line-height:21px">User Contact Number :</font> </td>
+                                                                                <td width="65%">
+                                                                                    <font style="font-family:Verdana, Geneva, sans-serif; color:#05bcda; font-size:12px; line-height:20px">
+                                                                                        <strong><em>{{($inquiry->contact_number)?$inquiry->contact_number:'NA'}}</em></strong>
+                                                                                    </font>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                            <tr>
+                                                                                <td height="5" style="border-bottom:2px solid #d0d1d3"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td height="10"></td>
+                                                                            </tr>
+
+                                                                        </table></td>
+                                                                </tr>
+                                                                <tr>
                                                                     <td align="left" valign="top">
                                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                                             <tr>

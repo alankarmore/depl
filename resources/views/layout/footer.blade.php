@@ -1,8 +1,8 @@
-<!-- Start Contact section -->
+﻿<!-- Start Contact section -->
 <section id="contact">
     <div class="container">
         <div class="row">
-            <div class="col-md-4 col-sm-12 col-xs-12">
+            <!--<div class="col-md-4 col-sm-12 col-xs-12">
                 <div class="contact-left wow fadeInLeft">
                     <h2>Useful Links</h2>
                     <ul class="footer-links">
@@ -12,8 +12,8 @@
                         <li><a href="{{route('contactus')}}">Contact</a></li>
                     </ul>
                 </div>
-            </div>
-            <div class="col-md-4 col-sm-12 col-xs-12">
+            </div>-->
+            <div class="col-md-4 col-md-offset-2 col-sm-12 col-xs-12">
                 <div class="contact-left wow fadeInRight">
                     <h2>SOCIAL NETWORK</h2>
                     <p>
@@ -66,4 +66,4 @@
 <script type="text/javascript" src="{{asset('assets/js/wow.js')}}"></script>
 
 <!-- Custom js -->
-<?php /* <script type="text/javascript" src="{{asset('assets/js/custom.js')}}"></script> */ ?>
+ <script type="text/javascript" src="{{asset('assets/js/custom.js')}}"></script>

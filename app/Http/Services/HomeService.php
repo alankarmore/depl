@@ -2,8 +2,10 @@
 
 namespace App\Http\Services;
 
+use App\CurrentOpening;
 use App\OurService;
 use App\Slogan;
+use App\TeamMember;
 use Mail;
 use App\Career;
 use App\OfficeImage;
@@ -45,7 +47,8 @@ class HomeService
         $subContent = CMSMenu::select('id','title','description')
             ->where('include_in','=',$id)
             ->first();
-        if($subContent->count()) {
+
+        if(isset($subContent) && $subContent->count()) {
             return $subContent;
         }
 
@@ -65,6 +68,23 @@ class HomeService
                              ->get();
         if($projects->count()) {
             return $projects;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get all team members
+     *
+     * @return bool
+     */
+    public function getTeamMembers()
+    {
+        $members = TeamMember::select('id','first_name','last_name','image','description','designation')
+            ->where('status','=',\DB::raw(1))
+            ->get();
+        if($members->count()) {
+            return $members;
         }
 
         return false;
@@ -178,6 +198,7 @@ class HomeService
         $inquiry->first_name = trim($data['first_name']);
         $inquiry->last_name = trim($data['last_name']);
         $inquiry->email = trim($data['email']);
+        $inquiry->contact_number = trim($data['contact_number'])?trim($data['contact_number']):null;
         $inquiry->subject = trim($data['subject']);
         $inquiry->message= trim($data['message']);
 
@@ -198,6 +219,31 @@ class HomeService
         return $isSaved;
     }
 
+    /**
+     * Get current openings.
+     *
+     * @return mixed
+     */
+    public function getCurrentOpenings()
+    {
+        return CurrentOpening::where('status','=',\DB::raw(1))->get();
+    }
+
+    /**
+     * Get job details according to the job id and slug
+     *
+     * @param integer $jobId
+     * @param string $slug
+     * @return mixed
+     */
+    public function getJobDetails($jobId,$slug)
+    {
+        $jobId = str_replace('job00','',strtolower($jobId));
+        return CurrentOpening::where('status','=',\DB::raw(1))
+                              ->where('id','=',$jobId)
+                              ->where('slug','=',$slug)
+                              ->first();
+    }
     /**
      * Saving career request and sending email to admin as well as customer
      *

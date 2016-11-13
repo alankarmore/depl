@@ -33,7 +33,7 @@
             var title = locations[i][0]
             var lat = parseFloat(locations[i][1])
             var long = parseFloat(locations[i][2])
-            var add =  locations[i][3].replace(/<br\s*[\/]?>/gi, "\n")
+            //var add =  locations[i][3].replace(/<br\s*[\/]?>/gi, "\n")
 
             latlngset = new google.maps.LatLng(lat, long);
 
@@ -43,7 +43,8 @@
             map.setCenter(marker.getPosition())
 
 
-            var content = title +  '</h3>' + " <br/> Address: " + add
+            var content = title;
+	    //var content = title +  '</h3>' + " <br/> Address: " + add
             var infowindow = new google.maps.InfoWindow()
             google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){
                 return function() {

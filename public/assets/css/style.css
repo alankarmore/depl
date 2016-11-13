@@ -1,4 +1,4 @@
-
+﻿
 /*
 Template Name: Rex
 Author: MarkUps
@@ -451,7 +451,28 @@ img{
 .search-area input[type="submit"]:hover {
   opacity: 0.8;
 }
+.name{
+    text-align:right;
+}
+.career{
+    margin:10px 0px;
+}
+.career-block{
+    border: 1px solid #ccc;
+    margin-top:10px;
+}
+@media (max-width:767px){
+    .name{
+        text-align:left;
+    }
+}
 
+@media(min-width:1440px ){
+.inner-banner img{
+	width: 100%;
+	height: 230px;
+	}
+}
 /*--------------------*/
 /* ABOUT */
 /*--------------------*/
@@ -706,7 +727,7 @@ img{
 .about-to-content {
 	display: inline;
 	float: left;
-	padding: 60px 0;
+	padding: 20px 0;
 	text-align: center;
 	width: 100%;
 }
@@ -732,7 +753,7 @@ img{
 
 #our-services{
 	display: inline;
-	padding: 52px 0px 0;
+	padding: 10px 0px 0;
 	float: left;
 	width: 100%;
 }
@@ -1169,7 +1190,7 @@ img{
 	width: 100%;
 }
 .counter-overlay{
-	background-color: #d1d0d0;
+	background-color: #a2e9fd;
 	height: 100%;
 	left: 0;
 	position: absolute;
@@ -1224,12 +1245,12 @@ img{
 	float: left;
 	position: relative;
 	width: 100%;
-	height: 420px;
+	height: 330px;
 }
 .news-area{
 	display: inline;
 	float: left;
-	padding: 35px 0 0;
+	padding: 15px 0 0;
 	width: 100%;
 }
 .news-area h2{
@@ -1621,7 +1642,7 @@ img{
 	background-size: 100% 100%;
 	display: inline;
 	float: left;
-	padding: 70px 0;
+	padding: 20px 0;
 	width: 100%;
 }
 .contact-left {
@@ -1794,32 +1815,32 @@ ul.footer-links li a:hover{
 	-o-transition: all 0.5s;
 	transition: all 0.5s;
 }
-.footer-social a.facebook:hover{
+.footer-social a.facebook,.footer-social a.facebook:hover{
 	background-color: #3b5998;
 	border-color: #3b5998;
 	color: #fff;
 }
-.footer-social a.twitter:hover{
+.footer-social a.twitter,.footer-social a.twitter:hover{
 	color: #fff;
 	background-color: #00aced;
 	border-color: #00aced;
 }
-.footer-social a.google-plus:hover{
+.footer-social a.google-plus,.footer-social a.google-plus:hover{
 	color: #fff;
 	background-color: #dd4b39;
 	border-color: #dd4b39;
 }
-.footer-social a.youtube:hover{
+.footer-social a.youtube,.footer-social a.youtube:hover{
 	color: #fff;
 	background-color: #bb0000;
 	border-color: #bb0000;
 }
-.footer-social a.linkedin:hover{
+.footer-social a.linkedin,.footer-social a.linkedin:hover{
 	color: #fff;
 	background-color: #007bb5;
 	border-color: #007bb5;
 }
-.footer-social a.dribbble:hover{
+.footer-social a.dribbble,.footer-social a.dribbble:hover{
 	color: #fff;
 	background-color: #ea4c89;
 	border-color: #ea4c89;
@@ -1888,12 +1909,12 @@ ul.social-links li img{
 }
 .item h3{
 	font-size:48px;
-	color:#00bef5;
+	color:#ffae1a;
 	text-transform: uppercase;
 }
 .item p{
 	font-size:24px;
-	color:#00bef5;
+	color:#ffae1a;
 	text-transform: uppercase;
 }
 ul.services{
@@ -1942,7 +1963,7 @@ a.learn-more:hover{
 	text-decoration:none;
 }
 .margin-bottom40{
-	margin-bottom:40px;
+	margin-bottom:25px;
 }
 .margin-top70{
 	margin-top:70px;
@@ -1963,7 +1984,7 @@ a.learn-more:hover{
 	color:#363636;
 	height: auto;
 	overflow: hidden;
-	margin-top: 134px;
+	margin-top: 90px;
 }
 .inner-content{
 	padding:40px 0;
@@ -2363,6 +2384,9 @@ a.more-btn:hover{
 	padding-bottom:0;
 	padding-top:0;
 	}
+	.main-navbar{
+		height:90px;	
+	}
 	.item h3{
 		font-size:24px;
 	}
@@ -2420,7 +2444,7 @@ a.more-btn:hover{
 	  width: 104.5%;
 	  z-index: 17;
       position: relative;
-      top: -75px;
+      top: 27px;
 	}
 	.main-nav {
 	  background: #464646 none repeat scroll 0 0;
@@ -2577,6 +2601,9 @@ a.more-btn:hover{
 	width: 100%;
     height: 236px;
 	}
+	.navbar-nav > li:nth-child(3) {
+    		display: none;
+	}
 }
 
 @media(max-width:640px ){
@@ -2611,6 +2638,9 @@ a.more-btn:hover{
 	width: 100%;
 	height: 150px;
 	}
+	.carousel-caption{
+		left:10%;
+	}
 	.tittle{
 	margin-top:25px;
 	}
@@ -2630,9 +2660,16 @@ a.more-btn:hover{
 	}
 	.main-navbar{
 		padding:10px 0 0 10px;
+                height:80px;
 	}
 	.navbar-fixed-top{
-	height: 125px;
+	height: 90px;
+	}
+	.logo-text{
+		font-size:16px;
+	}
+	.navbar-fixed-top .navbar-toggle ,.navbar-default .navbar-toggle{
+    		margin-top: 10px;
 	}
 	.header-content {
 	  padding: 20px;
@@ -2657,7 +2694,7 @@ a.more-btn:hover{
 	  width: 106%;
 	  z-index: 17;
     position: relative;
-    top: -75px;
+    top: 21px;
 	}
 	.title-area {
 	  padding: 0 15px;
@@ -2735,7 +2772,7 @@ a.more-btn:hover{
 	  font-size: 10px;
 	}
 	.single-slide {
-	  padding: 0 100px;
+	  padding: 0 50px;
 	}
 	#news .single-slide > p {
 	  font-size: 14px;
@@ -2851,7 +2888,10 @@ a.more-btn:hover{
 	height:500px;
 	}
 	.navbar-fixed-top{
-	height: 160px;
+	height: 80px;
+	}
+	.logo-text{
+		font-size:14px;
 	}
 	.header-inner > img {
 	  height: 250px;
@@ -2886,6 +2926,7 @@ a.more-btn:hover{
 	}
 	#navbar {
 	  width: 108.3%;
+	  top:29px;
 	}
 	.title-area {
 	  padding: 0 10px;
@@ -3007,7 +3048,7 @@ a.more-btn:hover{
 	  font-size: 13px;
 	}
 	.contact-right {
-	  padding: 30px 20px;
+	  padding: 20px 20px;
 	}
 	.contact-form .form-group input {
 	  font-size: 16px;
@@ -3097,7 +3138,13 @@ a.more-btn:hover{
 		height:500px;
 	}
 	.navbar-fixed-top{
-	height: 160px;
+	height: 80px;
+	}
+	.logo-text {
+    		font-size: 11px;
+	}
+	.logo img{
+		margin-right:12px;
 	}
 	.search-area input[type="text"]:focus {
 		width: 210px;
@@ -3109,7 +3156,7 @@ a.more-btn:hover{
 	width: 109%;
 	z-index: 17;
     position: relative;
-    top: -120px;
+    top: 18px;
 	}
 	.team-grid {
 	  padding: 0 35px;

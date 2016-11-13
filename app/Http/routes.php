@@ -24,6 +24,7 @@ Route::get('/projects/{name}',array('as' => 'project-details', 'uses' => 'Projec
 Route::get('/contact-us',array('as' => 'contactus', 'uses' => 'HomeController@contactus'));
 Route::post('/post/contact',array('as' => 'post-contact', 'uses' => 'HomeController@postContactus'));
 Route::get('/careers',array('as' => 'careers', 'uses' => 'HomeController@careers'));
+Route::get('/job-details/{jobid}/{jobtitle}',array('as' => 'job-details', 'uses' => 'HomeController@jobDetails'));
 Route::post('/post/careers',array('as' => 'post-careers', 'uses' => 'HomeController@postCareers'));
 
 
@@ -43,6 +44,15 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['web']], function() {
     Route::post('menu/update/{id}', ['as' => 'menu.update', 'uses' => 'Admin\CMSMenuController@update']);
     Route::get('menu/show/{id}', ['as' => 'menu.show', 'uses' => 'Admin\CMSMenuController@show']);
     Route::get('menu/destroy/{id}', ['as' => 'menu.destroy', 'uses' => 'Admin\CMSMenuController@destroy']);
+
+    Route::get('team/list', ['as' => 'team.list', 'uses' => 'Admin\TeamMemberController@index']);
+    Route::post('team/list', ['as' => 'team.list', 'uses' => 'Admin\TeamMemberController@getData']);
+    Route::get('team/create', ['as' => 'team.create', 'uses' => 'Admin\TeamMemberController@create']);
+    Route::post('menu/save', ['as' => 'team.save', 'uses' => 'Admin\TeamMemberController@store']);
+    Route::get('team/edit/{id}', ['as' => 'team.edit', 'uses' => 'Admin\TeamMemberController@edit']);
+    Route::post('team/update/{id}', ['as' => 'team.update', 'uses' => 'Admin\TeamMemberController@update']);
+    Route::get('team/show/{id}', ['as' => 'team.show', 'uses' => 'Admin\TeamMemberController@show']);
+    Route::get('team/destroy/{id}', ['as' => 'team.destroy', 'uses' => 'Admin\TeamMemberController@destroy']);
 
     Route::get('slogan/list', ['as' => 'slogan.list', 'uses' => 'Admin\SloganController@index']);
     Route::post('slogan/list', ['as' => 'slogan.list', 'uses' => 'Admin\SloganController@getData']);
@@ -132,6 +142,15 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['web']], function() {
     Route::post('news/update/{id}', ['as' => 'news.update', 'uses' => 'Admin\NewsController@update']);
     Route::get('news/show/{id}', ['as' => 'news.show', 'uses' => 'Admin\NewsController@show']);
     Route::get('news/destroy/{id}', ['as' => 'news.destroy', 'uses' => 'Admin\NewsController@destroy']);
+
+    Route::get('current-opening/list', ['as' => 'current-opening.list', 'uses' => 'Admin\CurrentOpeningController@index']);
+    Route::post('current-opening/list', ['as' => 'current-opening.list', 'uses' => 'Admin\CurrentOpeningController@getData']);
+    Route::get('current-opening/create', ['as' => 'current-opening.create', 'uses' => 'Admin\CurrentOpeningController@create']);
+    Route::post('current-opening/save', ['as' => 'current-opening.save', 'uses' => 'Admin\CurrentOpeningController@store']);
+    Route::get('current-opening/edit/{id}', ['as' => 'current-opening.edit', 'uses' => 'Admin\CurrentOpeningController@edit']);
+    Route::post('current-opening/update/{id}', ['as' => 'current-opening.update', 'uses' => 'Admin\CurrentOpeningController@update']);
+    Route::get('current-opening/show/{id}', ['as' => 'current-opening.show', 'uses' => 'Admin\CurrentOpeningController@show']);
+    Route::get('current-opening/destroy/{id}', ['as' => 'current-opening.destroy', 'uses' => 'Admin\CurrentOpeningController@destroy']);
 
     Route::get('career/list', ['as' => 'career.list', 'uses' => 'Admin\CareersController@index']);
     Route::post('career/list', ['as' => 'career.list', 'uses' => 'Admin\CareersController@getData']);

@@ -22,7 +22,7 @@
                 <?php $key = $key + 1; ?>
                 @if($key % 2 != 0)
                 <div class="margin-top20 col-md-4 col-sm-12 col-xs-12 wow fadeInLeft">
-                    <img src="{{route('getimage',array('width' => 406, 'height' => 265, 'folder' => 'service', 'file' => $service->image))}}" alt="{{$service->title}}">
+                    <img src="{{route('getimage',array('width' => 406, 'height' => 265, 'folder' => 'service', 'file' => $service->image))}}" alt="{{$service->title}}" class="img-responsive">
                 </div>
                 <div class="col-md-8 col-sm-12 col-xs-12 wow fadeInRight">
                     <h2 class="tittle"><a href="{{route('service-details',array('name' => $service->slug))}}"> {{ucfirst($service->title)}}</a></h2>
@@ -37,7 +37,7 @@
                         {!! substr($service->description,0,800) !!} ...
                     </div>
                     <div class="margin-top20 col-md-4 col-sm-12 col-xs-12 wow fadeInRight">
-                        <img src="{{route('getimage',array('width' => 406, 'height' => 265, 'folder' => 'service', 'file' => $service->image))}}" alt="img">
+                        <img src="{{route('getimage',array('width' => 406, 'height' => 265, 'folder' => 'service', 'file' => $service->image))}}" alt="img" class="img-responsive">
                     </div>
                     <div class="clear"></div>
                     <div align="center" class="margin-top20"><a href="{{route('service-details',array('name' => $service->slug))}}" class="more-btn wow fadeInTop">Read more</a></div>

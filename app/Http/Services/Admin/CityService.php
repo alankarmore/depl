@@ -154,6 +154,6 @@ class CityService extends BaseService
      */
     public function getAllStates()
     {
-        return State::all();
+        return State::orderBy('name','ASC')->get();
     }
 }

@@ -23,11 +23,11 @@
                     @foreach($workFlows as $workFlow)
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$workFlow->id}}">
+                                <a class="" data-toggle="collapse" data-parent="#accordion" href="#collapse{{$workFlow->id}}">
+                            <h4 class="panel-title accordion-toggle">
                                     <span class="services-tittle">{{ucfirst($workFlow->title)}}</span>
-                                </a>
                             </h4>
+</a>
                         </div>
                         <div id="collapse{{$workFlow->id}}" class="panel-collapse collapse">
                             <div class="panel-body">{!! $workFlow->description !!}</div>

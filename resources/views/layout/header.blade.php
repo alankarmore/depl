@@ -1,7 +1,7 @@
 <!-- BEGAIN PRELOADER -->
-{{--<div id="preloader">
+<div id="preloader">
     <div class="loader">&nbsp;</div>
-</div>--}}
+</div>
 <!-- END PRELOADER -->
 
 <!-- SCROLL TOP BUTTON -->
@@ -31,11 +31,11 @@
                     <ul id="top-menu" class="nav navbar-nav main-nav menu-scroll">
                         <li><a href="{{route('/')}}" @if($currentRoute == '/')class="active"@endif>Home</a></li>
                         <li><a href="{{route('page-content',array('pageName' => 'about-us'))}}" @if($currentRoute == 'page-content')class="active"@endif>ABOUT US</a></li>
-                        <li><a href="{{route('networks')}}" @if($currentRoute == 'networks')class="active"@endif>Networks</a></li>
+                        <li><a href="{{route('networks')}}" @if($currentRoute == 'networks')class="active"@endif>NETWORK</a></li>
                         <li><a href="{{route('projects')}}" @if($currentRoute == 'projects')class="active"@endif>PROJECTS</a></li>
                         <li><a href="{{route('services')}}" @if($currentRoute == 'services')class="active"@endif>SERVICES</a></li>
                         {{--<li><a href="#">Clients</a></li>--}}
-                        <li><a href="{{route('careers')}}" @if($currentRoute == 'careers')class="active"@endif>Careers</a></li>
+                        <li><a href="{{route('careers')}}" @if($currentRoute == 'careers' || $currentRoute == 'job-details')class="active"@endif>Careers</a></li>
                         <li><a href="{{route('contactus')}}" @if($currentRoute == 'contactus')class="active"@endif>CONTACT</a></li>
                     </ul>
                 </div>

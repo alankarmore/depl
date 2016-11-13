@@ -29,7 +29,7 @@
                     {!! substr($project->description,0,800) !!} ...
                 </div>
                 <div class="clear"></div>
-                <div align="center" class="margin-top20"><a href="{{route('service-details',array('name' => $project->slug))}}" class="more-btn wow fadeInTop">Read more</a></div>
+                <div align="center" class="margin-top20"><a href="{{route('project-details',array('name' => $project->slug))}}" class="more-btn wow fadeInTop">Read more</a></div>
                 <hr/>
                 @else
                     <div class="margin-top20 col-md-8 col-sm-12 col-xs-12 wow fadeInLeft">

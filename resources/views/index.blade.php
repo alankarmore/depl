@@ -2,6 +2,7 @@
 @section('content')
     <!-- Start banner section -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
+{{--
         @if($slogans)
         <!-- Indicators -->
         <ol class="carousel-indicators">
@@ -10,6 +11,7 @@
             @endforeach
         </ol>
         @endif
+--}}
         @if($slogans)
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
@@ -107,7 +109,7 @@
                             @foreach($services as $service)
                                 <li class="all-services wow fadeInUp">
                                     <div>
-                                        <img src="{{route('getimage',array('width' => 343, 'height' => 264, 'folder' => 'service', 'file' => $service->image))}}" alt="{{ucwords($service->title)}}">
+                                        <img src="{{route('getimage',array('width' => 343, 'height' => 264, 'folder' => 'service', 'file' => $service->image))}}" alt="{{ucwords($service->title)}}" class="img-responsive">
                                         <div class="service-head">{{ucwords($service->title)}}</div>
                                         <p>{{strip_tags(substr($service->description,0,66))}}</p>
                                         <div align="center"><a href="{{route('service-details',array('name' => $service->slug))}}" title="{{ucwords($service->title)}}" class="learn-more">Read More</a></div>
@@ -152,7 +154,7 @@
                 <div class="col-md-12">
                     <div class="client-area">
                         <div class="title-area">
-                            <div align="center"><img src="{{asset('assets/images/clients-icon.png')}}"/></div>
+                            <div align="center"><img src="{{asset('assets/images/clients_icon.png')}}" style="width:70px;"/></div>
                             <h2>Our Clients</h2>
                             <div class="green-sep"></div>
                             <div class="client-area margin-top70">
@@ -195,14 +197,16 @@
                             </div>
                             <div class="news-conten">
                                 <!-- Start news slider -->
-                                <div class="news-slider">
-                                    @foreach($newsCollection as $news)
-                                    <!-- single slide -->
-                                    <div class="single-slide">
-                                        <p>{{$news->description}}</p>
-                                    </div>
-                                    @endforeach
-                                </div>
+				<div class="col-md-8 col-md-offset-2">
+                                   <div class="news-slider">
+                                        @foreach($newsCollection as $news)
+                                    	<!-- single slide -->
+                                    	<div class="single-slide">
+                                          <p>{{$news->description}}</p>
+                                    	</div>
+                                     	@endforeach
+                                   </div>
+				</div>
                             </div>
                         </div>
                     </div>

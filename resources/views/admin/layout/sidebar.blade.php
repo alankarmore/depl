@@ -21,6 +21,21 @@
         </li>
         <li class="parent ">
             <a href="javascript:void(0);">
+                <span data-toggle="collapse" href="#teams"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Team Management
+            </a>
+            <ul class="children collapse" id="teams">
+                <li>
+                    <a href="{{route('team.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Our Team</a>
+                </li>
+                <li>
+                    <a href="{{route('team.create')}}">
+                        <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Add New Member
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="parent ">
+            <a href="javascript:void(0);">
                 <span data-toggle="collapse" href="#slogans"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Home Slider Slogans
             </a>
             <ul class="children collapse" id="slogans">
@@ -136,10 +151,10 @@
         </li>
         <li class="parent ">
             <a href="javascript:void(0);">
-                <span data-toggle="collapse" href="#states"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span>
+                <span data-toggle="collapse" href="#cities"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span>
                 Cities
             </a>
-            <ul class="children collapse" id="states">
+            <ul class="children collapse" id="cities">
                 <li>
                     <a href="{{route('city.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Cities</a>
                 </li>
@@ -166,7 +181,22 @@
                 </li>
             </ul>     
         </li>
-        
+        <li class="parent ">
+            <a href="javascript:void(0);">
+                <span data-toggle="collapse" href="#openings"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span>
+                Current Openings
+            </a>
+            <ul class="children collapse" id="openings">
+                <li>
+                    <a href="{{route('current-opening.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Openings</a>
+                </li>
+                <li>
+                    <a href="{{route('current-opening.create')}}">
+                        <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Create New Opening
+                    </a>
+                </li>
+            </ul>
+        </li>
         <li class="parent ">
             <a href="javascript:void(0);">
                 <span data-toggle="collapse" href="#configuration"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span>
@@ -194,36 +224,5 @@
                 <span data-toggle="collapse" ><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg></span> SEO Management
             </a>
         </li>
-<!--
-        <li><a href="widgets.html"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Widgets</a></li>
-        <li><a href="charts.html"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> Charts</a></li>
-        <li><a href="tables.html"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg> Tables</a></li>
-        <li><a href="forms.html"><svg class="glyph stroked pencil"><use xlink:href="#stroked-pencil"></use></svg> Forms</a></li>
-        <li><a href="panels.html"><svg class="glyph stroked app-window"><use xlink:href="#stroked-app-window"></use></svg> Alerts &amp; Panels</a></li>
-        <li><a href="icons.html"><svg class="glyph stroked star"><use xlink:href="#stroked-star"></use></svg> Icons</a></li>
-        <li class="parent ">
-            <a href="javascript:void(0);">
-                <span data-toggle="collapse" href="#sub-item-1"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Dropdown 
-            </a>
-            <ul class="children collapse" id="sub-item-1">
-                <li>
-                    <a class="" href="javascript:void(0);">
-                        <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Sub Item 1
-                    </a>
-                </li>
-                <li>
-                    <a class="" href="javascript:void(0);">
-                        <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Sub Item 2
-                    </a>
-                </li>
-                <li>
-                    <a class="" href="javascript:void(0);">
-                        <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Sub Item 3
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li role="presentation" class="divider"></li>
-        <li><a href="login.html"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Login Page</a></li>-->
     </ul>
 </div><!--/.sidebar-->

@@ -55,9 +55,9 @@ class HomeController extends Controller
                     $params['subcontent'] = $subContent;
                 }
 
-                $projects = $this->service->getMajorProjects();
-                if($projects) {
-                    $params['projects'] = $projects;
+                $members = $this->service->getTeamMembers();
+                if($members) {
+                    $params['members'] = $members;
                 }
             }
 
@@ -72,28 +72,30 @@ class HomeController extends Controller
      */
     public function contactus()
     {
+        $officesArray = array();
         if(Cache::has('offices') && Cache::has('officesArray')) {
             $offices = Cache::get('offices');
             $officesArray = Cache::get('officesArray');
         } else {
             $offices = $this->service->getAllOffices();
-            $officesArray = array();
-            foreach($offices as $office) {
-                $temp = new \stdClass();
-                $temp->title = $office->title;
-                $temp->lat = $office->lat;
-                $temp->lng = $office->lng;
-                $temp->address = trim(preg_replace('/\s+/', ' ', $office->address));
-                $temp->address.= ",<br/>".ucfirst($office->state).",<br/>".ucfirst($office->city).",<br/>".$office->pincode;
-                if(!empty($office->phone)) {
-                    $temp->address .= "<br/> Phone : ".$office->phone;
-                }
+            if($offices) {
+                foreach($offices as $office) {
+                    $temp = new \stdClass();
+                    $temp->title = $office->title;
+                    $temp->lat = $office->lat;
+                    $temp->lng = $office->lng;
+                    $temp->address = trim(preg_replace('/\s+/', ' ', $office->address));
+                    $temp->address.= ",<br/>".ucfirst($office->state).",<br/>".ucfirst($office->city).",<br/>".$office->pincode;
+                    if(!empty($office->phone)) {
+                        $temp->address .= "<br/> Phone : ".$office->phone;
+                    }
 
-                if(!empty($office->fax)) {
-                    $temp->address .= "<br/> Fax : ".$office->fax;
-                }
+                    if(!empty($office->fax)) {
+                        $temp->address .= "<br/> Fax : ".$office->fax;
+                    }
 
-                $officesArray[] = $temp;
+                    $officesArray[] = $temp;
+                }
             }
 
             Cache::add('offices',$offices, 120);
@@ -129,9 +131,24 @@ class HomeController extends Controller
      */
     public function careers()
     {
-        return view('careers');
+        $currentOpenings = $this->service->getCurrentOpenings();
+
+        return view('careers',array('currentOpenings' => $currentOpenings));
     }
 
+    public function jobDetails($jobId,$slug)
+    {
+        if(empty($jobId) && empty($slug)) {
+            return redirect(route('careers'));
+        }
+
+        $jobDetails = $this->service->getJobDetails($jobId,$slug);
+        if(empty($jobDetails)) {
+            return redirect(route('careers'));
+        }
+
+        return view('job-details',array('job' => $jobDetails));
+    }
     /**
      * Posting careers form and sending mail to admin as well as to customer
      *

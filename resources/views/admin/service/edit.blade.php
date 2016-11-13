@@ -20,7 +20,7 @@
                 <div class="panel-body">
                     <div class="col-md-12">
                         @include('admin.messages')
-                        <form role="form" name="frmService" id='frmService' action="{{route('service.update',array('id' => $service->id))}}" method="POST">
+                        <form role="form" name="frmService" id='frmService' action="{{route('service.update',array('id' => $service->id))}}" method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label>Title</label>
                                 <input class="form-control" placeholder="Service Title" name="title" id="title" value="{{$service->title}}">
