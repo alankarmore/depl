@@ -46,7 +46,6 @@ class StateSeederTable extends Seeder
             array('name' => 'Lakshadweep'),
             array('name' => 'Madhya Pradesh'),
             array('name' => 'Maharashtra'),
-            array('name' => 'Maharastra'),
             array('name' => 'Manipur'),
             array('name' => 'Meghalaya'),
             array('name' => 'Mizoram'),
@@ -66,7 +65,7 @@ class StateSeederTable extends Seeder
 
         foreach($states as $state) {
             $state['name'] = trim($state['name']);
-            $state['slug'] = $this->clean(trim($state['name']));
+            $state['slug'] = strtolower($this->clean(trim($state['name'])));
             $state['status'] = 1;
             $latLong = $this->getLatLongByAddress($state['name']);
             if (!empty($latLong)) {
