@@ -30,11 +30,22 @@
                                         @endforeach
                                     </select>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputName2">State</label>
+                                    <select name="district" id="district" class="form-control">
+                                        <option value="">District</option>
+                                        @foreach($districts as $district)
+                                            <option value="{{$district->slug}}" @if($district->slug == $defaultDistrict) selected="selected" @endif >{{ucfirst($district->name)}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="exampleInputEmail2">City</label>
                                     <select name="city" id="city" class="form-control">
                                         <option value="">Select City</option>
-                                        @foreach($citiesByState as $city)
+                                        @foreach($citiesByDistrict as $city)
                                             <option value="{{$city->slug}}" @if($city->slug == $defaultCity) selected="selected" @endif >{{ucfirst($city->name)}}</option>
                                         @endforeach
 
@@ -64,26 +75,28 @@
 
             @section('page-script')
                 <script>
-                    var route = '{{route('map-getcities')}}';
-                    var state= '{{$defaultState}}';
-                    var city = '{{$defaultCity}}';
                     $(function(){
                         $.ajaxSetup({
                             headers: { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
                         });
-                        getCities(state,city);
-                        $(document).on('change','state',function(){
+
+                        $(document).on('change','district',function(){
                             var stateId = $(this).val();
-                            var city = null;
-                            getCities(stateId,city);
+                            getCities(stateId);
+                        });
+
+                        $(document).on('change','state',function(){
+                            var district = $(this).val();
+                            getDistricts(district);
                         });
                     });
 
-                    function getCities(stateId,city) {
+                    function getCities(districtId) {
+                        var route = '{{route('map-getcities')}}';
                         var res = null;
                         $.ajax({
                             url:route,
-                            data:{'id': stateId, 'city': city},
+                            data:{'id': districtId},
                             dataType:"JSON",
                             type:"POST",
                             success:function(msg)  {
@@ -98,22 +111,45 @@
                         });
                     }
 
+                    function getDistricts(stateId) {
+                        var route = '{{route('map-getdistricts')}}';
+                        var res = null;
+                        $.ajax({
+                            url:route,
+                            data:{'id': stateId},
+                            dataType:"JSON",
+                            type:"POST",
+                            success:function(msg)  {
+                                res = msg;
+                            },
+                            complete:function() {
+                                if(res.string != null || res.string != '' || res.string != 'undefined') {
+                                    $("#district").html(res.string);
+                                    $("#district").focus();
+                                }
+                            }
+                        });
+                    }
+
                     @if($response && $response->count() > 0)
 
                     function myMap() {
                         var locations = [
                              @foreach($response as $res)
-                               ['{{$res->title}}', {{$res->lat}}, {{$res->long}}, '{{$res->address}}'],
+                                @if(!empty($res->lat) && !empty($res->long))
+                                    ['{{$res->title}}', {{$res->lat}}, {{$res->long}}, '{{$res->address}}'],
+                                @endif
                              @endforeach
                         ];
 
                         var mapCanvas = document.getElementById("map");
                         var mapOptions = {
                             center: new google.maps.LatLng({{$centerPoints[0]}}, {{$centerPoints[1]}}),
-                            zoom: 10
+                            zoom: 8
                         }
 
                         var map = new google.maps.Map(document.getElementById("map"),mapOptions);
+                        console.log(locations);
                         setMarkers(map,locations)
                     }
 

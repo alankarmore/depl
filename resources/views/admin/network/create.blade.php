@@ -36,6 +36,14 @@
                                     </select>
                                     <span class="alert-danger">{{$errors->first('state')}}</span>
                                 </div>
+
+                                <div class="form-group">
+                                    <label>District</label>
+                                    <select name="district" id="district" class="form-control">
+                                        <option value="">Select District</option>
+                                    </select>
+                                    <span class="alert-danger">{{$errors->first('district')}}</span>
+                                </div>
                                 <div class="form-group">
                                     <label>City</label>
                                     <select name="city" id="city" class="form-control">
@@ -50,8 +58,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Pincode</label>
-                                    <input class="form-control" placeholder="pincode" name="pincode" id="length" value="{{old('pincode')?old('pincode'):''}}">
+                                    <input class="form-control" placeholder="pincode" name="pincode" id="pincode" value="{{old('pincode')?old('pincode'):''}}">
                                     <span class="alert-danger">{{$errors->first('pincode')}}</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Kms work done</label>
+                                    <input class="form-control" placeholder="Kms" name="kms" id="kms" value="{{old('Kms')?old('Kms'):''}}">
+                                    <span class="alert-danger">{{$errors->first('Kms')}}</span>
                                 </div>
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="form-group">
@@ -70,11 +83,31 @@
     <script type="text/javascript">
         $(function(){
             $(document).on('change','#state',function(){
+                var route = '{{route("state.districts.list")}}';
+                var res = null;
+                $.ajax({
+                    url:route,
+                    data:{'state': $("#state").val()},
+                    dataType:"JSON",
+                    type:"POST",
+                    success:function(msg)  {
+                        res = msg;
+                    },
+                    complete:function() {
+                        if(res.string != null || res.string != '' || res.string != 'undefined') {
+                            $("#district").html(res.string);
+                            $("#district").focus();
+                        }
+                    }
+                });
+            });
+
+            $(document).on('change','#district',function(){
                 var route = '{{route("getcities")}}';
                 var res = null;
                 $.ajax({
                     url:route,
-                    data:{'id': $("#state").val()},
+                    data:{'id': $("#district").val()},
                     dataType:"JSON",
                     type:"POST",
                     success:function(msg)  {

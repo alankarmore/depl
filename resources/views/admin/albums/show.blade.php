@@ -4,8 +4,8 @@
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="{{route('admin.dashboard')}}"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-            <li ><a href="{{route('network.list')}}">Networks</a></li>
-            <li class="active">Route Details</li>
+            <li ><a href="{{route('office.list')}}">Our Offices</a></li>
+            <li class="active">Office Details</li>
         </ol>
     </div><!--/.row-->
 
@@ -16,29 +16,38 @@
                 <div class="panel-body">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>Title</label>
-                            <div>{{$route->title}}</div>
-                        </div>
-                        <div class="form-group">
-                            <label>State</label>
-                            <div>{{ucfirst($route->state->name)}}</div>
-                        </div>
-                        <div class="form-group">
-                            <label>District</label>
-                            <div>{{ucfirst($route->district->name)}}</div>
-                        </div>
-                        <div class="form-group">
-                            <label>City</label>
-                            <div>{{ucfirst($route->city->name)}}</div>
+                            <label>Type</label>
+                            <div>@if($office->type == 1) Head Office @else Branch Office @endif</div>
                         </div>
                         <div class="form-group">
                             <label>Address</label>
-                            <div>{{$route->address}}</div>
+                            <div>{{$office->address}}</div>
+                        </div>                        
+                        <div class="form-group">
+                            <label>City</label>
+                            <div>{{$office->city}}</div>
+                        </div>
+                        <div class="form-group">
+                            <label>State</label>
+                            <div>{{$office->state}}</div>
                         </div>
                         <div class="form-group">
                             <label>Pincode</label>
-                            <div>{{$route->pincode}}</div>
+                            <div>{{$office->pincode}}</div>
                         </div>
+                        @if(!empty($office->phone))
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <div>{{$office->phone}}</div>
+                        </div>
+                        @endif
+                        
+                        @if(!empty($office->fax))
+                        <div class="form-group">
+                            <label>Fax</label>
+                            <div>{{$office->fax}}</div>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -47,7 +56,7 @@
 </div><!--/.main-->
 @section('page-script')
 <script>
-    activeParentMenu('network');
+    activeParentMenu('office'); 
 </script>
 @endsection
 @endsection

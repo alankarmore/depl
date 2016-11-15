@@ -4,7 +4,7 @@
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="javascript:void(0);"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-            <li class="active">Routes</li>
+            <li class="active">Districts</li>
         </ol>
     </div><!--/.row-->
     <div class="row">&nbsp;</div>
@@ -14,19 +14,15 @@
             <div class="panel panel-default">
                     <div class="col-sm-2 pull-right">
                         <br/>
-                        <a href="{{route('network.create')}}" title="Add Route" class="btn btn-primary">Add New Route</a>
+                        <a href="{{route('districts.create')}}" title="Add District" class="btn btn-primary">Add New District</a>
                     </div>
                     <div class="clearfix"></div>
                 <div class="panel-body">
-                    <table id="projectTable"> 
+                    <table id="districtTable">
                         <thead>
                             <tr>
-                                <th data-field="title" data-sortable="true">Title</th>
-                                <th data-field="stateName" data-sortable="true">State</th>
-                                <th data-field="districtName" data-sortable="true">District</th>
-                                <th data-field="cityName" data-sortable="true">City</th>
-                                <th data-field="address" data-sortable="true">Address</th>
-                                <th data-field="pincode" data-sortable="true">Pincode</th>
+                                <th data-field="name" data-sortable="true">District Name</th>
+                                <th data-field="stateName" data-sortable="true">State Name</th>
                                 <th data-field="action" data-sortable="false">Action</th>
                             </tr>
                         </thead>
@@ -40,8 +36,8 @@
 <script src="{{asset('admin/js/bootstrap-table.js')}}"></script>
 <script>
 $(function () {
-    var route = "{{route('network.list')}}";
-    generateTable("projectTable",route,'title','ASC');
+    var route = "{{route('districts.list')}}";
+    generateTable("districtTable",route,'name','ASC');
 });
 </script>
 @endsection

@@ -79,8 +79,9 @@ class CityController extends Controller
         if (!empty($id)) {
             $states = $this->service->getAllStates();
             $cityDetails = $this->service->getDetailsById($id);
+            $districts = $cityDetails->state->districts;
 
-            return view('admin.cities.edit', ['city' => $cityDetails, 'states' => $states]);
+            return view('admin.cities.edit', ['city' => $cityDetails, 'states' => $states, 'districts' => $districts]);
         }
 
         return redirect(route('city.list'));

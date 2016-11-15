@@ -37,9 +37,26 @@
                                 <span class="alert-danger">{{$errors->first('state')}}</span>
                             </div>
                             <div class="form-group">
+                                <label>District</label>
+                                <select name="district" id="district" class="form-control">
+                                    <option value="">Select District</option>
+                                    @if($districts && $districts->count() > 0)
+                                        @foreach($districts as $district)
+                                        <option value="{{$district->id}}" @if($route->district_id == $district->id) selected='selected' @endif>{{ucfirst($district->name)}}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                                <span class="alert-danger">{{$errors->first('district')}}</span>
+                            </div>
+                            <div class="form-group">
                                 <label>City</label>
                                 <select name="city" id="city" class="form-control">
                                     <option value="">Select City</option>
+                                    @if($cities && $cities->count() > 0)
+                                        @foreach($cities as $city)
+                                            <option value="{{$city->id}}" @if($route->city_id == $city->id) selected='selected' @endif>{{ucfirst($city->name)}}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                                 <span class="alert-danger">{{$errors->first('city')}}</span>
                             </div>
@@ -69,12 +86,38 @@
 @section('page-script')
 <script>
     activeParentMenu('networks');
-    function getCities(stateId,city) {
-        city = city | null;
+    $(function(){
+        $(document).on('change','#state',function(){
+            var route = '{{route("state.districts.list")}}';
+            var res = null;
+            $.ajax({
+                url:route,
+                data:{'state': $("#state").val()},
+                dataType:"JSON",
+                type:"POST",
+                success:function(msg)  {
+                    res = msg;
+                },
+                complete:function() {
+                    if(res.string != null || res.string != '' || res.string != 'undefined') {
+                        $("#district").html(res.string);
+                        $("#district").focus();
+                    }
+                }
+            });
+        });
+
+        $(document).on('change','#district',function(){
+            getCities($(this).val(),null);
+        });
+    });
+
+    function getCities(districtId) {
+        var route = '{{route("getcities")}}';
         var res = null;
         $.ajax({
             url:route,
-            data:{'id': stateId, 'city': city},
+            data:{'id': districtId},
             dataType:"JSON",
             type:"POST",
             success:function(msg)  {
@@ -89,13 +132,7 @@
         });
     }
 
-    var route = '{{route("getcities")}}';
-    var stateId = '{{$route->state_id}}';
-    var city = '{{$route->city_id}}';
-    getCities(stateId,city);
-    $(document).on('change','#state',function(){
-        getCities($(this).val(),null);
-    });
+
 </script>
 @endsection
 @endsection

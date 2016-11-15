@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\NetworkRequest;
-use App\Http\Services\Admin\NetworkService;
+use App\Http\Requests\Admin\DistrictRequest;
+use App\Http\Services\Admin\DistrictService;
 
-class NetworkController extends Controller
+class DistrictController extends Controller
 {
 
     public function __construct()
     {
-        $this->service = new NetworkService();
+        $this->service = new DistrictService();
     }
 
     /**
@@ -21,7 +21,7 @@ class NetworkController extends Controller
      */
     public function index()
     {
-        return view('admin.network.index');
+        return view('admin.districts.index');
     }
 
     /**
@@ -32,7 +32,7 @@ class NetworkController extends Controller
     public function create()
     {
         $states = $this->service->getAllStates();
-        return view('admin.network.create',array('states' => $states));
+        return view('admin.districts.create', array('states' => $states));
     }
 
     /**
@@ -41,11 +41,12 @@ class NetworkController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(NetworkRequest $request)
+    public function store(DistrictRequest $request)
     {
-        $route = $this->service->saveOrUpdateDetails($request);
-        if ($route) {
-            return redirect(route('network.edit',['$route' => $route]))->with('success', 'Route has been saved successfully!');
+
+        $district = $this->service->saveOrUpdateDetails($request);
+        if ($district) {
+            return redirect(route('districts.edit',['district' => $district]))->with('success', 'District has been created successfully!');
         }
 
         return back()->withInput();
@@ -60,12 +61,12 @@ class NetworkController extends Controller
     public function show($id)
     {
         if (!empty($id)) {
-            $routeDetails = $this->service->getDetailsById($id);
+            $districtDetails = $this->service->getDetailsById($id);
 
-            return view('admin.network.show', ['route' => $routeDetails]);
+            return view('admin.districts.show', ['district' => $districtDetails]);
         }
 
-        return redirect(route('network.list'));
+        return redirect(route('districts.list'));
     }
 
     /**
@@ -77,16 +78,13 @@ class NetworkController extends Controller
     public function edit($id)
     {
         if (!empty($id)) {
-            $routeDetails = $this->service->getDetailsById($id);
-
             $states = $this->service->getAllStates();
-            $districts = $routeDetails->state->districts;
-            $cities = $routeDetails->district->cities;
+            $districtDetails = $this->service->getDetailsById($id);
 
-            return view('admin.network.edit', ['route' => $routeDetails,'states' => $states, 'districts' => $districts,'cities' => $cities]);
+            return view('admin.districts.edit', ['district' => $districtDetails, 'states' => $states]);
         }
 
-        return redirect(route('network.list'));
+        return redirect(route('districts.list'));
     }
 
     /**
@@ -96,11 +94,11 @@ class NetworkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(NetworkRequest $request, $id)
+    public function update(DistrictRequest $request, $id)
     {
-        $route = $this->service->saveOrUpdateDetails($request, $id);
-        if ($route) {
-            return redirect(route('network.edit',['route' => $route]))->with('success', 'Route has been modified successfully!');
+        $district = $this->service->saveOrUpdateDetails($request, $id);
+        if ($district) {
+            return redirect(route('districts.edit',['district' => $district]))->with('success', 'District has been updated successfully!');
         }
 
         return back()->withInput();
@@ -117,11 +115,11 @@ class NetworkController extends Controller
         if(!empty($id)) {
             $deleted = $this->service->deleteById($id);
             if($deleted) {
-                return redirect(route('network.list'))->with('success', 'New Route has been deleted successfully!');
+                return redirect(route('districts.list'))->with('success', 'District deleted successfully!');
             }
         }
         
-        return redirect(route('network.list'))->with('error', 'Oops something went wrong !');
+        return redirect(route('districts.list'))->with('error', 'Oops something went wrong !');
     }
 
 }

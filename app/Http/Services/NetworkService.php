@@ -5,21 +5,16 @@ namespace App\Http\Services;
 use App\Network;
 use App\State;
 use App\City;
+use App\District;
 
 class NetworkService
 {
 
-    /**
-     * Get all active services
-     *
-     * @return mixed
-     */
-    public function getRoutes($state = null,$city = null)
+
+    public function getRoutes($state = null,$district = null,$city = null)
     {
-        $query = Network::select('networks.id', 'networks.title', 'networks.state_id', 'networks.city_id', 'networks.address',
-            'states.name as stateName','cities.name as cityName','networks.pincode', 'networks.lat', 'networks.long')
-                         ->join('states','states.id','=','networks.state_id')
-                         ->join('cities','cities.id','=','networks.city_id')
+        $query = Network::select('networks.id', 'networks.title', 'networks.state_id', 'networks.city_id','networks.district_id',
+                                'networks.address','networks.pincode', 'networks.lat', 'networks.long')
                          ->where('networks.status', '=', \DB::raw(1));
         if (!empty($state)) {
             $stateObj = State::where('slug','=', $state)->first();
@@ -28,11 +23,12 @@ class NetworkService
             }
         }
 
+        if (!empty($district)) {
+             $query->where('networks.district_id', '=', $district);
+        }
+
         if (!empty($city)) {
-            $cityObj = City::where('slug','=', $city)->first();
-            if(!empty($cityObj) && $cityObj->id > 0) {
-                $query->where('networks.city_id', '=', $cityObj->id);
-            }
+                $query->where('networks.city_id', '=', $city);
         }
 
         return $query->get();
@@ -60,15 +56,49 @@ class NetworkService
     }
 
     /**
-     * Get all cities according to the state id
+     * Get district according to the district slug
      *
-     * @param string state
+     * @param string $district
+     * @return mixed
+     */
+    public function getDistrictBySlug($district)
+    {
+        return District::where('slug','=',$district)->first();
+    }
+
+    /**
+     * Get all cities according to the district id
+     *
+     * @param integer $districtId
      * @return App\City
      */
-    public function getCitiesByState($state)
+    public function getCitiesByDistrict($districtId)
     {
-        $state = State::where('slug','=',$state)->first();
+        return City::where('district_id','=',$districtId)->get();
+    }
 
-        return City::where('states_id','=',$state->id)->get();
+    /**
+     * Get cities by district slug details
+     * @param string $districtSlug
+     * @return mixed
+     */
+    public function getCitiesByDistrictSlug($districtSlug)
+    {
+        $district = District::where('slug','=',$districtSlug)->first();
+
+        return City::where('states_id','=',$district->id)->get();
+    }
+
+    /**
+     * Get district according to the state slug
+     *
+     * @param sring $stateSlug
+     * @return mixed
+     */
+    public function getDistrictsByState($stateSlug)
+    {
+        $state = State::where('slug','=',$stateSlug)->first();
+
+        return District::where('states_id','=',$state->id)->get();
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Services\Admin;
 use URL;
 use App\State;
 use App\City;
+use App\District;
 use Illuminate\Http\Request;
 use App\Http\Services\BaseService;
 
@@ -106,11 +107,22 @@ class StateService extends BaseService
     /**
      * Get all cities according to the state id
      *
-     * @param $stateId
+     * @param $districtId
      * @return App\City
      */
-    public function getCitiesByState($stateId)
+    public function getCitiesByDistrict($districtId)
     {
-        return City::where('states_id','=',$stateId)->get();
+        return City::where('district_id','=',$districtId)->get();
+    }
+
+    /**
+     * Get all districts according to the states.
+     *
+     * @param integer $stateId
+     * @return mixed
+     */
+    public function getDistrictsByState($stateId)
+    {
+        return District::where('states_id','=',$stateId)->orderBY('name','ASC')->get();
     }
 }

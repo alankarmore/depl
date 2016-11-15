@@ -133,7 +133,7 @@ class StateController extends Controller
         $id = $request->get('id');
         $cityId = $request->get('city')?$request->get('city'):null;
         if(!empty($id) &&  (int) $id > 0) {
-            $cities = $this->service->getCitiesByState($id,$cityId);
+            $cities = $this->service->getCitiesByDistrict($id,$cityId);
             if($cities) {
                 $optionString = '<option value="0">Select City</option>';
                 foreach($cities as $city) {
@@ -153,4 +153,34 @@ class StateController extends Controller
         return Response::json($response);
     }
 
+    /**
+     * Get all districts according to the state id
+     * @param Request $request
+     * @return mixed
+     */
+    public function getDistricts(Request $request)
+    {
+        $response = array('valid' => 0, 'string' => 0);
+        $id = $request->get('state');
+        $districtId = $request->get('district')?$request->get('district'):null;
+        if(!empty($id) &&  (int) $id > 0) {
+            $districts = $this->service->getDistrictsByState($id,$districtId);
+            if($districts) {
+                $optionString = '<option value="0">Select City</option>';
+                foreach($districts as $district) {
+                    if($district->id == $districtId) {
+                        $optionString .= '<option selected="selected" value="'.$district->id.'">'.ucfirst($district->name).'</option>';
+                    } else {
+                        $optionString .= '<option value="'.$district->id.'">'.ucfirst($district->name).'</option>';
+                    }
+
+                }
+
+                $response['valid'] = 1;
+                $response['string'] = $optionString;
+            }
+        }
+
+        return Response::json($response);
+    }
 }

@@ -22,6 +22,7 @@
                         <thead>
                             <tr>
                                 <th data-field="name" data-sortable="true">City Name</th>
+                                <th data-field="districtName" data-sortable="true">District Name</th>
                                 <th data-field="stateName" data-sortable="true">State Name</th>
                                 <th data-field="action" data-sortable="false">Action</th>
                             </tr>

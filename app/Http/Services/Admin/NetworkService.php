@@ -3,8 +3,10 @@
 namespace App\Http\Services\Admin;
 
 use URL;
-use App\Network;
 use App\State;
+use App\City;
+use App\Network;
+use App\District;
 use Illuminate\Http\Request;
 use App\Http\Services\BaseService;
 
@@ -22,9 +24,10 @@ class NetworkService extends BaseService
         $response = array('total' => 0, 'rows' => '');
         $allNetworks = Network::select(\DB::raw('COUNT(*) as cnt'))->first();
         $response['total'] = $allNetworks->cnt;
-        $query = Network::select('networks.id', 'networks.title', 'networks.state_id', 'networks.city_id', 'networks.pincode', 'networks.address', 'networks.lat', 'networks.long', 'networks.status','states.name As stateName','cities.name As cityName')
+        $query = Network::select('networks.id', 'networks.title', 'networks.state_id', 'networks.city_id', 'networks.pincode', 'networks.address', 'networks.lat', 'networks.long', 'networks.status','states.name As stateName','cities.name As cityName','districts.name As districtName')
                           ->join('states','states.id','=','networks.state_id')
-                          ->join('cities','cities.id','=','networks.city_id');
+                          ->join('cities','cities.id','=','networks.city_id')
+                          ->join('districts','districts.id','=','networks.district_id');
         $search = $request->get('search');
         if (!empty($search)) {
             $query->where('title', 'LIKE', '%' . $request->get('search') . '%');
@@ -63,9 +66,7 @@ class NetworkService extends BaseService
      */
     public function getDetailsById($id)
     {
-        return Network::select('networks.id', 'networks.title', 'networks.state_id', 'networks.city_id', 'pincode', 'address', 'networks.lat', 'networks.long', 'networks.status','states.name As stateName','cities.name As cityName')
-            ->join('states','states.id','=','networks.state_id')
-            ->join('cities','cities.id','=','networks.city_id')
+        return Network::select('networks.id', 'networks.title', 'networks.state_id', 'networks.city_id','networks.district_id', 'pincode', 'address', 'networks.lat', 'networks.long', 'networks.status')
             ->where('networks.id','=',$id)
             ->first();
     }
@@ -90,16 +91,29 @@ class NetworkService extends BaseService
 
         $network->title = trim($request->get('title'));
         $network->state_id = trim($request->get('state'));
-        $network->address = trim($request->get('address'));
+        $network->district_id = trim($request->get('district'));
         $network->city_id = trim($request->get('city'));
+        $network->address = trim($request->get('address'));
         $network->pincode = trim($request->get('pincode'));
+        $network->kms = trim($request->get('kms'));
+
         $state = State::find($network->state_id);
+        $district = District::find($network->district_id);
+        $city = City::find($network->city_id);
         $address = $network->address . " ";
         if(!empty($state)) {
             $address .= $state->name. " ";
         }
-        
-        $address .= $network->city . " " . $network->pincode;
+
+        if(!empty($district)) {
+            $address .= $district->name. " ";
+        }
+
+        if(!empty($city)) {
+            $address .= $city->name. " ";
+        }
+
+        $address .= " " . $network->pincode;
         $latLong = $this->getLatLongByAddress($address);
         if (!empty($latLong)) {
             $network->lat = $latLong['latitude'];
@@ -141,9 +155,11 @@ class NetworkService extends BaseService
             //Send request and receive json data by address
             $geocodeFromAddr = file_get_contents('http://maps.googleapis.com/maps/api/geocode/json?address=' . $formattedAddr . '&sensor=false');
             $output = json_decode($geocodeFromAddr);
-            //Get latitude and longitute from json data
-            $data['latitude'] = $output->results[0]->geometry->location->lat;
-            $data['longitude'] = $output->results[0]->geometry->location->lng;
+            if(isset($output->results[0])) {
+                //Get latitude and longitute from json data
+                $data['latitude'] = $output->results[0]->geometry->location->lat;
+                $data['longitude'] = $output->results[0]->geometry->location->lng;
+            }
             //Return latitude and longitude of the given address
             if (!empty($data)) {
                 return $data;

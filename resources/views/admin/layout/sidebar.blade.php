@@ -149,6 +149,25 @@
                 </li>
             </ul>
         </li>
+
+        <li class="parent ">
+            <a href="javascript:void(0);">
+                <span data-toggle="collapse" href="#districts"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span>
+                Districts
+            </a>
+            <ul class="children collapse" id="districts">
+                <li>
+                    <a href="{{route('districts.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Districts</a>
+                </li>
+                <li>
+                    <a href="{{route('districts.create')}}">
+                        <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Add New District
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+
         <li class="parent ">
             <a href="javascript:void(0);">
                 <span data-toggle="collapse" href="#cities"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span>
@@ -197,6 +216,22 @@
                 </li>
             </ul>
         </li>
+        {{--<li class="parent ">
+            <a href="javascript:void(0);">
+                <span data-toggle="collapse" href="#albums"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span>
+                Albums
+            </a>
+            <ul class="children collapse" id="albums">
+                <li>
+                    <a href="{{route('albums.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Albums</a>
+                </li>
+                <li>
+                    <a href="{{route('album.save.images')}}">
+                        <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Create New Album
+                    </a>
+                </li>
+            </ul>
+        </li>--}}
         <li class="parent ">
             <a href="javascript:void(0);">
                 <span data-toggle="collapse" href="#configuration"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span>

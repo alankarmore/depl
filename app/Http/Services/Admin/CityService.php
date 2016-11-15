@@ -5,6 +5,7 @@ namespace App\Http\Services\Admin;
 use URL;
 use App\City;
 use App\State;
+use App\District;
 use Illuminate\Http\Request;
 use App\Http\Services\BaseService;
 
@@ -22,8 +23,9 @@ class CityService extends BaseService
         $response = array('total' => 0, 'rows' => '');
         $allCities = City::select(\DB::raw('COUNT(*) as cnt'))->first();
         $response['total'] = $allCities->cnt;
-        $query = City::select('cities.id', 'cities.name','states.name AS stateName','cities.status')
-                       ->join('states','cities.states_id','=','states.id');
+        $query = City::select('cities.id', 'cities.name','states.name AS stateName','cities.status','districts.name AS districtName')
+                       ->join('states','cities.states_id','=','states.id')
+                       ->join('districts','cities.district_id','=','districts.id');
         $search = $request->get('search');
         if (!empty($search)) {
             $query->where('cities.name', 'LIKE', '%' . $request->get('search') . '%');
@@ -82,13 +84,19 @@ class CityService extends BaseService
         }
 
         $city->states_id = trim($request->get('states_id'));
-        $state = State::select('name')->where('id','=',$city->states_id)->first();
+        $city->district_id = trim($request->get('district_id'));
         $cityName = trim($request->get('name'));
+        $state = State::select('name')->where('id','=',$city->states_id)->first();
         if($state) {
             $stateName = trim($state->name);
         }
 
-        $address = $cityName." ".$stateName;
+        $district = District::select('name')->where('id','=',$city->district_id)->first();
+        if($district) {
+            $districtName = trim($district->name);
+        }
+
+        $address = $cityName." ".$districtName." ".$stateName;
         $lat = $this->getLatLongByAddress($address);
 
         $city->name = $cityName;

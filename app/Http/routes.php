@@ -15,9 +15,10 @@ Route::get('/',array('as' => '/', 'uses' => 'HomeController@index'));
 Route::get('/image/{folder}/{width}/{height}/{file}', array('as' => 'getimage', 'uses' => 'Controller@getImage'));
 Route::get('/services',array('as' => 'services', 'uses' => 'ServicesController@index'));
 Route::get('/projects',array('as' => 'projects', 'uses' => 'ProjectsController@index'));
-Route::get('/networks/{state?}/{city?}',array('as' => 'networks', 'uses' => 'NetworkController@index'));
+Route::get('/networks/{state?}/{district?}/{city?}',array('as' => 'networks', 'uses' => 'NetworkController@index'));
 Route::post('/networks',array('as' => 'get-networks', 'uses' => 'NetworkController@showMap'));
 Route::post('get/cities', ['as' => 'map-getcities', 'uses' => 'NetworkController@getCities']);
+Route::post('get/districts', ['as' => 'map-getdistricts', 'uses' => 'NetworkController@getDistricts']);
 Route::post('/routes/get-map',array('as' => 'get-map', 'uses' => 'NetworkController@getMap'));
 Route::get('/services/{name}',array('as' => 'service-details', 'uses' => 'ServicesController@getDetails'));
 Route::get('/projects/{name}',array('as' => 'project-details', 'uses' => 'ProjectsController@getDetails'));
@@ -63,6 +64,7 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['web']], function() {
     Route::get('slogan/show/{id}', ['as' => 'slogan.show', 'uses' => 'Admin\SloganController@show']);
     Route::get('slogan/destroy/{id}', ['as' => 'slogan.destroy', 'uses' => 'Admin\SloganController@destroy']);
 
+    Route::post('state/districts', ['as' => 'state.districts.list', 'uses' => 'Admin\StateController@getDistricts']);
     Route::get('state/list', ['as' => 'state.list', 'uses' => 'Admin\StateController@index']);
     Route::post('state/list', ['as' => 'state.list', 'uses' => 'Admin\StateController@getData']);
     Route::get('state/create', ['as' => 'state.create', 'uses' => 'Admin\StateController@create']);
@@ -70,6 +72,14 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['web']], function() {
     Route::get('state/edit/{id}', ['as' => 'state.edit', 'uses' => 'Admin\StateController@edit']);
     Route::post('state/update/{id}', ['as' => 'state.update', 'uses' => 'Admin\StateController@update']);
     Route::get('state/destroy/{id}', ['as' => 'state.destroy', 'uses' => 'Admin\StateController@destroy']);
+
+    Route::get('district/list', ['as' => 'districts.list', 'uses' => 'Admin\DistrictController@index']);
+    Route::post('district/list', ['as' => 'districts.list', 'uses' => 'Admin\DistrictController@getData']);
+    Route::get('district/create', ['as' => 'districts.create', 'uses' => 'Admin\DistrictController@create']);
+    Route::post('district/save', ['as' => 'districts.save', 'uses' => 'Admin\DistrictController@store']);
+    Route::get('district/edit/{id}', ['as' => 'districts.edit', 'uses' => 'Admin\DistrictController@edit']);
+    Route::post('district/update/{id}', ['as' => 'districts.update', 'uses' => 'Admin\DistrictController@update']);
+    Route::get('district/destroy/{id}', ['as' => 'districts.destroy', 'uses' => 'Admin\DistrictController@destroy']);
 
     Route::get('city/list', ['as' => 'city.list', 'uses' => 'Admin\CityController@index']);
     Route::post('city/list', ['as' => 'city.list', 'uses' => 'Admin\CityController@getData']);
@@ -157,6 +167,12 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['web']], function() {
     Route::get('career/show/{id}', ['as' => 'career.show', 'uses' => 'Admin\CareersController@show']);
     Route::get('career/destroy/{id}', ['as' => 'career.destroy', 'uses' => 'Admin\CareersController@destroy']);
     Route::get('/resume/{file}', array('as' => 'career.download', 'uses' => 'Admin\CareersController@downloadResume'));
+
+    Route::get('album/list', ['as' => 'albums.list', 'uses' => 'Admin\CareersController@index']);
+    Route::get('album/add/images', ['as' => 'album.images', 'uses' => 'Admin\AlbumController@addImages']);
+    Route::post('album/add/images', ['as' => 'album.save.images', 'uses' => 'Admin\AlbumController@saveImages']);
+    //Route::get('album/images/show', ['as' => 'album.images.show', 'uses' => 'Admin\AlbumController@showImages']);
+   // Route::post('album/images/remove', ['as' => 'album.images.remove', 'uses' => 'Admin\AlbumController@removeImage']);
 
     Route::get('config/list', ['as' => 'config.list', 'uses' => 'Admin\SiteConfigurationController@index']);
     Route::post('config/list', ['as' => 'config.list', 'uses' => 'Admin\SiteConfigurationController@getData']);
