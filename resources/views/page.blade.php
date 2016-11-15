@@ -64,7 +64,7 @@
             <div class="row">
                 <div class="col-md-12 wow fadeInUp">
                     <div align="center">
-                        <h2>Our Major Projects</h2>
+                        <h2>Our Team</h2>
                         <div class="green-sep"></div>
                     </div>
                     <!-- Start project area -->

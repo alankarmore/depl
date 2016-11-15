@@ -32,7 +32,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="exampleInputName2">State</label>
+                                    <label for="exampleInputName2">District</label>
                                     <select name="district" id="district" class="form-control">
                                         <option value="">District</option>
                                         @foreach($districts as $district)
@@ -65,7 +65,7 @@
                         <div id="map" style="width:100%;height:500px"></div>
                     @else
                         <div class="col-md-12">
-                        <div class="alert alert-warning"><center>Oops!! No records found for <strong>{{ucfirst($defaultState)}}</strong> and <strong>{{ucfirst($defaultCity)}}</strong></center></div>
+                            <div class="alert alert-warning"><center>Oops!! No records found for <strong>{{ucfirst($defaultState)}}</strong> and <strong>{{ucfirst($defaultCity)}}</strong></center></div>
                         </div>
                     @endif
                 </div>
@@ -80,12 +80,12 @@
                             headers: { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
                         });
 
-                        $(document).on('change','district',function(){
+                        $(document).on('change','#district',function(){
                             var stateId = $(this).val();
                             getCities(stateId);
                         });
 
-                        $(document).on('change','state',function(){
+                        $(document).on('change','#state',function(){
                             var district = $(this).val();
                             getDistricts(district);
                         });
@@ -135,12 +135,12 @@
 
                     function myMap() {
                         var locations = [
-                             @foreach($response as $res)
-                                @if(!empty($res->lat) && !empty($res->long))
-                                    ['{{$res->title}} - ' + '{{$res->kms}} kms', {{$res->lat}}, {{$res->long}}, '{{$res->address}}'],
-                                @endif
-                             @endforeach
-                        ];
+                            @foreach($response as $res)
+                            @if(!empty($res->lat) && !empty($res->long))
+                            ['{{$res->title}} - ' + '{{$res->kms}} kms', {{$res->lat}}, {{$res->long}}, '{{$res->address}}'],
+                            @endif
+                         @endforeach
+                    ];
 
                         var mapCanvas = document.getElementById("map");
                         var mapOptions = {
@@ -184,39 +184,7 @@
                     }
 
                 </script>
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRUjHsGvBqOyviDKGicNPcqSd_jn355G4&callback=myMap" async defer></script>
-            @endif
-                <?php /*
-<script>
-
-    var maproute = "{{route('get-map')}}";
-    var state = $("#state").val();
-    var city = $("#city").val() | '{{$defaultCity}}';
-    function getMap(stateId,cityId) {
-        $.ajax({
-            url:maproute,
-            data:{state:state, city:city},
-            dataType:"HTML",
-            type:"POST",
-            success:function(msg) {
-                $("#mapDiv").replaceWith(msg);
-            }
-        });
-    }
-    $(function(){
-        $.ajaxSetup({
-            headers: { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
-        });
-
-        getMap();
-       $(document).on('click','#show',function(){
-           var state = $("#state").val();
-           var city = $("#city").val();
-           getMap(state,city);
-       });
-    });
-</script>
-
- */?>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRUjHsGvBqOyviDKGicNPcqSd_jn355G4&callback=myMap" async defer></script>
+    @endif
 @endsection
 @endsection
