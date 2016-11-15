@@ -86,7 +86,7 @@ class NetworkService
     {
         $district = District::where('slug','=',$districtSlug)->first();
 
-        return City::where('states_id','=',$district->id)->get();
+        return City::where('district_id','=',$district->id)->get();
     }
 
     /**

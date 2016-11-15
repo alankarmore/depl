@@ -23,7 +23,7 @@
                                 <input type="hidden" name="_token" value="{{csrf_token()}}" />
                                 <div class="form-group">
                                     <label for="exampleInputName2">State</label>
-                                    <select name="state" id="state" class="form-control">
+                                    <select name="state" id="state" class="form-control" required="">
                                         <option value="">State</option>
                                         @foreach($states as $state)
                                             <option value="{{$state->slug}}" @if($state->slug == $defaultState) selected="selected" @endif >{{ucfirst($state->name)}}</option>
@@ -33,7 +33,7 @@
 
                                 <div class="form-group">
                                     <label for="exampleInputName2">District</label>
-                                    <select name="district" id="district" class="form-control">
+                                    <select name="district" id="district" class="form-control" required="">
                                         <option value="">District</option>
                                         @foreach($districts as $district)
                                             <option value="{{$district->slug}}" @if($district->slug == $defaultDistrict) selected="selected" @endif >{{ucfirst($district->name)}}</option>
@@ -43,7 +43,7 @@
 
                                 <div class="form-group">
                                     <label for="exampleInputEmail2">City</label>
-                                    <select name="city" id="city" class="form-control">
+                                    <select name="city" id="city" class="form-control" required="">
                                         <option value="">Select City</option>
                                         @foreach($citiesByDistrict as $city)
                                             <option value="{{$city->slug}}" @if($city->slug == $defaultCity) selected="selected" @endif >{{ucfirst($city->name)}}</option>
@@ -65,7 +65,7 @@
                         <div id="map" style="width:100%;height:500px"></div>
                     @else
                         <div class="col-md-12">
-                            <div class="alert alert-warning"><center>Oops!! No records found for <strong>{{ucfirst($defaultState)}}</strong> and <strong>{{ucfirst($defaultCity)}}</strong></center></div>
+                            <div class="alert alert-warning"><center>Oops!! No records found for <strong>{{ucfirst($defaultState)}}</strong>, <strong>{{ucfirst($defaultDistrict)}}</strong>,<strong>{{ucfirst($defaultCity)}}</strong></center></div>
                         </div>
                     @endif
                 </div>
@@ -82,11 +82,14 @@
 
                         $(document).on('change','#district',function(){
                             var stateId = $(this).val();
+                            $("#city").html('<option value="">Select City</option>');
                             getCities(stateId);
                         });
 
                         $(document).on('change','#state',function(){
                             var district = $(this).val();
+                            $("#district").html('<option value="">Select  District</option>');
+                            $("#city").html('<option value="">Select  City</option>');
                             getDistricts(district);
                         });
                     });
@@ -149,7 +152,6 @@
                         }
 
                         var map = new google.maps.Map(document.getElementById("map"),mapOptions);
-                        console.log(locations);
                         setMarkers(map,locations)
                     }
 

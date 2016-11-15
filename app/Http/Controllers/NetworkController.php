@@ -68,9 +68,9 @@ class NetworkController extends Controller
      */
     public function showMap(Request $request)
     {
-        $state = ($request->get('state')) ? $request->get('state') : 30;
-        $district = ($request->get('district')) ? $request->get('district') : 3;
-        $city = ($request->get('city')) ? $request->get('city') : 1;
+        $state = ($request->get('state')) ? $request->get('state') : "";
+        $district = ($request->get('district')) ? $request->get('district') : "";
+        $city = ($request->get('city')) ? $request->get('city') : "";
 
         return redirect(route('networks',array('state' => $state,'district' => $district,'city' => $city)));
     }
@@ -114,7 +114,7 @@ class NetworkController extends Controller
         if(!empty($state)) {
             $districts = $this->service->getDistrictsByState($state);
             if($districts) {
-                $optionString = '<option value="0">Select City</option>';
+                $optionString = '<option value="0">Select District</option>';
                 foreach($districts as $district) {
                     $optionString .= '<option value="'.$district->slug.'">'.ucfirst($district->name).'</option>';
                 }
