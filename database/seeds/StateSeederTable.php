@@ -65,7 +65,8 @@ class StateSeederTable extends Seeder
         );
 
         foreach($states as $state) {
-            $state['slug'] = $this->clean($state['name']);
+            $state['name'] = trim($state['name']);
+            $state['slug'] = $this->clean(trim($state['name']));
             $state['status'] = 1;
             $latLong = $this->getLatLongByAddress($state['name']);
             if (!empty($latLong)) {
