@@ -18,7 +18,7 @@ Route::get('/projects',array('as' => 'projects', 'uses' => 'ProjectsController@i
 Route::get('/networks/{state?}/{district?}/{city?}',array('as' => 'networks', 'uses' => 'NetworkController@index'));
 Route::post('/networks',array('as' => 'get-networks', 'uses' => 'NetworkController@showMap'));
 Route::post('get/cities', ['as' => 'map-getcities', 'uses' => 'NetworkController@getCities']);
-Route::post('get/districts', ['as' => 'map-getdistricts', 'uses' => 'NetworkController@getDistricts']);
+Route::post('get/districts', ['as' => 'map-getdistricts', 'uses' => 'NetworkController@getDistrict']);
 Route::post('/routes/get-map',array('as' => 'get-map', 'uses' => 'NetworkController@getMap'));
 Route::get('/services/{name}',array('as' => 'service-details', 'uses' => 'ServicesController@getDetails'));
 Route::get('/projects/{name}',array('as' => 'project-details', 'uses' => 'ProjectsController@getDetails'));
