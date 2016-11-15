@@ -137,7 +137,7 @@
                         var locations = [
                              @foreach($response as $res)
                                 @if(!empty($res->lat) && !empty($res->long))
-                                    ['{{$res->title}}', {{$res->lat}}, {{$res->long}}, '{{$res->address}}'],
+                                    ['{{$res->title}} - ' + '{{$res->kms}} kms', {{$res->lat}}, {{$res->long}}, '{{$res->address}}'],
                                 @endif
                              @endforeach
                         ];

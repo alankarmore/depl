@@ -13,6 +13,8 @@ class StateSeederTable extends Seeder
      */
     public function run()
     {
+        \DB::statement('TRUNCATE table states');
+
         $states = array(
             array('name' => ' Agra'),
             array('name' => ' Bulandshahr'),
@@ -61,10 +63,55 @@ class StateSeederTable extends Seeder
             array('name' => 'Uttarakhand'),
             array('name' => 'West Bengal')
         );
-        
+
         foreach($states as $state) {
+            $state['slug'] = $this->clean($state['name']);
+            $state['status'] = 1;
+            $latLong = $this->getLatLongByAddress($state['name']);
+            if (!empty($latLong)) {
+                $state['lat'] = $latLong['latitude'];
+                $state['lng'] = $latLong['longitude'];
+            }
+
             State::create($state);
         }
+    }
+
+    protected function getLatLongByAddress($address)
+    {
+        if (!empty($address)) {
+            //Formatted address
+            $formattedAddr = str_replace(' ', '+', $address);
+            //Send request and receive json data by address
+            $geocodeFromAddr = file_get_contents('http://maps.googleapis.com/maps/api/geocode/json?address=' . $formattedAddr . '&sensor=false');
+            $output = json_decode($geocodeFromAddr);
+            if(isset($output->results[0])) {
+                //Get latitude and longitute from json data
+                $data['latitude'] = $output->results[0]->geometry->location->lat;
+                $data['longitude'] = $output->results[0]->geometry->location->lng;
+            }
+            //Return latitude and longitude of the given address
+            if (!empty($data)) {
+                return $data;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * For slug
+     *
+     * @param string $string
+     * @return mixed
+     */
+    public function clean($string)
+    {
+        $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
+
+        return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
     }
 
 }

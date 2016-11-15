@@ -66,7 +66,7 @@ class NetworkService extends BaseService
      */
     public function getDetailsById($id)
     {
-        return Network::select('networks.id', 'networks.title', 'networks.state_id', 'networks.city_id','networks.district_id', 'pincode', 'address', 'networks.lat', 'networks.long', 'networks.status')
+        return Network::select('networks.id', 'networks.title', 'networks.state_id', 'networks.city_id','networks.district_id','networks.kms', 'pincode', 'address', 'networks.lat', 'networks.long', 'networks.status')
             ->where('networks.id','=',$id)
             ->first();
     }

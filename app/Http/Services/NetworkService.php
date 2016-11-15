@@ -14,7 +14,7 @@ class NetworkService
     public function getRoutes($state = null,$district = null,$city = null)
     {
         $query = Network::select('networks.id', 'networks.title', 'networks.state_id', 'networks.city_id','networks.district_id',
-                                'networks.address','networks.pincode', 'networks.lat', 'networks.long')
+                                'networks.address','networks.pincode','networks.kms', 'networks.lat', 'networks.long')
                          ->where('networks.status', '=', \DB::raw(1));
         if (!empty($state)) {
             $stateObj = State::where('slug','=', $state)->first();

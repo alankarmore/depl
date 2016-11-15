@@ -31,7 +31,13 @@ class NetworkController extends Controller
         $citiesByDistrict = $this->service->getCitiesByDistrict($districtDetails->id);
 
         $networks = $this->service->getRoutes($defaultState,$districtDetails->id,$cityDetails->id);
-        $latLong = array(19.7515,75.7139);
+        if($districtDetails) {
+            $state = $districtDetails->state;
+            $latLong = array($state->lat,$state->lng);
+
+        } else {
+            $latLong = array(19.7515,75.7139);
+        }
 
         if($networks && $networks->count() > 0 && $cityDetails && $cityDetails->count() > 0) {
             foreach($networks as $network) {

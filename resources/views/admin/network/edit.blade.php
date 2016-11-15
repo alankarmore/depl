@@ -70,7 +70,11 @@
                                 <input class="form-control" placeholder="pincode" name="pincode" id="length" value="{{$route->pincode}}">
                                 <span class="alert-danger">{{$errors->first('pincode')}}</span>
                             </div>
-
+                            <div class="form-group">
+                                <label>Kms work done</label>
+                                <input class="form-control" placeholder="Kms" name="kms" id="kms" value="{{$route->kms}}">
+                                <span class="alert-danger">{{$errors->first('kms')}}</span>
+                            </div>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="form-group">
                                 <a href="{{route('network.list')}}" class="btn btn-default">Cancel</a>

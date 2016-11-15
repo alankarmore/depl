@@ -64,7 +64,7 @@
                                 <div class="form-group">
                                     <label>Kms work done</label>
                                     <input class="form-control" placeholder="Kms" name="kms" id="kms" value="{{old('Kms')?old('Kms'):''}}">
-                                    <span class="alert-danger">{{$errors->first('Kms')}}</span>
+                                    <span class="alert-danger">{{$errors->first('kms')}}</span>
                                 </div>
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="form-group">
