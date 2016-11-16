@@ -3,7 +3,7 @@
     <!-- Start banner section -->
     <div class="container-fluid no-padding">
         <div class="inner-banner">
-            <img src="{{asset('assets/images/banner1.jpg')}}">
+            <img src="{{route('getimage',array('width' => 1366, 'height' => 244, 'folder' => 'cms', 'file' => $pageContent->image))}}">
         </div>
     </div>
     <!-- End banner section -->
@@ -13,6 +13,9 @@
                 <h2>Contact Us</h2>
                 <div class="green-sep"></div>
             </div>
+            @if($pageContent->description)
+                <p class="margin-top10">{!! $pageContent->description !!}</p>
+            @endif
             @if (session('success'))
                 <div class="alert alert-success margin-top20">{{ session('success') }}</div>
             @elseif (session('error'))

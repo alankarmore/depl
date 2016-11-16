@@ -102,9 +102,21 @@ class HomeController extends Controller
             Cache::add('officesArray',$officesArray,120);
         }
 
+        // Fetching data from cms_menu table related to services menu
+        $contactCMSData = $this->service->getPageData(2);
+
+        $metaInfo = array();
+        $metaInfo['meta_title'] = !empty($contactCMSData['meta_title'])? $contactCMSData['meta_title'] : 'DEPL Pvt Ltd';
+        $metaInfo['meta_keyword'] = !empty($contactCMSData['meta_keyword'])? $contactCMSData['meta_keyword'] : 'DEPL Pvt Ltd';
+        $metaInfo['meta_description'] = !empty($contactCMSData['meta_description'])? $contactCMSData['meta_description'] : 'DEPL Pvt Ltd';
+
         $officeImages = $this->service->getOfficeImages();
 
-        return view('contact',array('offices' => $offices,'officesArray' => $officesArray, 'officeImages' => $officeImages));
+        return view('contact',array('offices' => $offices,
+            'officesArray' => $officesArray,
+            'officeImages' => $officeImages,
+            'pageContent' => $contactCMSData,
+            'metaInfo' => $metaInfo));
     }
 
     /**
@@ -131,9 +143,17 @@ class HomeController extends Controller
      */
     public function careers()
     {
+        // Fetching data from cms_menu table related to careers menu
+        $careersCMSData = $this->service->getPageData(8);
+
+        $metaInfo = array();
+        $metaInfo['meta_title'] = !empty($careersCMSData['meta_title'])? $careersCMSData['meta_title'] : 'DEPL Pvt Ltd';
+        $metaInfo['meta_keyword'] = !empty($careersCMSData['meta_keyword'])? $careersCMSData['meta_keyword'] : 'DEPL Pvt Ltd';
+        $metaInfo['meta_description'] = !empty($careersCMSData['meta_description'])? $careersCMSData['meta_description'] : 'DEPL Pvt Ltd';
+
         $currentOpenings = $this->service->getCurrentOpenings();
 
-        return view('careers',array('currentOpenings' => $currentOpenings));
+        return view('careers',array('currentOpenings' => $currentOpenings, 'pageContent' => $careersCMSData, 'metaInfo' => $metaInfo));
     }
 
     public function jobDetails($jobId,$slug)

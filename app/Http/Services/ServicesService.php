@@ -2,6 +2,7 @@
 
 namespace App\Http\Services;
 
+use App\CMSMenu;
 use App\WorkFlow;
 use App\OurService;
 
@@ -17,6 +18,17 @@ class ServicesService
         return OurService::select('id','slug','title','description','image')
             ->where('status','=',\DB::raw(1))
             ->get();
+    }
+
+
+    /**
+     * Get service CMS data according to the id
+     *
+     * @return mixed
+     */
+    public function getServiceCMSData()
+    {
+        return CMSMenu::find(7);
     }
 
     /**

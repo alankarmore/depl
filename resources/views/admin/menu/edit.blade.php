@@ -58,7 +58,7 @@
                             <div class="form-group  meta" id="uploadwrapper">
                                 <label>Previous Image</label><br/>
                                 <img src="{{asset('uploads/cms')}}/{{$menu->image}}" width="100px" height="100px" title="{{$menu->title}}"/>
-                                <a href="javascript:void(0);" class="removeuploadmedia deleteMedia" data-file="{{$menu->image}}" data-container="cms"><i class="glyphicon glyphicon-remove"></i></a>
+                                {{--<a href="javascript:void(0);" class="removeuploadmedia deleteMedia" data-file="{{$menu->image}}" data-container="cms"><i class="glyphicon glyphicon-remove"></i></a>--}}
                             </div>
                             <br/>
                             <div class="form-group  meta">

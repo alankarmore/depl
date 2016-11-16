@@ -52,7 +52,7 @@ class CMSMenuService extends BaseService
             $menu->meta_description = ($menu->meta_description && strlen($menu->meta_description) > 50) ? substr($menu->meta_description, 0, 50) : ($menu->meta_description == null) ? 'NA' : $menu->meta_description;
             $menu->action = '<a href="' . URL::route('menu.show', ['id' => $menu->id]) . '" title="view"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
                              <a href="' . URL::route('menu.edit', ['id' => $menu->id]) . '" title="edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>';
-            if (!in_array($menu->id, [1, 2, 3, 4])) {
+            if (!in_array($menu->id, [1, 2, 3, 4,6,7,8])) {
                 $menu->action .= ' <a href="' . URL::route('menu.destroy', ['id' => $menu->id]) . '" onClick="javascript: return confirm(\'Are You Sure\');" title="delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>';
 		if($menu->status) {
 				$menu->action .= ' <a href="javascript:void(0);" title="Change To Inactive" data-status="'.$menu->status.'" data-id="'.$menu->id.'" data-object="'.  get_class($menu).'" class="change-status"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a>';   

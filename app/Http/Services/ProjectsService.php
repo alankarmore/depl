@@ -2,6 +2,7 @@
 
 namespace App\Http\Services;
 
+use App\CMSMenu;
 use App\Project;
 
 class ProjectsService
@@ -16,6 +17,16 @@ class ProjectsService
         return Project::select('id','slug','title','description','image')
             ->where('status','=',\DB::raw(1))
             ->get();
+    }
+
+    /**
+     * Get project CMS data according to the id
+     *
+     * @return mixed
+     */
+    public function getProjectCMSData()
+    {
+        return CMSMenu::find(6);
     }
 
     /**

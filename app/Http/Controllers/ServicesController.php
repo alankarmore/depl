@@ -19,8 +19,15 @@ class ServicesController extends Controller
     public function index()
     {
         $services = $this->service->getAllServices();
+        // Fetching data from cms_menu table related to services menu
+        $serviceCMSData = $this->service->getServiceCMSData();
 
-        return view('services.index',array('services' => $services));
+        $metaInfo = array();
+        $metaInfo['meta_title'] = !empty($serviceCMSData['meta_title'])? $serviceCMSData['meta_title'] : 'DEPL Pvt Ltd';
+        $metaInfo['meta_keyword'] = !empty($serviceCMSData['meta_keyword'])? $serviceCMSData['meta_keyword'] : 'DEPL Pvt Ltd';
+        $metaInfo['meta_description'] = !empty($serviceCMSData['meta_description'])? $serviceCMSData['meta_description'] : 'DEPL Pvt Ltd';
+
+        return view('services.index',array('services' => $services,'pageContent' => $serviceCMSData,'metaInfo' => $metaInfo));
     }
 
     /**
@@ -33,6 +40,7 @@ class ServicesController extends Controller
     {
         $service = $this->service->getServiceDetails($name);
         if($service->count()) {
+
             $params  = array('service' => $service);
             $workFlows = $this->service->getServiceWorkFlows($service->id);
             if($workFlows->count()) {

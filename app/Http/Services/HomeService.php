@@ -127,6 +127,17 @@ class HomeService
     }
 
     /**
+     * Get contact us 2 => contact us & 8 => careers data
+     *
+     * @param $menuId
+     * @return mixed
+     */
+    public function getPageData($menuId)
+    {
+        return CMSMenu::find($menuId);
+    }
+
+    /**
      * Get all office images
      *
      * @return bool

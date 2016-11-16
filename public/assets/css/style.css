@@ -1977,6 +1977,7 @@ a.learn-more:hover{
 .inner-banner{
 	width:100%;
 	height:224px;
+    margin-bottom: 10px;
 }
 .inner-about{
 	background:#d0d0d0;

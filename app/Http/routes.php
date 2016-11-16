@@ -40,7 +40,7 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['web']], function() {
     Route::get('menu/list', ['as' => 'menu.list', 'uses' => 'Admin\CMSMenuController@index']);
     Route::post('menu/list', ['as' => 'menu.list', 'uses' => 'Admin\CMSMenuController@getData']);
     Route::get('menu/create', ['as' => 'menu.create', 'uses' => 'Admin\CMSMenuController@create']);
-    Route::post('menu/save', ['as' => 'menu.save', 'uses' => 'Admin\CMSMenuController@store']);
+    Route::post('menu/save',['as' => 'menu.save', 'uses' => 'Admin\CMSMenuController@store']);
     Route::get('menu/edit/{id}', ['as' => 'menu.edit', 'uses' => 'Admin\CMSMenuController@edit']);
     Route::post('menu/update/{id}', ['as' => 'menu.update', 'uses' => 'Admin\CMSMenuController@update']);
     Route::get('menu/show/{id}', ['as' => 'menu.show', 'uses' => 'Admin\CMSMenuController@show']);
@@ -49,7 +49,7 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['web']], function() {
     Route::get('team/list', ['as' => 'team.list', 'uses' => 'Admin\TeamMemberController@index']);
     Route::post('team/list', ['as' => 'team.list', 'uses' => 'Admin\TeamMemberController@getData']);
     Route::get('team/create', ['as' => 'team.create', 'uses' => 'Admin\TeamMemberController@create']);
-    Route::post('menu/save', ['as' => 'team.save', 'uses' => 'Admin\TeamMemberController@store']);
+    Route::post('team/save', ['as' => 'team.save', 'uses' => 'Admin\TeamMemberController@store']);
     Route::get('team/edit/{id}', ['as' => 'team.edit', 'uses' => 'Admin\TeamMemberController@edit']);
     Route::post('team/update/{id}', ['as' => 'team.update', 'uses' => 'Admin\TeamMemberController@update']);
     Route::get('team/show/{id}', ['as' => 'team.show', 'uses' => 'Admin\TeamMemberController@show']);

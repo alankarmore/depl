@@ -26,7 +26,6 @@ class CMSMenuRequest extends Request
     {
         $rules = [
             'title' => 'required|max:150',
-            'description' => 'required',
             //'image' => 'required|mimes:jpeg,jpg,png',
         ];
 

@@ -24,6 +24,7 @@ class CmsMenuTable extends Migration
             $table->string('meta_description',255);
             $table->tinyInteger('status');
             $table->timestamps();            
+            $table->softDeletes();
         });
     }
 

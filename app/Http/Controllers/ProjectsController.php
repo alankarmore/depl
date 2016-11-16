@@ -21,7 +21,15 @@ class ProjectsController extends Controller
     {
         $projects = $this->service->getAllProjects();
 
-        return view('projects.index',array('projects' => $projects));
+        // Fetching data from cms_menu table related to project menu
+        $projectCMSData = $this->service->getProjectCMSData();
+
+        $metaInfo = array();
+        $metaInfo['meta_title'] = !empty($projectCMSData['meta_title'])? $projectCMSData['meta_title'] : 'DEPL Pvt Ltd';
+        $metaInfo['meta_keyword'] = !empty($projectCMSData['meta_keyword'])? $projectCMSData['meta_keyword'] : 'DEPL Pvt Ltd';
+        $metaInfo['meta_description'] = !empty($projectCMSData['meta_description'])? $projectCMSData['meta_description'] : 'DEPL Pvt Ltd';
+
+        return view('projects.index',array('projects' => $projects,'pageContent' => $projectCMSData,'metaInfo' => $metaInfo));
     }
 
     /**

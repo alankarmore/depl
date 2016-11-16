@@ -3,7 +3,7 @@
     <!-- Start banner section -->
     <div class="container-fluid no-padding">
         <div class="inner-banner">
-            <img src="{{asset('assets/images/banner1.jpg')}}">
+            <img src="{{route('getimage',array('width' => 1366, 'height' => 244, 'folder' => 'cms', 'file' => $pageContent->image))}}">
         </div>
     </div>
     <!-- End banner section -->
@@ -15,6 +15,9 @@
                 <h2>Our Major Projects</h2>
                 <div class="green-sep"></div>
             </div>
+            @if(!empty($pageContent->description))
+                <p class="margin-top20">{!! $pageContent->description !!}</p>
+            @endif
         </div>
 
         <div class="col-md-12 margin-top20">

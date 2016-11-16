@@ -53,7 +53,8 @@ $(function () {
     });
 
     $(document).on('click', ".removeuploadmedia", function () {
-        removeUploadedMedia(removeRoute);
+        var container = ($(this).attr('data-container'))?$(this).attr('data-container'):'temp';
+        removeUploadedMedia(removeRoute,container);
     });
 });
 
@@ -126,16 +127,18 @@ function generateTable(selector, route, sortColumn, sortOrder) {
  * Remove uploaded media
  *
  * @param {string} removeRoute
+ * @param {string} container
  * @returns {void}
  */
-function removeUploadedMedia(removeRoute)
+function removeUploadedMedia(removeRoute,container)
 {
     var result = null;
+
     $.ajax({
         url: removeRoute,
         type: "POST",
         dataType: "JSON",
-        data: {"file": $("#fileName").val()},
+        data: {"file": $("#fileName").val(),"container":container},
         beforeSend: function () {
 
         },
