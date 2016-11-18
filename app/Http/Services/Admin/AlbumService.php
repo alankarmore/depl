@@ -2,11 +2,11 @@
 
 namespace App\Http\Services\Admin;
 
+use App\AlbumImages;
 use App\Http\Services\Illuminate;
 use URL;
 use Cache;
 use App\Album;
-use App\OfficeImage;
 use Illuminate\Http\Request;
 use App\Http\Services\BaseService;
 
@@ -43,14 +43,31 @@ class AlbumService extends BaseService
         }
 
         $album->name = trim($request->get('title'));
-        $album->slug = $this->clean($album->name);
-        $fileName = !empty($id) ? $album->cover_image : null;
-        $file = trim($request->get('fileName'));
-        if(!empty($file)) {
-            $album->cover_image = $this->uploadFile($file,'gallery',$fileName);
-        }
-
+        $album->slug = $this->clean(strtolower($album->name));
         $album->save();
+
+        $files = trim($request->get('fileName'));
+        if(!empty($files)) {
+            $fileNames = explode(",",$files);
+            if(is_array($fileNames) && count($fileNames) > 0) {
+                $albumImages = array();
+                foreach ($fileNames as $file) {
+                    $uploadedFile = $this->uploadFile($file, 'albums');
+                    if (!empty($uploadedFile)) {
+                        $temp = array();
+                        $temp['album_id'] = $album->id;
+                        $temp['image'] = $uploadedFile;
+                        $temp['created_at'] = date("Y-m-d H:i:s");
+                        $temp['updated_at'] = date("Y-m-d H:i:s");
+                        $albumImages[] = $temp;
+                    }
+                }
+
+                if($albumImages) {
+                    AlbumImages::insert($albumImages);
+                }
+            }
+        }
 
         return $album;
     }
@@ -65,11 +82,23 @@ class AlbumService extends BaseService
     {
         $album = $this->getDetailsById($id);
         if ($album) {
-            if(Cache::has('offices')) {
-                Cache::forget('offices');
+            $albumImages = $album->albumImages;
+            if($albumImages && $albumImages->count() > 0) {
+                foreach($albumImages as $albumImage) {
+                    $filePath = public_path('uploads/albums/').$albumImage->image;
+                    if(file_exists($filePath)) {
+                        unlink($filePath);
+                        $albumImage->delete();
+                    }
+                }
             }
 
-            return $album->delete();
+            $deleted = $album->delete();
+            if(Cache::has('albums')) {
+                Cache::forget('albums');
+            }
+
+            return $deleted;
         }
 
         return false;
@@ -115,13 +144,13 @@ class AlbumService extends BaseService
     }
 
     /**
-     * Get all office images
+     * Get all album images
      *
-     * @return collection OfficeImage
+     * @return collection AlbumImages
      */
-    public function getOfficeImages()
+    public function getAlbumImages($albumId)
     {
-        return OfficeImage::orderBy('id','desc')->get();
+        return AlbumImages::where('album_id','=',$albumId)->orderBy('id','desc')->get();
     }
 
     /**
@@ -130,11 +159,11 @@ class AlbumService extends BaseService
      * @param $id
      * @return bool
      */
-    public function removeOfficeImage($id)
+    public function removeAlbumImage($id)
     {
-        $albumImage = OfficeImage::find($id);
+        $albumImage = AlbumImages::find($id);
         if(!empty($albumImage)){
-            $filePath = public_path('uploads/office/').$albumImage->image;
+            $filePath = public_path('uploads/albums/').$albumImage->image;
             if(file_exists($filePath)) {
                 unlink($filePath);
                 $albumImage->delete();
@@ -146,13 +175,44 @@ class AlbumService extends BaseService
     }
 
     /**
-     * Abstract function to display records every service needs to define
-     * its definition
+     * Get all albuum images
      *
-     * @param Illuminate\Http\Request $request
+     * @param Request $request
+     * @return json
      */
     public function getRecords(Request $request)
     {
-        // TODO: Implement getRecords() method.
+        $response = array('total' => 0, 'rows' => '');
+        $allAlbums = Album::select(\DB::raw('COUNT(*) as cnt'))->first();
+        $response['total'] = $allAlbums->cnt;
+        $query = Album::select('*');
+        $search = $request->get('search');
+        if (!empty($search)) {
+            $query->where('name', 'LIKE', '%' . $request->get('search') . '%');
+        }
+
+        $albums = $query->orderBy($request->get('sort'), $request->get('order'))
+            ->skip($request->get('offset'))->take($request->get('limit'))
+            ->get();
+        if (!empty($search)) {
+            $response['total'] = $albums->count();
+        }
+
+        foreach ($albums as $album) {
+            $album->name = ucwords($album->name);
+            $album->action = '<a href="' . URL::route('album.images.show', ['id' => $album->id]) . '" title="view"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+                             <a href="' . URL::route('album.edit', ['id' => $album->id]) . '" title="edit"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                             <a href="' . URL::route('album.destroy', ['id' => $album->id]) . '" onClick="javascript: return confirm(\'Are You Sure\');" title="delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>';
+
+            if ($album->status) {
+                $album->action .= ' <a href="javascript:void(0);" title="Change To Inactive" data-status="' . $album->status . '" data-id="' . $album->id . '" data-object="' . get_class($album) . '" class="change-status"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></a>';
+            } else {
+                $album->action .= ' <a href="javascript:void(0);" title="Change To Active" data-status="' . $album->status . '" data-id="' . $album->id . '" data-object="' . get_class($album) . '" class="change-status"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>';
+            }
+
+            $response['rows'][] = $album;
+        }
+
+        return json_encode($response);
     }
 }

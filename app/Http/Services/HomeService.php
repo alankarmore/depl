@@ -2,6 +2,7 @@
 
 namespace App\Http\Services;
 
+use App\Album;
 use App\CurrentOpening;
 use App\OurService;
 use App\Slogan;
@@ -255,6 +256,28 @@ class HomeService
                               ->where('slug','=',$slug)
                               ->first();
     }
+
+    /**
+     * Get albums
+     *
+     * @param string|null $albumName
+     * @return bool|Collection
+     */
+    public function getAlbums($albumName = null)
+    {
+        $query = Album::where('status','=',\DB::raw(1));
+            if(!empty($albumName)) {
+                $query->where('slug','=',$albumName);
+            }
+
+        $albums = $query->get();
+        if(isset($albums) && $albums->count() > 0) {
+            return $albums;
+        }
+
+        return false;
+    }
+
     /**
      * Saving career request and sending email to admin as well as customer
      *

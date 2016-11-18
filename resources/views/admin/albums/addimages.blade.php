@@ -4,14 +4,14 @@
     <div class="row">
         <ol class="breadcrumb">
             <li><a href="{{route('admin.dashboard')}}"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
-            <li ><a href="{{route('office.list')}}">Our Offices</a></li>
-            <li class="active">Office Images</li>
+            <li ><a href="{{route('albums.list')}}">Albums</a></li>
+            <li class="active">New Album</li>
         </ol>
     </div><!--/.row-->
 
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Add Images For Offices</h1>
+            <h1 class="page-header">Create New Album & Add images in it</h1>
         </div>
     </div><!--/.row-->
     <div class="row">
@@ -23,20 +23,19 @@
                         <form role="form" name="frmAlbum" id='frmAlbum' enctype="multipart/form-data" action="{{route('album.save.images')}}" method="POST">
                             <div class="form-group">
                                 <label>Album Name</label>
-                                <input type="text" name="name" id="name" value="{{old('name')?old('name'):""}}"  class="form-control"/>
-                                <span class="alert-danger">{{$errors->first('name')}}</span>
+                                <input type="text" name="title" id="title" value="{{old('title')?old('title'):""}}"  class="form-control"/>
+                                <span class="alert-danger">{{$errors->first('title')}}</span>
                             </div>
                             <div class="form-group">
                                 <label>New Image</label>
-                                <input type="file" name="cover_image" id="cover_image" accept="image/*" />
-                                <input type="hidden" name="mediatype" id="mediatype" value="cover_image" />
+                                <input type="file" name="images" id="images" accept="image/*" multiple/>
+                                <input type="hidden" name="mediatype" id="mediatype" value="images" />
                                 <input type="hidden" name="fileName" id="fileName" value=""  />
-                                <span class="alert-danger">{{$errors->first('office_image')}}</span>
                             </div>
-                            <div id="uploadwrapper"></div>
+                            <div id="uploadwrapper" style="margin-bottom: 10px;"></div>
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="form-group">
-                                <a href="{{route('office.list')}}" class="btn btn-default">Cancel</a>
+                                <a href="{{route('albums.list')}}" class="btn btn-default">Cancel</a>
                                 <button name="submit" type="submit" class="btn btn-success">Save</button>
                             </div>
                         </form>
@@ -49,12 +48,12 @@
 @section('page-script')
 <script>
     $(function(){
-        $("#cover_image").fileupload({
+        $("#images").fileupload({
             formData: {'mediatype': $("#mediatype").val()},
             dataType: 'json',
             url: fileTempUpload,
-            limitMultiFileUploads: 1,
-            maxNumberOfFiles: 1,
+            limitMultiFileUploads: 10,
+            maxNumberOfFiles: 10,
             sequentialUploads: true,
             replaceFileInput: false,
             acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
@@ -100,8 +99,14 @@
                 },
                 complete: function () {
                     if (result.valid == true) {
+                        $fileNames = $("#fileName").val().split(",");
+                        var index = $fileNames.indexOf(fileName);
+                        if (index > -1) {
+                            $fileNames.splice(index, 1);
+                            $("#fileName").val($fileNames.join(","));
+                        }
+
                         self.parent().remove();
-                        $('input[type=file]').closest("form")[0].reset();
                     }
                 }
             });

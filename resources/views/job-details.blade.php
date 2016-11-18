@@ -26,7 +26,7 @@
 
                 <div class="row career">
                     <div class="col-sm-3">
-                        <h4 class="name">Job Title:</h2>
+                        <h2 class="name">Job Title:</h2>
                     </div>
                     <div class="col-sm-9 col-xs-12">
                         <h5>{{ucwords($job->title)}}</h5>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="row career">
                     <div class="col-sm-3">
-                        <h4 class="name">Location:</h2>
+                        <h2 class="name">Location:</h2>
                     </div>
                     <div class="col-sm-9 col-xs-12">
                         <h5>{{ucwords($job->location)}}</h5>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="row career">
                     <div class="col-sm-3">
-                        <h4 class="name">Experience Required:</h2>
+                        <h2 class="name">Experience Required:</h2>
                     </div>
                     <div class="col-sm-9 col-xs-12">
                         <h5>{{$job->experience}} Years</h5>
@@ -50,7 +50,7 @@
                 </div>
                 <div class="row career">
                     <div class="col-sm-3">
-                        <h4 class="name">Skills Required:</h2>
+                        <h2 class="name">Skills Required:</h2>
                     </div>
                     <div class="col-sm-9 col-xs-12">
                         <h5>{{ucwords($job->skills)}}</h5>
@@ -58,7 +58,7 @@
                 </div>
                 <div class="row career">
                     <div class="col-sm-3">
-                        <h4 class="name">Qualification Required:</h2>
+                        <h2 class="name">Qualification Required:</h2>
                     </div>
                     <div class="col-sm-9 col-xs-12">
                         <h5>{{ucwords($job->qualification)}}</h5>
@@ -66,7 +66,7 @@
                 </div>
                 <div class="row career">
                     <div class="col-sm-3">
-                        <h4 class="name">Job Description:</h2>
+                        <h2 class="name">Job Description:</h2>
                     </div>
                     <div class="col-sm-9 col-xs-12">
                         <h5>{!! nl2br($job->description) !!}</h5>

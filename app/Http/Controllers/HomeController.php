@@ -156,6 +156,13 @@ class HomeController extends Controller
         return view('careers',array('currentOpenings' => $currentOpenings, 'pageContent' => $careersCMSData, 'metaInfo' => $metaInfo));
     }
 
+    /**
+     * Get job details according to the job id
+     *
+     * @param integer $jobId
+     * @param string $slug
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
     public function jobDetails($jobId,$slug)
     {
         if(empty($jobId) && empty($slug)) {
@@ -168,6 +175,18 @@ class HomeController extends Controller
         }
 
         return view('job-details',array('job' => $jobDetails));
+    }
+
+
+    public function gallery($albumName = null)
+    {
+        $albums = $this->service->getAlbums();
+        $albumImages = array();
+        if($albums && !empty($albumName)) {
+            $albumImages = $albums[0]->albumImages;
+        }
+
+        return view('gallery',array('albums' => $albums,'albumImages' => $albumImages));
     }
     /**
      * Posting careers form and sending mail to admin as well as to customer

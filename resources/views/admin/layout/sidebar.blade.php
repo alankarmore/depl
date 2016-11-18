@@ -216,7 +216,7 @@
                 </li>
             </ul>
         </li>
-        {{--<li class="parent ">
+        <li class="parent ">
             <a href="javascript:void(0);">
                 <span data-toggle="collapse" href="#albums"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span>
                 Albums
@@ -231,7 +231,7 @@
                     </a>
                 </li>
             </ul>
-        </li>--}}
+        </li>
         <li class="parent ">
             <a href="javascript:void(0);">
                 <span data-toggle="collapse" href="#configuration"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span>

@@ -10,4 +10,9 @@ class Album extends Model
     use SoftDeletes;
     protected $table = 'albums';
 
+    public function albumImages()
+    {
+        return $this->hasMany('App\AlbumImages','album_id');
+    }
+
 }

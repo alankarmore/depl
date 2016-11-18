@@ -461,6 +461,12 @@ img{
     border: 1px solid #ccc;
     margin-top:10px;
 }
+
+.gallery img {
+  max-width: 100%;
+  margin: 30px auto;
+  display: block;
+}
 @media (max-width:767px){
     .name{
         text-align:left;

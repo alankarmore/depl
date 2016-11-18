@@ -27,7 +27,7 @@ Route::post('/post/contact',array('as' => 'post-contact', 'uses' => 'HomeControl
 Route::get('/careers',array('as' => 'careers', 'uses' => 'HomeController@careers'));
 Route::get('/job-details/{jobid}/{jobtitle}',array('as' => 'job-details', 'uses' => 'HomeController@jobDetails'));
 Route::post('/post/careers',array('as' => 'post-careers', 'uses' => 'HomeController@postCareers'));
-
+Route::get('/gallery/{albumName?}/',array('as' => 'gallery', 'uses' => 'HomeController@gallery'));
 
 Route::post('file/temp/upload', array('as' => 'file.temp.upload', 'uses' => 'Controller@uploadToTemp'));
 Route::post('file/temp/remove', array('as' => 'file.temp.remove', 'uses' => 'Controller@removeTempImage'));
@@ -168,11 +168,15 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['web']], function() {
     Route::get('career/destroy/{id}', ['as' => 'career.destroy', 'uses' => 'Admin\CareersController@destroy']);
     Route::get('/resume/{file}', array('as' => 'career.download', 'uses' => 'Admin\CareersController@downloadResume'));
 
-    Route::get('album/list', ['as' => 'albums.list', 'uses' => 'Admin\CareersController@index']);
+    Route::get('album/list', ['as' => 'albums.list', 'uses' => 'Admin\AlbumController@index']);
+    Route::post('album/list', ['as' => 'albums.list', 'uses' => 'Admin\AlbumController@getData']);
     Route::get('album/add/images', ['as' => 'album.images', 'uses' => 'Admin\AlbumController@addImages']);
-    Route::post('album/add/images', ['as' => 'album.save.images', 'uses' => 'Admin\AlbumController@saveImages']);
-    //Route::get('album/images/show', ['as' => 'album.images.show', 'uses' => 'Admin\AlbumController@showImages']);
-   // Route::post('album/images/remove', ['as' => 'album.images.remove', 'uses' => 'Admin\AlbumController@removeImage']);
+    Route::post('album/add/images', ['as' => 'album.save.images', 'uses' => 'Admin\AlbumController@store']);
+    Route::get('album/edit/{id}', ['as' => 'album.edit', 'uses' => 'Admin\AlbumController@edit']);
+    Route::post('album/update/{id}', ['as' => 'album.update', 'uses' => 'Admin\AlbumController@update']);
+    Route::get('album/images/show/{id}', ['as' => 'album.images.show', 'uses' => 'Admin\AlbumController@showAlbumImages']);
+    Route::post('album/images/remove', ['as' => 'album.images.remove', 'uses' => 'Admin\AlbumController@removeAlbumImage']);
+    Route::get('album/destroy/{id}', ['as' => 'album.destroy', 'uses' => 'Admin\AlbumController@destroy']);
 
     Route::get('config/list', ['as' => 'config.list', 'uses' => 'Admin\SiteConfigurationController@index']);
     Route::post('config/list', ['as' => 'config.list', 'uses' => 'Admin\SiteConfigurationController@getData']);

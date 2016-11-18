@@ -22,7 +22,7 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        return view('admin.album.index');
+        return view('admin.albums.index');
     }
 
     /**
@@ -32,13 +32,13 @@ class AlbumController extends Controller
      */
     public function create()
     {
-        return view('admin.album.create');
+        return view('admin.albums.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  OuralbumsRequest  $request
+     * @param  AlbumsRequest  $request
      * @return \Illuminate\Http\Redirect
      */
     public function store(AlbumsRequest $request)
@@ -79,7 +79,7 @@ class AlbumController extends Controller
         if (!empty($id)) {
             $albumDetails = $this->service->getDetailsById($id);
 
-            return view('admin.album.edit', ['album' => $albumDetails]);
+            return view('admin.albums.edit', ['album' => $albumDetails]);
         }
 
         return redirect(route('album.list'));
@@ -113,11 +113,11 @@ class AlbumController extends Controller
         if(!empty($id)) {
             $deleted = $this->service->deleteById($id);
             if($deleted) {
-                return redirect(route('album.list'))->with('success', 'album deleted successfully!');
+                return redirect(route('albums.list'))->with('success', 'album deleted successfully!');
             }
         }
 
-        return redirect(route('album.list'))->with('error', 'Oops something went wrong !');
+        return redirect(route('albums.list'))->with('error', 'Oops something went wrong !');
     }
 
     /**
@@ -151,11 +151,11 @@ class AlbumController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showAlbumImages()
+    public function showAlbumImages($albumId)
     {
-        $albumImages = $this->service->getalbumImages();
+        $album = $this->service->getDetailsById($albumId);
 
-        return view('admin.album.showimages',['albumImages' => $albumImages]);
+        return view('admin.albums.showimages',['album' => $album]);
     }
 
     /**
@@ -168,7 +168,7 @@ class AlbumController extends Controller
     {
         $response = array('valid' => false);
         $id = $request->get('id');
-        $response['valid'] = $this->service->removealbumImage($id);
+        $response['valid'] = $this->service->removeAlbumImage($id);
 
         return json_encode($response);
     }
