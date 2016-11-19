@@ -1,20 +1,25 @@
 @extends('layout.main')
 @section('content')
     <div class="container-fluid no-padding">
-        <div class="inner-banner">
-            <img src="{{asset('assets/images/banner1.jpg')}}">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Start welcome area -->
+                <div class="welcome-area">
+                    @if($albumName)
+                        <a href="{{route('gallery')}}" class="pull-right button">Back to Gallery</a>
+                    @endif
+                    <div class="title-area">
+                        <h2 class="tittle wow fadeInUp">@if($albumName) {{$albumName}} @else Gallery @endif</h2>
+                        <div class="green-sep"></div>
+                    </div>
+                </div>
+                <!-- End welcome area -->
+            </div>
         </div>
     </div>
     <!-- Start about section -->
-    <section class="inner-about margin-top134">
         <div class="container ">
-            <div align="center">
-                <h2>Gallery</h2>
-                <div class="green-sep"></div>
-            </div>
-        </div>
-        <div class="container ">
-            <div class="row">
+            <div class="row" id="officeImages">
                 @if(!empty($albumImages))
                     <ul class="row">
                     @foreach($albumImages as $albumImage)
@@ -29,7 +34,7 @@
                             <a href="{{route('gallery',array('album' => $album->slug))}}" class="gallery">
                                 <img class="img-responsive" src="{{route('getimage',array('width' => 800, 'height' => 600, 'folder' => 'albums', 'file' => $album->albumImages->first()->image))}}" />
                             </a>
-                            <center><a href="{{route('gallery',array('album' => $album->slug))}}"><h2>{{ucwords($album->name)}}</h2><a/></center>
+                            <a href="{{route('gallery',array('album' => $album->slug))}}"><h2>{{ucwords($album->name)}}</h2></a>
                         </div>
                     @endforeach
                 @endif

@@ -177,16 +177,21 @@ class HomeController extends Controller
         return view('job-details',array('job' => $jobDetails));
     }
 
-
+    /**
+     * @param string|null $albumName
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function gallery($albumName = null)
     {
+        $albumTitle = null;
         $albums = $this->service->getAlbums();
         $albumImages = array();
         if($albums && !empty($albumName)) {
             $albumImages = $albums[0]->albumImages;
+            $albumTitle = ucwords($albums[0]->name);
         }
 
-        return view('gallery',array('albums' => $albums,'albumImages' => $albumImages));
+        return view('gallery',array('albums' => $albums,'albumImages' => $albumImages,'albumName' => $albumTitle));
     }
     /**
      * Posting careers form and sending mail to admin as well as to customer
