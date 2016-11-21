@@ -184,10 +184,16 @@ class HomeController extends Controller
     public function gallery($albumName = null)
     {
         $albumTitle = null;
-        $albums = $this->service->getAlbums();
+        $albums = $this->service->getAlbums($albumName);
         $albumImages = array();
         if($albums && !empty($albumName)) {
-            $albumImages = $albums[0]->albumImages;
+            if(Cache::has($albums[0]->id)) {
+                $albumImages = Cache::get($albums[0]->id);
+            } else {
+                $albumImages = $albums[0]->albumImages->toArray();
+                Cache::add($albums[0]->id,$albumImages,120);
+            }
+
             $albumTitle = ucwords($albums[0]->name);
         }
 

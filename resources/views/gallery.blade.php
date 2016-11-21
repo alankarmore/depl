@@ -18,29 +18,31 @@
         </div>
     </div>
     <!-- Start about section -->
-        <div class="container ">
-            <div class="row" id="officeImages">
-                @if(!empty($albumImages))
-                    <ul class="row">
+    <div class="container ">
+        <div class="row" id="officeImages">
+            @if(!empty($albumImages) && $albumName != null)
+                <ul class="row">
                     @foreach($albumImages as $albumImage)
-                            <li class="col-lg-2 col-md-2 col-md-3 margin-top40">
-                                <img class="img-responsive" src="{{route('getimage',array('width' => 800, 'height' => 600, 'folder' => 'albums', 'file' => $albumImage->image))}}" />
-                            </li>
+                        <li class="col-lg-2 col-md-2 col-md-3 margin-top40">
+                            <img class="img-responsive" src="{{route('getimage',array('width' => 800, 'height' => 600, 'folder' => 'albums', 'file' => $albumImage['image']))}}" />
+                        </li>
                     @endforeach
-                    </ul>
-                @else
-                    @foreach($albums as $album)
-                        <div class="col-md-4">
-                            <a href="{{route('gallery',array('album' => $album->slug))}}"><h2>{{ucwords($album->name)}}</h2></a>
-                            <a href="{{route('gallery',array('album' => $album->slug))}}" class="gallery">
-                                <img class="img-responsive" src="{{route('getimage',array('width' => 800, 'height' => 600, 'folder' => 'albums', 'file' => $album->albumImages->first()->image))}}" />
-                            </a>
-                        </div>
-                    @endforeach
-                @endif
-            </div>
+                </ul>
+            @elseif($albums && $albumName == null)
+                @foreach($albums as $album)
+                    <div class="col-md-4">
+                        <a href="{{route('gallery',array('album' => $album->slug))}}"><h2>{{ucwords($album->name)}}</h2></a>
+                        <a href="{{route('gallery',array('album' => $album->slug))}}" class="gallery">
+                            <img class="img-responsive" src="{{route('getimage',array('width' => 800, 'height' => 600, 'folder' => 'albums', 'file' => $album->albumImages->first()->image))}}" />
+                        </a>
+                    </div>
+                @endforeach
+            @else
+                <div class="margin-top40"><a href="{{route('gallery')}}" class="pull-right button">Back to Gallery</a></div>
+                <div class="alert alert-warning margin-top20">Opps! No Images found or may be you have chosen wrong Album </div>
+            @endif
         </div>
-    </section>
+    </div>
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">

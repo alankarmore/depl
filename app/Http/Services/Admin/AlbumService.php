@@ -66,6 +66,8 @@ class AlbumService extends BaseService
                 if($albumImages) {
                     AlbumImages::insert($albumImages);
                 }
+
+                Cache::forget($album->id);
             }
         }
 
