@@ -31,10 +31,10 @@
                 @else
                     @foreach($albums as $album)
                         <div class="col-md-4">
+                            <a href="{{route('gallery',array('album' => $album->slug))}}"><h2>{{ucwords($album->name)}}</h2></a>
                             <a href="{{route('gallery',array('album' => $album->slug))}}" class="gallery">
                                 <img class="img-responsive" src="{{route('getimage',array('width' => 800, 'height' => 600, 'folder' => 'albums', 'file' => $album->albumImages->first()->image))}}" />
                             </a>
-                            <a href="{{route('gallery',array('album' => $album->slug))}}"><h2>{{ucwords($album->name)}}</h2></a>
                         </div>
                     @endforeach
                 @endif
