@@ -212,7 +212,7 @@
 @section('page-script')
     <script type="text/javascript" src="{{asset('assets/js/custom.js')}}"></script>
     <script type="text/javascript">
-        var homePageBanner = '{{$siteConfig['HOME_PAGE_BANNER']}}';
+
         $(document).ready(function(){
             $('.autoplay').slick({
                 slidesToShow: 1,
@@ -221,10 +221,7 @@
                 autoplaySpeed: 2000,
                 arrows: false
             });
-
-            if(homePageBanner != 'undefined') {
-                $(".carousel-inner").css();
-            }
+            
         });
 
     </script>
