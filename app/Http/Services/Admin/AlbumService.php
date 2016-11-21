@@ -96,8 +96,8 @@ class AlbumService extends BaseService
             }
 
             $deleted = $album->delete();
-            if(Cache::has('albums')) {
-                Cache::forget('albums');
+            if(Cache::has($album->id)) {
+                Cache::forget($album->id);
             }
 
             return $deleted;
@@ -106,44 +106,6 @@ class AlbumService extends BaseService
         return false;
     }
 
-
-    /**
-     * Getting all added offices.
-     *
-     * @return collection Album
-     */
-    public function getOffices()
-    {
-        return Album::select('id', 'title')->orderBy('title', 'ASC')->get();
-    }
-
-    /**
-     * Uploading and saving office images in the database
-     *
-     * @param Request $request
-     * @return bool
-     */
-    public function uploadAndSavealbumImages(Request $request)
-    {
-        $album = $request->get('name');
-        $fileNames = $request->get('fileName');
-        if (!empty($album) && !empty($fileNames)) {
-            $files = explode(",", $fileNames);
-            foreach ($files as $file) {
-                $uploadedFile = $this->uploadFile($file, 'gallery');
-                if (!empty($uploadedFile)) {
-                    $albumImage = new OfficeImage();
-                    $albumImage->offices_id = $album;
-                    $albumImage->image = $uploadedFile;
-                    $albumImage->save();
-                }
-            }
-
-            return true;
-        }
-
-        return false;
-    }
 
     /**
      * Get all album images

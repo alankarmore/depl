@@ -69,7 +69,7 @@ class SiteConfigurationController extends Controller
     public function update(SiteConfigurationRequest $request, $id)
     {
         $config = $this->service->saveOrUpdateDetails($request, $id);
-        if(2 == $id || 2 == $request->get('config_id')) {
+        if((2 == $id || 2 == $request->get('config_id')) || (5 == $id || 5 == $request->get('config_id'))) {
             if(false == $config) {
                 return back()->with('error', 'Image width and height dimension not matched!');;
             }

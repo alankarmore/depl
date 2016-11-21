@@ -234,6 +234,22 @@
         </li>
         <li class="parent ">
             <a href="javascript:void(0);">
+                <span data-toggle="collapse" href="#partners"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span>
+                Partners
+            </a>
+            <ul class="children collapse" id="partners">
+                <li>
+                    <a href="{{route('partners.list')}}"><svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Partners</a>
+                </li>
+                <li>
+                    <a href="{{route('partners.save.images')}}">
+                        <svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Add Partners
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="parent ">
+            <a href="javascript:void(0);">
                 <span data-toggle="collapse" href="#configuration"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span>
                 Site Configuration
             </a>

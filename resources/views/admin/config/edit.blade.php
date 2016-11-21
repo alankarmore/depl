@@ -21,20 +21,23 @@
                         <div class="col-md-12">
                             @include('admin.messages')
                             <form role="form" name="frmOffice" id='frmOffice' action="{{route('config.update',array('id' => $config->id))}}" method="POST">
-                                @if('SITE_LOGO' == $config->config_name)
-                                    <p>Logo image must have width 45 pixels and height 53 pixels</p>
+                                @if('SITE_LOGO' == $config->config_name || 'HOME_PAGE_BANNER' == $config->config_name)
+                                    @if('SITE_LOGO' == $config->config_name).
+                                        <p>Logo image must have width 45 pixels and height 53 pixels</p>
+                                    @else
+                                        <p>Banner Image must have width 1366 pixels and height 343 pixels</p>
+                                    @endif
                                     <div class="form-group" id="uploadwrapper">
-                                        <label>Previous Logo</label><br/>
+                                        <label>Previous Image</label><br/>
                                         <img src="{{asset('uploads')}}/{{$config->config_value}}" width="100px" height="100px"/>
                                     </div>
                                     <div class="form-group">
-                                        <label>New Logo</label>
+                                        <label>New Image</label>
                                         <input type="file" name="image" id="image" accept="image/*" />
                                         <input type="hidden" name="mediatype" id="mediatype" value="image" />
                                         <input type="hidden" name="fileName" id="fileName" value="" />
                                         <span class="alert-danger">{{$errors->first('image')}}</span>
                                     </div>
-
                                 @else
                                     <div class="form-group">
                                         <label>{{ucwords(str_replace("_",' ',strtolower($config->config_name)))}}</label>

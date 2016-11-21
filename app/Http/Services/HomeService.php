@@ -5,6 +5,7 @@ namespace App\Http\Services;
 use App\Album;
 use App\CurrentOpening;
 use App\OurService;
+use App\Partner;
 use App\Slogan;
 use App\TeamMember;
 use Mail;
@@ -178,6 +179,21 @@ class HomeService
         $slogans = Slogan::where('status','=',\DB::raw(1))->get();
         if($slogans->count()) {
             return $slogans;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get partners images
+     *
+     * @return bool|\Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getPartners()
+    {
+        $partners = Partner::select('image')->get();
+        if($partners->count()) {
+            return $partners;
         }
 
         return false;

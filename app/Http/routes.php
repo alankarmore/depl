@@ -178,6 +178,11 @@ Route::group(['prefix' => 'admin/', 'middleware' => ['web']], function() {
     Route::post('album/images/remove', ['as' => 'album.images.remove', 'uses' => 'Admin\AlbumController@removeAlbumImage']);
     Route::get('album/destroy/{id}', ['as' => 'album.destroy', 'uses' => 'Admin\AlbumController@destroy']);
 
+    Route::get('partners/list', ['as' => 'partners.list', 'uses' => 'Admin\PartnersController@index']);
+    Route::get('partners/add/images', ['as' => 'partners.save.images', 'uses' => 'Admin\PartnersController@create']);
+    Route::post('partners/add/images', ['as' => 'partners.save.images', 'uses' => 'Admin\PartnersController@savePartners']);
+    Route::post('partners/images/remove', ['as' => 'partners.images.remove', 'uses' => 'Admin\PartnersController@removePartnerImage']);
+
     Route::get('config/list', ['as' => 'config.list', 'uses' => 'Admin\SiteConfigurationController@index']);
     Route::post('config/list', ['as' => 'config.list', 'uses' => 'Admin\SiteConfigurationController@getData']);
     Route::get('config/edit/{id}', ['as' => 'config.edit', 'uses' => 'Admin\SiteConfigurationController@edit']);
