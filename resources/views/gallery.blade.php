@@ -30,12 +30,14 @@
                 </ul>
             @elseif($albums && $albumName == null)
                 @foreach($albums as $album)
+		    @if(isset($album->albumImages) && $album->albumImages->count() > 0)
                     <div class="col-md-4">
                         <a href="{{route('gallery',array('album' => $album->slug))}}"><h2>{{ucwords($album->name)}}</h2></a>
                         <a href="{{route('gallery',array('album' => $album->slug))}}" class="gallery">
                             <img class="img-responsive" src="{{route('getimage',array('width' => 800, 'height' => 600, 'folder' => 'albums', 'file' => $album->albumImages->first()->image))}}" />
                         </a>
                     </div>
+		    @endif
                 @endforeach
             @else
                 <div class="margin-top40"><a href="{{route('gallery')}}" class="pull-right button">Back to Gallery</a></div>
