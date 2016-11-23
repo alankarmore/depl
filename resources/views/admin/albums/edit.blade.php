@@ -11,7 +11,7 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Create New Album & Add images in it</h1>
+                <h1 class="page-header">Update Album Details & images</h1>
             </div>
         </div><!--/.row-->
         <div class="row">

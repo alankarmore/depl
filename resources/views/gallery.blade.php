@@ -24,7 +24,7 @@
                 <ul class="row">
                     @foreach($albumImages as $albumImage)
                         <li class="col-lg-2 col-md-2 col-md-3 margin-top40">
-                            <img class="img-responsive" src="{{route('getimage',array('width' => 800, 'height' => 600, 'folder' => 'albums', 'file' => $albumImage['image']))}}" />
+                            <img class="img-responsive" src="{{route('getimage',array('width' => 800, 'height' => 600, 'folder' => 'albums', 'file' => $albumImage->image))}}" />
                         </li>
                     @endforeach
                 </ul>

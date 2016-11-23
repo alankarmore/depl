@@ -12,7 +12,7 @@ class Album extends Model
 
     public function albumImages()
     {
-        return $this->hasMany('App\AlbumImages','album_id')->select('image');
+        return $this->hasMany('App\AlbumImages','album_id');
     }
 
 }

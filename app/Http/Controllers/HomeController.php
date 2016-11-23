@@ -192,7 +192,7 @@ class HomeController extends Controller
             if(Cache::has($albums[0]->id)) {
                 $albumImages = Cache::get($albums[0]->id);
             } else {
-                $albumImages = $albums[0]->albumImages->toArray();
+                $albumImages = $albums[0]->albumImages;
                 Cache::add($albums[0]->id,$albumImages,120);
             }
 
