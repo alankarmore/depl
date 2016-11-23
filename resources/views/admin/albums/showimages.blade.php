@@ -29,7 +29,7 @@
                                     @endforeach
                                 </ul>
                             @else
-                                No Images found for. Add images <a href="{{route('albums.list')}}">click here</a>
+                                No Images found for. Add images <a href="{{route('album.edit',array('id' => $album->id))}}">click here</a>
                             @endif
                         </div>
                     </div>
