@@ -184,9 +184,9 @@
                             })(marker,content,infowindow));
                         }
                     }
-
+                    @endif
                 </script>
                 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRUjHsGvBqOyviDKGicNPcqSd_jn355G4&callback=myMap" async defer></script>
-    @endif
+
 @endsection
 @endsection
