@@ -186,7 +186,8 @@
                     }
                     @endif
                 </script>
-                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRUjHsGvBqOyviDKGicNPcqSd_jn355G4&callback=myMap" async defer></script>
-
+                @if($response && $response->count() > 0)
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRUjHsGvBqOyviDKGicNPcqSd_jn355G4&callback=myMap" async defer></script>
+                  @endif
 @endsection
 @endsection
